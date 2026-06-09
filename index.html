@@ -52,7 +52,6 @@
   }
   .container { max-width: 860px; margin: 0 auto; padding: 20px 16px 40px; }
 
-  /* 进度条 */
   .progress-bar-wrap {
     background: var(--card);
     border-radius: var(--radius);
@@ -78,7 +77,6 @@
   }
   .progress-text { font-size: 13px; color: var(--text-light); white-space: nowrap; font-weight: 500; }
 
-  /* 单元导航 */
   .unit-nav {
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +103,6 @@
   .unit-btn.done { border-color: var(--success); background: #ecfdf5; }
   .unit-btn .num { display: block; font-size: 11px; opacity: .7; font-weight: 400; }
 
-  /* 主卡片 */
   .card {
     background: var(--card);
     border-radius: var(--radius);
@@ -115,14 +112,7 @@
     transition: all .3s;
   }
   .card:hover { box-shadow: var(--shadow-lg); }
-  .card h2 {
-    font-size: 20px;
-    color: var(--primary);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .card h2 { font-size: 20px; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
   .card .unit-kw {
     font-size: 13px;
     color: var(--text-light);
@@ -133,7 +123,6 @@
     border-left: 3px solid var(--accent);
   }
 
-  /* 知识点卡片 */
   .knowledge-list { display: flex; flex-direction: column; gap: 10px; }
   .k-item {
     border: 1px solid var(--border);
@@ -161,26 +150,29 @@
   .tag-key { background: #eff6ff; color: #1a56db; }
   .tag-basic { background: #f0fdf4; color: #059669; }
 
-  /* 互动练习区 */
   .quiz-section { margin-top: 20px; }
+  .quiz-header-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .quiz-header-bar h3 { font-size: 17px; color: #1e293b; margin: 0; }
+  .quiz-pagination { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+  .quiz-pagination button {
+    width: 32px; height: 32px; border: 1px solid var(--border);
+    border-radius: 6px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600;
+    transition: all .15s; color: var(--text);
+  }
+  .quiz-pagination button:hover { border-color: var(--primary); background: var(--primary-light); }
+  .quiz-pagination button.answered-correct { background: #d1fae5; border-color: var(--success); color: var(--success); }
+  .quiz-pagination button.answered-wrong { background: #fee2e2; border-color: var(--danger); color: var(--danger); }
+  .quiz-pagination button.active-q { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .quiz-pagination .sep { color: var(--text-light); font-size: 13px; margin: 0 2px; }
+
   .quiz-card {
     border: 2px solid var(--border);
     border-radius: var(--radius);
     padding: 20px;
     background: #fafbfc;
   }
-  .quiz-card .q-num {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
-  .quiz-card .q-text {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    line-height: 1.6;
-  }
+  .quiz-card .q-num { font-size: 12px; color: var(--text-light); margin-bottom: 6px; font-weight: 500; }
+  .quiz-card .q-text { font-size: 15px; font-weight: 600; margin-bottom: 16px; line-height: 1.6; }
   .options { display: flex; flex-direction: column; gap: 8px; }
   .option {
     padding: 12px 16px;
@@ -199,17 +191,10 @@
   .option.correct { border-color: var(--success); background: #ecfdf5; color: var(--success); }
   .option.wrong { border-color: var(--danger); background: #fef2f2; color: var(--danger); }
   .option .opt-letter {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 13px;
-    flex-shrink: 0;
-    border: 2px solid var(--border);
-    background: #f8fafc;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; flex-shrink: 0;
+    border: 2px solid var(--border); background: #f8fafc;
   }
   .option.correct .opt-letter { border-color: var(--success); background: #d1fae5; }
   .option.wrong .opt-letter { border-color: var(--danger); background: #fee2e2; }
@@ -226,63 +211,36 @@
   .feedback.correct { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
   .feedback.wrong { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
 
+  .quiz-nav-row { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .2s;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; border: none; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s;
   }
   .btn-primary { background: var(--primary); color: #fff; }
   .btn-primary:hover { background: #1e40af; }
   .btn-outline { background: #fff; border: 2px solid var(--primary); color: var(--primary); }
   .btn-outline:hover { background: var(--primary-light); }
   .btn-sm { padding: 6px 14px; font-size: 12px; }
-
   .btn-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 
-  /* 思维导图 */
   .mindmap {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    overflow-x: auto;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; overflow-x: auto;
   }
   .mindmap svg { display: block; margin: 0 auto; }
 
-  /* 统计面板 */
-  .stats-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
+  .stats-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
   .stat-card {
-    flex: 1;
-    min-width: 80px;
-    background: var(--card);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    text-align: center;
-    box-shadow: var(--shadow);
+    flex: 1; min-width: 80px; background: var(--card);
+    border-radius: var(--radius-sm); padding: 14px;
+    text-align: center; box-shadow: var(--shadow);
   }
   .stat-card .val { font-size: 28px; font-weight: 700; color: var(--primary); }
   .stat-card .lbl { font-size: 12px; color: var(--text-light); margin-top: 2px; }
 
-  .footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: var(--text-light);
-  }
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: var(--text-light); }
 
-  /* 动画 */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -305,7 +263,6 @@
 </div>
 
 <div class="container">
-  <!-- 统计面板 -->
   <div class="stats-bar fade-in">
     <div class="stat-card">
       <div class="val" id="totalQuiz">0</div>
@@ -325,20 +282,17 @@
     </div>
   </div>
 
-  <!-- 进度条 -->
   <div class="progress-bar-wrap fade-in">
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     <div class="progress-text" id="progressLabel">0 / 5 单元</div>
   </div>
 
-  <!-- 单元导航 -->
   <div class="unit-nav fade-in" id="unitNav"></div>
 
-  <!-- 主内容区 -->
   <div id="mainContent"></div>
 
   <div class="footer">
-    星光 · 教学助手 &nbsp;|&nbsp; 紧扣2022版新课标，基于2026版统编教材
+    星光 · 教学助手 &nbsp; | &nbsp; 紧扣2022版新课标，基于2026版统编教材
   </div>
 </div>
 
@@ -375,7 +329,18 @@ const unitData = [
       { q: "我国宪法第一条规定：\"中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。\"这体现了宪法的哪项基本原则？", opts: ["国家权力属于人民", "三权分立", "精英治国", "民族自治"], ans: 0 },
       { q: "宪法具有最高法律效力，以下理解正确的是？", opts: ["宪法与其他法律并列", "宪法是其他法律的立法基础和依据", "宪法可以随时修改", "宪法只管国家大事"], ans: 1 },
       { q: "我国宪法监督制度的核心主体是？", opts: ["国务院", "最高人民法院", "全国人大及其常委会", "最高人民检察院"], ans: 2 },
-      { q: "\"国家尊重和保障人权\"写入宪法体现了？", opts: ["宪法的程序性特征", "宪法的人权保障原则", "宪法的经济属性", "宪法的文化属性"], ans: 1 }
+      { q: "\"国家尊重和保障人权\"写入宪法体现了？", opts: ["宪法的程序性特征", "宪法的人权保障原则", "宪法的经济属性", "宪法的文化属性"], ans: 1 },
+      { q: "我国宪法的基本原则之一是？", opts: ["国家权力属于国家主席", "国家一切权力属于人民", "国家权力属于国务院", "国家权力属于政党"], ans: 1 },
+      { q: "宪法宣誓制度的目的是？", opts: ["增加仪式感", "强化宪法意识和宪法权威", "提高法官收入", "简化法律程序"], ans: 1 },
+      { q: "下列关于宪法与普通法律关系的说法，正确的是？", opts: ["宪法与普通法律地位相同", "普通法律可以突破宪法规定", "宪法是普通法律的立法基础", "宪法只约束国家机关，不约束普通公民"], ans: 2 },
+      { q: "一切组织和个人的根本活动准则是？", opts: ["道德规范", "党的纪律", "宪法", "学校规章制度"], ans: 2 },
+      { q: "我国国家机构实行的组织活动原则是？", opts: ["分权制衡原则", "民主集中制原则", "三权分立原则", "联邦制原则"], ans: 1 },
+      { q: "宪法的核心价值追求是？", opts: ["维护国家统一", "规范国家权力运行以保障公民权利", "促进经济发展", "保障文化繁荣"], ans: 1 },
+      { q: "全国人大及其常委会行使的与宪法相关的职权是？", opts: ["制定普通法律", "监督宪法实施", "管理地方事务", "外交决策"], ans: 1 },
+      { q: "增强宪法意识，对公民来说最重要的是？", opts: ["背诵宪法全文", "学习宪法、认同宪法、践行宪法", "参加宪法知识竞赛", "购买宪法书籍"], ans: 1 },
+      { q: "宪法的修改程序比普通法律更严格，这说明？", opts: ["宪法不重要", "宪法具有最高的法律地位和权威", "宪法容易被修改", "宪法修改随意"], ans: 1 },
+      { q: "\"国家尊重和保障人权\"是哪一年写入宪法的？", opts: ["1982年", "1999年", "2004年", "2018年"], ans: 2 },
+      { q: "坚持依宪治国，最根本的是？", opts: ["增加宪法条文数量", "坚持宪法确定的中国共产党领导地位不动摇", "每年修改宪法", "让法院来制定宪法"], ans: 1 }
     ]
   },
   {
@@ -408,14 +373,25 @@ const unitData = [
       { q: "以下哪项属于公民的政治权利和自由？", opts: ["受教育权", "选举权和被选举权", "劳动权", "财产权"], ans: 1 },
       { q: "公民权利与义务的关系，以下认识正确的是？", opts: ["权利可以放弃，义务必须履行", "先享受权利再履行义务", "权利和义务可以分离", "只有权利没有义务"], ans: 0 },
       { q: "以下哪项不是公民的基本义务？", opts: ["依法纳税", "依法服兵役", "遵守宪法法律", "出国旅游"], ans: 3 },
-      { q: "公民行使权利时应注意什么？", opts: ["想怎么行使就怎么行使", "不得损害国家、社会、集体的利益和其他公民合法的自由和权利", "只考虑自己的利益", "等他人都行使完再行使"], ans: 1 }
+      { q: "公民行使权利时应注意什么？", opts: ["想怎么行使就怎么行使", "不得损害国家、社会、集体的利益和其他公民合法的自由和权利", "只考虑自己的利益", "等他人行使完再行使"], ans: 1 },
+      { q: "以下哪项属于公民的人身自由权？", opts: ["选举权", "人格尊严不受侵犯", "受教育权", "纳税义务"], ans: 1 },
+      { q: "维护国家利益包括哪些内容？", opts: ["只有维护国家安全", "维护国家统一和全国各民族团结，维护国家安全、荣誉和利益", "只维护领土完整", "只有军事安全"], ans: 1 },
+      { q: "以下关于受教育权的说法正确的是？", opts: ["受教育只是权利，不是义务", "受教育既是公民权利，也是公民义务", "受教育只是义务", "受教育权与义务教育无关"], ans: 1 },
+      { q: "\"没有无义务的权利，也没有无权利的义务\"说明？", opts: ["权利和义务可以分开", "权利和义务相互依存、相互促进", "只需享受权利", "只需履行义务"], ans: 1 },
+      { q: "公民的通信自由和通信秘密受法律保护，例外情况是？", opts: ["任何时候都可以查看", "因国家安全或追查刑事犯罪需要，由公安机关或检察机关依法检查", "学校可以随时检查学生信件", "单位领导可以拆阅员工信件"], ans: 1 },
+      { q: "法定义务须履行，\"必须做\"和\"坚决不做\"的区分依据是？", opts: ["个人意愿", "法律规定", "社会舆论", "道德标准"], ans: 1 },
+      { q: "违反法定义务可能承担的责任形式包括？", opts: ["只有刑事责任", "民事责任、行政责任、刑事责任", "只有行政责任", "只有民事责任"], ans: 1 },
+      { q: "我国公民享有监督权，具体包括什么？", opts: ["批评权、建议权、申诉权、控告权、检举权", "只有投票权", "只有批评权", "只有选举权"], ans: 0 },
+      { q: "公民的人格尊严不受侵犯，下面哪项属于人格尊严？", opts: ["房子大小", "名誉权、荣誉权、肖像权、姓名权、隐私权", "工资水平", "车辆品牌"], ans: 1 },
+      { q: "依法纳税是公民的？", opts: ["道德义务", "基本义务", "可选择的行为", "与公民无关"], ans: 1 },
+      { q: "当公民的合法权益受到侵害时，应当？", opts: ["忍气吞声", "依法维权", "以暴制暴", "放弃权利"], ans: 1 }
     ]
   },
   {
     id: 3,
-    title: "第三单元 人民当家作主",
-    titleShort: "人民当家作主",
-    kw: "核心大概念：中国特色社会主义政治制度保障人民当家作主。理解我国的基本制度体系。",
+    title: "第三单元 认识国家制度",
+    titleShort: "国家制度",
+    kw: "核心大概念：中国特色社会主义制度是当代中国发展进步的根本制度保障。理解我国根本政治制度、基本政治制度和基本经济制度。",
     badges: ["制度自信", "政治认同", "国家认同"],
     lessons: [
       {
@@ -428,61 +404,83 @@ const unitData = [
         ]
       },
       {
-        title: "第6课 我国国家机构",
+        title: "第6课 正确认识我国的基本制度",
         points: [
-          { text: "国家权力机关：全国人民代表大会和地方各级人民代表大会", tag: "key" },
-          { text: "国家主席：代表中华人民共和国进行国事活动", tag: "basic" },
-          { text: "国家行政机关：国务院和地方各级人民政府", tag: "important" },
-          { text: "国家监察机关、国家司法机关（人民法院、人民检察院）", tag: "important" }
+          { text: "人民代表大会制度的地位和基本内容——人民行使国家权力的机关是全国人大和地方各级人大", tag: "key" },
+          { text: "中国共产党领导的多党合作和政治协商制度——共产党执政、多党派参政，政治协商、民主监督、参政议政", tag: "important" },
+          { text: "基层群众自治制度——村民自治、居民自治，是我国民主政治建设的基础", tag: "important" },
+          { text: "基本经济制度保障人民共享发展成果——国有经济主导、多种所有制共同发展", tag: "basic" }
         ]
       }
     ],
     quiz: [
       { q: "我国的根本政治制度是？", opts: ["民族区域自治制度", "人民代表大会制度", "基层群众自治制度", "多党合作制度"], ans: 1 },
       { q: "我国的基本经济制度包括？", opts: ["纯粹的公有制经济", "公有制为主体、多种所有制经济共同发展", "完全的私有制", "仅计划经济"], ans: 1 },
+      { q: "以下哪项属于我国的基本政治制度？", opts: ["人民代表大会制度", "中国共产党领导的多党合作和政治协商制度", "社会主义市场经济体制", "国家主席制度"], ans: 1 },
       { q: "我国的最高国家权力机关是？", opts: ["国务院", "全国人民代表大会", "最高人民法院", "国家监察委员会"], ans: 1 },
-      { q: "以下哪项属于我国的基本政治制度？", opts: ["人民代表大会制度", "中国共产党领导的多党合作和政治协商制度", "社会主义市场经济体制", "国家主席制度"], ans: 1 }
+      { q: "人民代表大会制度的基本内容包括？", opts: ["三权分立", "人民通过民主选举选出代表，组成各级人民代表大会作为国家权力机关", "总统制", "议会制"], ans: 1 },
+      { q: "基层群众自治制度的主要形式是？", opts: ["街道办事处和居委会", "村民自治和居民自治", "县级人民代表大会", "社区物业"], ans: 1 },
+      { q: "公有制经济包括哪些？", opts: ["国有经济、集体经济、混合所有制经济中的国有成分和集体成分", "个体经济", "私营经济", "外资经济"], ans: 0 },
+      { q: "我国分配制度的原则是？", opts: ["平均分配", "按劳分配为主体、多种分配方式并存", "按需分配", "按资分配为主"], ans: 1 },
+      { q: "社会主义市场经济体制的显著优势是？", opts: ["完全自由放任", "把社会主义制度与市场经济有机结合起来", "完全由政府控制", "完全由市场主导"], ans: 1 },
+      { q: "民族区域自治制度适用的地区是？", opts: ["全国所有地区", "各少数民族聚居的地方", "只有五个自治区", "沿海地区"], ans: 1 },
+      { q: "中国共产党同各民主党派实行的基本方针是？", opts: ["长期共存、互相监督、肝胆相照、荣辱与共", "各自为政、互不干涉", "轮流执政", "一党专政"], ans: 0 },
+      { q: "国有经济在我国经济中发挥什么作用？", opts: ["国民经济的主导力量", "辅助作用", "无足轻重", "完全垄断"], ans: 0 },
+      { q: "非公有制经济在我国的地位是？", opts: ["国民经济的主体", "社会主义市场经济的重要组成部分", "应被淘汰", "与公有制经济对立"], ans: 1 },
+      { q: "以下哪项不是我国的基本政治制度？", opts: ["民族区域自治制度", "基层群众自治制度", "多党合作和政治协商制度", "人民代表大会制度"], ans: 3 },
+      { q: "中国特色社会主义制度的优越性体现在？", opts: ["照搬西方模式", "能够集中力量办大事，保障人民当家作主", "效率低下", "与人民无关"], ans: 1 }
     ]
   },
   {
     id: 4,
-    title: "第四单元 崇尚法治精神",
-    titleShort: "法治精神",
-    kw: "核心大概念：法治是实现自由平等、公平正义的保障。理解法治与自由、平等、公正的关系。",
-    badges: ["法治精神", "自由平等", "公平正义"],
+    title: "第四单元 走近国家机构",
+    titleShort: "国家机构",
+    kw: "核心大概念：我国国家机构依据宪法和法律设立，各司其职、协调运转。了解国家权力机关、行政机关、监察机关和司法机关的职权。",
+    badges: ["国家机构", "权力运行", "依法行政"],
     lessons: [
       {
-        title: "第7课 尊重自由平等",
+        title: "第7课 国家权力机关与行政机关",
         points: [
-          { text: "自由不是为所欲为，是法律范围内的自由——法治标定了自由的界限", tag: "key" },
-          { text: "自由是有限制的、相对的；必要的限制是对自由的保护", tag: "important" },
-          { text: "法律面前人人平等——平等地享有权利、平等地履行义务", tag: "important" },
-          { text: "反对特权——每个公民都平等地受法律保护，任何人不得享有法外特权", tag: "basic" }
+          { text: "国家权力机关：全国人民代表大会和地方各级人民代表大会——最高国家权力机关", tag: "key" },
+          { text: "国家主席：代表中华人民共和国进行国事活动，公布法律、任免国务院组成人员", tag: "important" },
+          { text: "国家行政机关：国务院（中央人民政府）和地方各级人民政府——国家权力机关的执行机关", tag: "important" },
+          { text: "行政机关必须依法行政——坚持法定职责必须为、法无授权不可为", tag: "basic" }
         ]
       },
       {
-        title: "第8课 维护公平正义",
+        title: "第8课 国家监察机关与司法机关",
         points: [
-          { text: "公平的含义：权利公平、规则公平、机会公平", tag: "key" },
-          { text: "正义的含义：正义是社会和谐的基本条件；正义要求依法保障人们的正当权利", tag: "important" },
-          { text: "制度保障公平——立法规定权利义务，司法维护公平正义", tag: "important" },
-          { text: "守护正义——做有正义感的人，敢于并善于同非正义行为作斗争", tag: "basic" }
+          { text: "国家监察机关：监察委员会——对所有行使公权力的公职人员进行监察", tag: "key" },
+          { text: "人民法院：国家的审判机关——依法独立公正行使审判权", tag: "important" },
+          { text: "人民检察院：国家的法律监督机关——依法独立行使检察权", tag: "important" },
+          { text: "司法机关必须公正司法——维护社会公平正义的最后一道防线", tag: "basic" }
         ]
       }
     ],
     quiz: [
-      { q: "\"自由就是做法律所许可的一切事情的权利\"——这句话说明？", opts: ["自由就是没有任何限制", "自由是法律范围内的自由", "自由可以超越法律", "自由与法律无关"], ans: 1 },
-      { q: "公平的内涵不包括？", opts: ["权利公平", "规则公平", "结果绝对平均", "机会公平"], ans: 2 },
-      { q: "法律面前人人平等，意味着？", opts: ["官员可以享有特权", "每个人平等地受法律保护", "富人法律地位更高", "名人可以不受法律约束"], ans: 1 },
-      { q: "维护公平正义，以下做法正确的是？", opts: ["事不关己高高挂起", "遇到不公敢于发声，依法维权", "对违法行为视而不见", "只追求自己的个人公平"], ans: 1 }
+      { q: "我国最高国家权力机关的执行机关是？", opts: ["全国人大", "国务院", "最高人民法院", "中央军委"], ans: 1 },
+      { q: "国家监察委员会的主要职责是？", opts: ["管理经济", "对所有行使公权力的公职人员进行监察", "审理刑事案件", "制定法律"], ans: 1 },
+      { q: "人民法院在国家机构体系中的性质是？", opts: ["行政机关", "国家的审判机关", "立法机关", "军事机关"], ans: 1 },
+      { q: "人民检察院的主要职能是？", opts: ["行政管理", "法律监督", "制定法律", "军事指挥"], ans: 1 },
+      { q: "依法行政的核心要求是？", opts: ["可以随意执法", "法定职责必须为、法无授权不可为", "只对上负责", "只看结果"], ans: 1 },
+      { q: "全国人民代表大会每届任期几年？", opts: ["3年", "4年", "5年", "6年"], ans: 2 },
+      { q: "国家主席的职权不包括以下哪项？", opts: ["公布法律", "任免国务院组成人员", "直接管理地方事务", "代表国家进行国事活动"], ans: 2 },
+      { q: "地方各级人民政府对本级人民代表大会和哪一级国家行政机关负责？", opts: ["只对本级人大负责", "只对上一级国家行政机关负责", "对本级人大和上一级国家行政机关负责并报告工作", "只对国务院负责"], ans: 2 },
+      { q: "监察委员会依照法律规定独立行使监察权，不受什么的干涉？", opts: ["党的领导", "行政机关、社会团体和个人的干涉", "人民代表大会的监督", "法律的约束"], ans: 1 },
+      { q: "司法公正的意义是？", opts: ["可有可无", "维护社会公平正义的最后一道防线", "只保护富人", "效率第一"], ans: 1 },
+      { q: "全国人民代表大会闭会期间，由其哪个机构行使职权？", opts: ["国务院", "全国人大常委会", "最高人民法院", "国家监察委员会"], ans: 1 },
+      { q: "下列哪项不是我国国家机构？", opts: ["全国人民代表大会", "国务院", "中国共产党中央委员会", "最高人民法院"], ans: 2 },
+      { q: "国务院即中央人民政府，其性质和地位是？", opts: ["最高国家权力机关", "最高国家行政机关", "最高国家审判机关", "最高国家监察机关"], ans: 1 },
+      { q: "人民法院和人民检察院在行使职权时应当遵循的基本原则是？", opts: ["服从行政机关的命令", "依法独立公正行使审判权和检察权", "服从当地政府领导", "自行决定"], ans: 1 },
+      { q: "我国国家机构实行什么原则？", opts: ["三权分立原则", "民主集中制原则", "分权制衡原则", "一言堂原则"], ans: 1 }
     ]
   },
   {
     id: 5,
-    title: "第五单元 法治中国建设",
+    title: "第五单元 建设法治中国",
     titleShort: "法治中国",
-    kw: "核心大概念：全面依法治国是中国特色社会主义的本质要求和重要保障。理解法治中国建设的道路。",
-    badges: ["法治中国", "全面依法治国", "法治道路"],
+    kw: "核心大概念：全面依法治国是中国特色社会主义的本质要求和重要保障。理解法治中国建设的道路，崇尚法治精神，维护公平正义。",
+    badges: ["法治中国", "全面依法治国", "公平正义"],
     lessons: [
       {
         title: "第9课 夯实法治基础",
@@ -494,12 +492,12 @@ const unitData = [
         ]
       },
       {
-        title: "第10课 建设法治中国",
+        title: "第10课 崇尚法治精神",
         points: [
-          { text: "坚持党的领导、人民当家作主、依法治国有机统一", tag: "key" },
-          { text: "坚定不移走中国特色社会主义法治道路", tag: "important" },
-          { text: "公民要增强法治意识，成为法治的忠实崇尚者、自觉遵守者、坚定捍卫者", tag: "important" },
-          { text: "建设法治中国，需要全社会共同努力——从青少年做起", tag: "basic" }
+          { text: "自由是法律范围内的自由——法治标定了自由的界限", tag: "key" },
+          { text: "法律面前人人平等——平等地享有权利、平等地履行义务，反对特权", tag: "important" },
+          { text: "公平正义：权利公平、规则公平、机会公平；制度保障公平，司法维护正义", tag: "important" },
+          { text: "公民要增强法治意识，成为法治的忠实崇尚者、自觉遵守者、坚定捍卫者", tag: "basic" }
         ]
       }
     ],
@@ -507,18 +505,30 @@ const unitData = [
       { q: "全面依法治国的总目标是？", opts: ["建设经济强国", "建设中国特色社会主义法治体系，建设社会主义法治国家", "建设文化强国", "建设军事强国"], ans: 1 },
       { q: "全面依法治国的基本要求\"十六字方针\"是？", opts: ["有法可依、有法必依、执法必严、违法必究", "科学立法、严格执法、公正司法、全民守法", "立法先行、执法从严、司法独立、全民学法", "党的领导、人民当家作主、依法治国"], ans: 1 },
       { q: "法治与德治的关系，以下理解正确的是？", opts: ["法治比德治更重要", "德治可以替代法治", "法治与德治相辅相成、相得益彰", "二者互不相关"], ans: 2 },
-      { q: "作为青少年，我们应该如何参与法治中国建设？", opts: ["等成年后再关心法治", "增强法治意识，自觉尊法学法守法用法", "法治是大人的事，与青少年无关", "只学法不守法"], ans: 1 }
+      { q: "作为青少年，我们应该如何参与法治中国建设？", opts: ["等成年后再关心法治", "增强法治意识，自觉尊法学法守法用法", "法治是大人的事，与青少年无关", "只学法不守法"], ans: 1 },
+      { q: "\"自由就是做法律所许可的一切事情的权利\"——这句话说明？", opts: ["自由就是没有任何限制", "自由是法律范围内的自由", "自由可以超越法律", "自由与法律无关"], ans: 1 },
+      { q: "公平的内涵不包括？", opts: ["权利公平", "规则公平", "结果绝对平均", "机会公平"], ans: 2 },
+      { q: "法律面前人人平等，意味着？", opts: ["官员可以享有特权", "每个人平等地受法律保护", "富人法律地位更高", "名人可以不受法律约束"], ans: 1 },
+      { q: "维护公平正义，以下做法正确的是？", opts: ["事不关己高高挂起", "遇到不公敢于发声，依法维权", "对违法行为视而不见", "只追求自己的个人公平"], ans: 1 },
+      { q: "全面依法治国必须坚持的三个有机统一是？", opts: ["党的领导、人民当家作主、依法治国", "立法、行政、司法", "经济、政治、文化", "国内法、国际法、习惯法"], ans: 0 },
+      { q: "法治的标志之一是？", opts: ["人治优先", "每个人都能按自己的意志行事", "法律面前人人平等", "政府不受法律约束"], ans: 2 },
+      { q: "\"科学立法\"的含义是？", opts: ["立法越多越好", "立法应当从实际出发，遵循客观规律，体现人民意志", "立法越快越好", "立法越严格越好"], ans: 1 },
+      { q: "守护正义的正确方式是？", opts: ["以暴制暴", "敢于并善于同非正义行为作斗争，依法维权", "忍气吞声", "视而不见"], ans: 1 },
+      { q: "中国特色社会主义法治道路的最本质特征是？", opts: ["照搬西方模式", "坚持中国共产党的领导", "效仿古代法家", "完全市场化"], ans: 1 },
+      { q: "法治与自由的关系，下列说法正确的是？", opts: ["法治限制了自由", "法治保障自由——法治标定自由的界限，自由的实现不能触碰法律的红线", "自由可以不要法治", "法治和自由无关"], ans: 1 },
+      { q: "作为公民，面对社会中的不公平现象，正确做法是？", opts: ["抱怨社会", "增强权利意识，善于用合法的手段求得问题的合理解决", "置之不理", "破坏公共财物发泄"], ans: 1 }
     ]
   }
 ];
 
 // ==================== 状态 ====================
 let currentUnit = 0;
-let quizState = {}; // { unitId: { idx: { selected: N, status: 'correct'|'wrong'|null } } }
+let quizState = {};
 let totalQuestions = 0;
 let answeredQuestions = 0;
 let correctCount = 0;
 let currentStreak = 0;
+let currentQuizIdx = 0;  // 每单元当前显示的题目索引
 
 // 初始化 quizState
 unitData.forEach(u => {
@@ -537,7 +547,7 @@ function renderUnitNav() {
     const active = i === currentUnit ? ' active' : '';
     const doneCls = done ? ' done' : '';
     return `<button class="unit-btn${active}${doneCls}" onclick="switchUnit(${i})">
-      <span class="num">单元${u.id}</span>${u.titleShort}
+      <span class="num">单元${u.id}</span> ${u.titleShort}
     </button>`;
   }).join('');
 }
@@ -568,53 +578,91 @@ function renderUnit() {
   });
   html += `</div>`;
 
-  // 练习区
-  html += `<div class="quiz-section"><h3 style="margin-bottom:12px;font-size:17px;color:#1e293b;">📝 单元练习（${u.quiz.length}题）</h3>`;
-  u.quiz.forEach((q, qi) => {
-    const state = quizState[u.id][qi];
-    html += `<div class="quiz-card fade-in" style="margin-bottom:12px">
-      <div class="q-num">第 ${qi + 1} 题</div>
+  // 练习区 - 带分页
+  const qi = currentQuizIdx;
+  const q = u.quiz[qi];
+  const state = quizState[u.id][qi];
+
+  // 分页按钮
+  let paginationHtml = '';
+  u.quiz.forEach((qq, ii) => {
+    const s = quizState[u.id][ii];
+    let cls = '';
+    if (s.status === 'correct') cls = ' answered-correct';
+    else if (s.status === 'wrong') cls = ' answered-wrong';
+    if (ii === qi) cls += ' active-q';
+    paginationHtml += `<button class="${cls}" onclick="goToQuiz(${ii})">${ii + 1}</button>`;
+  });
+
+  html += `<div class="quiz-section">
+    <div class="quiz-header-bar">
+      <h3>单元练习（${u.quiz.length} 题）</h3>
+      <div class="quiz-pagination">${paginationHtml}</div>
+    </div>
+    <div class="quiz-card fade-in">
+      <div class="q-num">第 ${qi + 1} / ${u.quiz.length} 题</div>
       <div class="q-text">${q.q}</div>
       <div class="options" id="opts-${u.id}-${qi}">`;
-    q.opts.forEach((opt, oi) => {
-      const letter = 'ABCD'[oi];
-      let cls = '';
-      if (state.status === 'correct' && state.selected === oi) cls = ' correct';
-      else if (state.status === 'wrong' && state.selected === oi) cls = ' wrong';
-      else if (state.selected === oi && state.status === null) cls = ' selected';
-      const disabled = state.status !== null ? 'style="pointer-events:none"' : '';
-      html += `<div class="option${cls}" onclick="answer(${u.id},${qi},${oi})" ${disabled}>
-        <span class="opt-letter">${letter}</span>${opt}
-      </div>`;
-    });
-    html += `</div>
-      <div class="feedback" id="fb-${u.id}-${qi}"></div>
+  q.opts.forEach((opt, oi) => {
+    const letter = 'ABCD'[oi];
+    let cls = '';
+    if (state.status === 'correct' && state.selected === oi) cls = ' correct';
+    else if (state.status === 'wrong' && state.selected === oi) cls = ' wrong';
+    else if (state.selected === oi && state.status === null) cls = ' selected';
+    const disabled = state.status !== null ? 'style="pointer-events:none"' : '';
+    html += `<div class="option${cls}" onclick="answer(${u.id},${qi},${oi})" ${disabled}>
+      <span class="opt-letter">${letter}</span>${opt}
     </div>`;
   });
-  html += `</div>`;
+  html += `</div>
+      <div class="feedback" id="fb-${u.id}-${qi}"></div>
+      <div class="quiz-nav-row" style="margin-top:12px">
+        <button class="btn btn-sm btn-outline" onclick="prevQuiz()" ${qi===0?'disabled':''}>上一题</button>
+        <button class="btn btn-sm btn-outline" onclick="nextQuiz()" ${qi>=u.quiz.length-1?'disabled':''}>下一题</button>
+        <span style="margin-left:auto;font-size:13px;color:var(--text-light)">${qi+1}/${u.quiz.length}</span>
+      </div>
+    </div>
+  </div>`;
 
   // 思维导图按钮
   html += `<div class="btn-row">
-    <button class="btn btn-primary" onclick="showMindmap()">📊 查看本单元思维导图</button>
-    <button class="btn btn-outline" id="resetUnitBtn" onclick="resetUnit(${u.id})">🔄 重做本单元练习</button>
+    <button class="btn btn-primary" onclick="showMindmap()">查看本单元思维导图</button>
+    <button class="btn btn-outline" id="resetUnitBtn" onclick="resetUnit(${u.id})">重做本单元练习</button>
   </div>`;
 
   html += `</div>`;
   document.getElementById('mainContent').innerHTML = html;
 
-  // 恢复已答题目状态
-  u.quiz.forEach((q, qi) => {
-    const state = quizState[u.id][qi];
-    if (state.status) {
-      const fb = document.getElementById(`fb-${u.id}-${qi}`);
-      if (fb) {
-        fb.className = 'feedback show ' + state.status;
-        fb.innerHTML = state.status === 'correct'
-          ? '✅ 回答正确！'
-          : `❌ 回答错误。正确答案是 <b>${'ABCD'[q.ans]}. ${q.opts[q.ans]}</b>`;
-      }
+  // 恢复已答题目的 feedback
+  if (state.status) {
+    const fb = document.getElementById(`fb-${u.id}-${qi}`);
+    if (fb) {
+      fb.className = 'feedback show ' + state.status;
+      fb.innerHTML = state.status === 'correct'
+        ? '回答正确！'
+        : `回答错误。正确答案是 <b>${'ABCD'[q.ans]}. ${q.opts[q.ans]}</b>`;
     }
-  });
+  }
+}
+
+function goToQuiz(qi) {
+  currentQuizIdx = qi;
+  renderUnit();
+}
+
+function prevQuiz() {
+  if (currentQuizIdx > 0) {
+    currentQuizIdx--;
+    renderUnit();
+  }
+}
+
+function nextQuiz() {
+  const u = unitData[currentUnit];
+  if (currentQuizIdx < u.quiz.length - 1) {
+    currentQuizIdx++;
+    renderUnit();
+  }
 }
 
 function answer(unitId, qi, selected) {
@@ -633,6 +681,12 @@ function answer(unitId, qi, selected) {
   }
   answeredQuestions++;
 
+  // 自动跳到下一题
+  const u = unitData[currentUnit];
+  if (qi < u.quiz.length - 1) {
+    currentQuizIdx = qi + 1;
+  }
+
   updateStats();
   renderUnit();
   renderUnitNav();
@@ -647,6 +701,7 @@ function resetUnit(unitId) {
     state.status = null;
   });
   answeredQuestions = Math.max(0, answeredQuestions - u.quiz.length);
+  currentQuizIdx = 0;
   updateStats();
   renderUnit();
   renderUnitNav();
@@ -654,6 +709,7 @@ function resetUnit(unitId) {
 
 function switchUnit(idx) {
   currentUnit = idx;
+  currentQuizIdx = 0;
   renderUnit();
   renderUnitNav();
   document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
@@ -666,7 +722,6 @@ function updateStats() {
   document.getElementById('scoreRate').textContent = rate + '%';
   document.getElementById('streak').textContent = currentStreak;
 
-  // 进度条按单元完成度
   const doneUnits = unitData.filter(u => u.quiz.every((q, qi) => quizState[u.id][qi].status === 'correct')).length;
   const pct = Math.round(doneUnits / 5 * 100);
   document.getElementById('progressFill').style.width = pct + '%';
@@ -685,11 +740,9 @@ function showMindmap() {
       </linearGradient>
     </defs>
     <rect rx="15" ry="15" width="${svgW}" height="${svgH}" fill="#f8fafc"/>
-    <!-- 中心节点 -->
     <rect x="300" y="200" width="200" height="60" rx="10" fill="url(#grad)"/>
     <text x="400" y="237" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">${u.titleShort}</text>`;
 
-  // 子节点
   const colors = ['#1a56db','#7c3aed','#059669','#d97706','#dc2626','#2563eb','#9333ea','#0891b2'];
   u.lessons.forEach((lesson, li) => {
     const cx = 400, cy = 270 + li * 70;
@@ -701,7 +754,7 @@ function showMindmap() {
   svg += `</svg>`;
 
   const mindmapHtml = `<div class="card fade-in">
-    <h2>📊 ${u.title} · 思维导图</h2>
+    <h2>${u.title} · 思维导图</h2>
     <div class="mindmap">${svg}</div>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-outline" onclick="renderUnit()">← 返回知识点</button>
