@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>八年级下册·道德与法治 - 基础巩固版</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f6fa;color:#2c3e50;overflow-x:hidden}
+.page{display:none;width:100%;max-width:480px;margin:0 auto;min-height:100vh;padding:20px 16px 90px;position:relative}
+.page.active{display:block}
+.dashboard-title{text-align:center;padding:24px 0 8px}
+.dashboard-title h1{font-size:28px;font-weight:800;color:#1a1a2e;margin-bottom:4px}
+.dashboard-title .sub{font-size:15px;color:#888;letter-spacing:2px}
+.dashboard-title .badge{display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:3px 16px;border-radius:20px;font-size:13px;margin-top:6px}
+.dashboard-title .meta{font-size:12px;color:#aaa;margin-top:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.stat-card{background:#fff;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.stat-card .num{font-size:32px;font-weight:800;line-height:1.2}
+.stat-card .label{font-size:12px;color:#888;margin-top:4px}
+.stat-card .num.blue{color:#2980B9}
+.stat-card .num.green{color:#27AE60}
+.stat-card .num.orange{color:#E67E22}
+.stat-card .num.purple{color:#8E44AD}
+.unit-grid{display:flex;flex-direction:column;gap:12px}
+.unit-btn{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:16px;color:#fff;cursor:pointer;font-size:16px;font-weight:600;border:none;width:100%;transition:transform 0.2s}
+.unit-btn:active{transform:scale(0.97)}
+.unit-btn .arrow{font-size:20px;opacity:0.8}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:#666;font-size:14px;cursor:pointer;padding:8px 0;margin-bottom:12px;border:none;background:none}
+.back-btn:hover{color:#333}
+.page-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.page-subtitle{font-size:14px;color:#888;margin-bottom:16px}
+.core-concept{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;border-left:4px solid;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.core-concept .label{font-size:12px;font-weight:700;margin-bottom:6px}
+.core-concept p{font-size:14px;line-height:1.6;color:#444}
+.lesson-list{display:flex;flex-direction:column;gap:10px}
+.lesson-card{background:#fff;border-radius:14px;padding:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:transform 0.2s}
+.lesson-card:active{transform:scale(0.98)}
+.lesson-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.lesson-card .dots{display:flex;gap:4px}
+.lesson-card .dot{width:6px;height:6px;border-radius:50%;background:#ddd}
+.lesson-card .dot.done{background:#27AE60}
+.knowledge-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.knowledge-item{display:flex;align-items:flex-start;gap:10px;background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.knowledge-item .tag{flex-shrink:0;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;color:#fff;margin-top:2px}
+.knowledge-item .tag.core{background:#DC143C}
+.knowledge-item .tag.key{background:#E67E22}
+.knowledge-item .tag.base{background:#7F8C8D}
+.knowledge-item .text{font-size:14px;line-height:1.5;color:#333}
+.practice-header{display:flex;justify-content:space-between;align-items:center;margin:20px 0 12px}
+.practice-header h3{font-size:18px;font-weight:700}
+.practice-header .q-count{font-size:13px;color:#888}
+.q-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+.q-grid-item{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;background:#f0f0f0;color:#888;transition:all 0.2s}
+.q-grid-item:active{transform:scale(0.92)}
+.q-grid-item.done{background:#27AE60;color:#fff}
+.q-grid-item.wrong{background:#E74C3C;color:#fff}
+.q-grid-item.current{border:3px solid #2980B9;font-weight:800}
+.q-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:16px}
+.q-card .q-num{font-size:12px;color:#888;margin-bottom:8px}
+.q-card .q-text{font-size:16px;font-weight:600;line-height:1.6;margin-bottom:16px}
+.q-card .options{display:flex;flex-direction:column;gap:10px}
+.q-card .option{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:2px solid #eee;cursor:pointer;transition:all 0.2s;font-size:15px}
+.q-card .option:active{transform:scale(0.98)}
+.q-card .option .letter{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#f5f6fa;color:#555;flex-shrink:0;transition:all 0.2s}
+.q-card .option.selected{border-color:#2980B9;background:#EBF5FB}
+.q-card .option.selected .letter{background:#2980B9;color:#fff}
+.q-card .option.correct{border-color:#27AE60;background:#E8F8F0}
+.q-card .option.correct .letter{background:#27AE60;color:#fff}
+.q-card .option.wrong{border-color:#E74C3C;background:#FDEDEC}
+.q-card .option.wrong .letter{background:#E74C3C;color:#fff}
+.q-card .option.disabled{pointer-events:none}
+.nav-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.nav-row .nav-btn{flex:1;padding:12px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;text-align:center;transition:all 0.2s}
+.nav-row .nav-btn:active{transform:scale(0.96)}
+.nav-row .nav-btn.prev{background:#ecf0f1;color:#555}
+.nav-row .nav-btn.next{background:#2980B9;color:#fff}
+.nav-row .nav-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.nav-row .q-progress{font-size:14px;font-weight:600;color:#888;white-space:nowrap}
+.bottom-actions{display:flex;gap:10px;margin-top:8px}
+.bottom-actions .action-btn{flex:1;padding:14px;border-radius:14px;border:2px solid #eee;background:#fff;font-size:14px;font-weight:600;cursor:pointer;text-align:center;transition:all 0.2s}
+.bottom-actions .action-btn:active{transform:scale(0.96);background:#f5f6fa}
+.footer{text-align:center;padding:20px 0 10px;font-size:12px;color:#bbb;border-top:1px solid #eee;margin-top:10px}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:32px 24px;width:320px;text-align:center}
+.modal h2{font-size:24px;margin-bottom:8px}
+.modal .score{font-size:56px;font-weight:800;color:#27AE60;margin:12px 0}
+.modal p{color:#666;margin-bottom:16px}
+.modal .btn{padding:12px 32px;border-radius:12px;border:none;font-size:16px;font-weight:600;cursor:pointer;background:#2980B9;color:#fff}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.page.active{animation:fadeIn 0.3s ease}
+</style>
+</head>
+<body>
+<div id="page-dashboard" class="page active">
+  <div class="dashboard-title">
+    <h1>八年级下册·道德与法治</h1>
+    <div class="sub">基础巩固版</div>
+    <div class="badge">2026版统编教材 · 2022版新课标</div>
+    <div class="meta">适合基础薄弱学生 · 154题覆盖全五单元</div>
+  </div>
+  <div class="stats">
+    <div class="stat-card"><div class="num blue">154</div><div class="label">总练习题</div></div>
+    <div class="stat-card"><div class="num green" id="stat-done">0</div><div class="label">已完成</div></div>
+    <div class="stat-card"><div class="num orange" id="stat-rate">0%</div><div class="label">正确率</div></div>
+    <div class="stat-card"><div class="num purple" id="stat-streak">0/5</div><div class="label">已完成单元</div></div>
+  </div>
+  <div style="margin-bottom:12px;font-size:14px;font-weight:600;color:#555;">选择单元开始练习</div>
+  <div class="unit-grid">
+    <button class="unit-btn" style="background:#DC143C" onclick="showUnit(1)"><span>单元1 宪法至上（22题）</span><span class="arrow">›</span></button>
+    <button class="unit-btn" style="background:#E67E22" onclick="showUnit(2)"><span>单元2 权利义务（22题）</span><span class="arrow">›</span></button>
+    <button class="unit-btn" style="background:#27AE60" onclick="showUnit(3)"><span>单元3 国家制度（22题）</span><span class="arrow">›</span></button>
+    <button class="unit-btn" style="background:#2980B9" onclick="showUnit(4)"><span>单元4 国家机构（66题）</span><span class="arrow">›</span></button>
+    <button class="unit-btn" style="background:#8E44AD" onclick="showUnit(5)"><span>单元5 法治中国（22题）</span><span class="arrow">›</span></button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-unit1" class="page">
+  <button class="back-btn" onclick="showDashboard()">‹ 返回首页</button>
+  <div class="page-title">单元1 宪法至上</div>
+  <div class="page-subtitle" style="color:#DC143C">22题 · 2课</div>
+  <div class="core-concept" style="border-left-color:#DC143C">
+    <div class="label" style="color:#DC143C">核心大概念</div>
+    <p>宪法是国家的根本法，是治国安邦的总章程。本单元的基础知识：宪法的地位、内容和作用。</p>
+  </div>
+  <div class="lesson-list" id="unit1-lessons">
+    <div class="lesson-card" onclick="showLesson(0)">
+      <h3>第1课 治国安邦的总章程</h3>
+      <div class="dots"><div class="dot" id="dot-0-0"></div><div class="dot" id="dot-0-1"></div><div class="dot" id="dot-0-2"></div><div class="dot" id="dot-0-3"></div><div class="dot" id="dot-0-4"></div><div class="dot" id="dot-0-5"></div><div class="dot" id="dot-0-6"></div><div class="dot" id="dot-0-7"></div><div class="dot" id="dot-0-8"></div><div class="dot" id="dot-0-9"></div><div class="dot" id="dot-0-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(1)">
+      <h3>第2课 维护宪法权威</h3>
+      <div class="dots"><div class="dot" id="dot-1-0"></div><div class="dot" id="dot-1-1"></div><div class="dot" id="dot-1-2"></div><div class="dot" id="dot-1-3"></div><div class="dot" id="dot-1-4"></div><div class="dot" id="dot-1-5"></div><div class="dot" id="dot-1-6"></div><div class="dot" id="dot-1-7"></div><div class="dot" id="dot-1-8"></div><div class="dot" id="dot-1-9"></div><div class="dot" id="dot-1-10"></div></div>
+    </div>
+  </div>
+</div>
+<div id="page-unit2" class="page">
+  <button class="back-btn" onclick="showDashboard()">‹ 返回首页</button>
+  <div class="page-title">单元2 权利义务</div>
+  <div class="page-subtitle" style="color:#E67E22">22题 · 2课</div>
+  <div class="core-concept" style="border-left-color:#E67E22">
+    <div class="label" style="color:#E67E22">核心大概念</div>
+    <p>公民的基本权利和义务是宪法的核心内容。本单元的基础知识：公民基本权利与义务、依法行使权利和履行义务。</p>
+  </div>
+  <div class="lesson-list" id="unit2-lessons">
+    <div class="lesson-card" onclick="showLesson(2)">
+      <h3>第3课 公民的基本权利和义务</h3>
+      <div class="dots"><div class="dot" id="dot-2-0"></div><div class="dot" id="dot-2-1"></div><div class="dot" id="dot-2-2"></div><div class="dot" id="dot-2-3"></div><div class="dot" id="dot-2-4"></div><div class="dot" id="dot-2-5"></div><div class="dot" id="dot-2-6"></div><div class="dot" id="dot-2-7"></div><div class="dot" id="dot-2-8"></div><div class="dot" id="dot-2-9"></div><div class="dot" id="dot-2-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(3)">
+      <h3>第4课 依法行使权利和履行义务</h3>
+      <div class="dots"><div class="dot" id="dot-3-0"></div><div class="dot" id="dot-3-1"></div><div class="dot" id="dot-3-2"></div><div class="dot" id="dot-3-3"></div><div class="dot" id="dot-3-4"></div><div class="dot" id="dot-3-5"></div><div class="dot" id="dot-3-6"></div><div class="dot" id="dot-3-7"></div><div class="dot" id="dot-3-8"></div><div class="dot" id="dot-3-9"></div><div class="dot" id="dot-3-10"></div></div>
+    </div>
+  </div>
+</div>
+<div id="page-unit3" class="page">
+  <button class="back-btn" onclick="showDashboard()">‹ 返回首页</button>
+  <div class="page-title">单元3 国家制度</div>
+  <div class="page-subtitle" style="color:#27AE60">22题 · 2课</div>
+  <div class="core-concept" style="border-left-color:#27AE60">
+    <div class="label" style="color:#27AE60">核心大概念</div>
+    <p>认识我国的国家制度，包括根本政治制度、基本政治制度和基本经济制度。</p>
+  </div>
+  <div class="lesson-list" id="unit3-lessons">
+    <div class="lesson-card" onclick="showLesson(4)">
+      <h3>第5课 我国的政治制度</h3>
+      <div class="dots"><div class="dot" id="dot-4-0"></div><div class="dot" id="dot-4-1"></div><div class="dot" id="dot-4-2"></div><div class="dot" id="dot-4-3"></div><div class="dot" id="dot-4-4"></div><div class="dot" id="dot-4-5"></div><div class="dot" id="dot-4-6"></div><div class="dot" id="dot-4-7"></div><div class="dot" id="dot-4-8"></div><div class="dot" id="dot-4-9"></div><div class="dot" id="dot-4-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(5)">
+      <h3>第6课 我国的基本经济制度</h3>
+      <div class="dots"><div class="dot" id="dot-5-0"></div><div class="dot" id="dot-5-1"></div><div class="dot" id="dot-5-2"></div><div class="dot" id="dot-5-3"></div><div class="dot" id="dot-5-4"></div><div class="dot" id="dot-5-5"></div><div class="dot" id="dot-5-6"></div><div class="dot" id="dot-5-7"></div><div class="dot" id="dot-5-8"></div><div class="dot" id="dot-5-9"></div><div class="dot" id="dot-5-10"></div></div>
+    </div>
+  </div>
+</div>
+<div id="page-unit4" class="page">
+  <button class="back-btn" onclick="showDashboard()">‹ 返回首页</button>
+  <div class="page-title">单元4 国家机构</div>
+  <div class="page-subtitle" style="color:#2980B9">66题 · 6课</div>
+  <div class="core-concept" style="border-left-color:#2980B9">
+    <div class="label" style="color:#2980B9">核心大概念</div>
+    <p>走近国家机构——了解全国人大、国家主席、行政机关、中央军委、监察机关、司法机关的性质和职权。</p>
+  </div>
+  <div class="lesson-list" id="unit4-lessons">
+    <div class="lesson-card" onclick="showLesson(6)">
+      <h3>第7课 国家权力机关</h3>
+      <div class="dots"><div class="dot" id="dot-6-0"></div><div class="dot" id="dot-6-1"></div><div class="dot" id="dot-6-2"></div><div class="dot" id="dot-6-3"></div><div class="dot" id="dot-6-4"></div><div class="dot" id="dot-6-5"></div><div class="dot" id="dot-6-6"></div><div class="dot" id="dot-6-7"></div><div class="dot" id="dot-6-8"></div><div class="dot" id="dot-6-9"></div><div class="dot" id="dot-6-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(7)">
+      <h3>第8课 中华人民共和国主席</h3>
+      <div class="dots"><div class="dot" id="dot-7-0"></div><div class="dot" id="dot-7-1"></div><div class="dot" id="dot-7-2"></div><div class="dot" id="dot-7-3"></div><div class="dot" id="dot-7-4"></div><div class="dot" id="dot-7-5"></div><div class="dot" id="dot-7-6"></div><div class="dot" id="dot-7-7"></div><div class="dot" id="dot-7-8"></div><div class="dot" id="dot-7-9"></div><div class="dot" id="dot-7-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(8)">
+      <h3>第9课 国家行政机关</h3>
+      <div class="dots"><div class="dot" id="dot-8-0"></div><div class="dot" id="dot-8-1"></div><div class="dot" id="dot-8-2"></div><div class="dot" id="dot-8-3"></div><div class="dot" id="dot-8-4"></div><div class="dot" id="dot-8-5"></div><div class="dot" id="dot-8-6"></div><div class="dot" id="dot-8-7"></div><div class="dot" id="dot-8-8"></div><div class="dot" id="dot-8-9"></div><div class="dot" id="dot-8-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(9)">
+      <h3>第10课 中央军事委员会</h3>
+      <div class="dots"><div class="dot" id="dot-9-0"></div><div class="dot" id="dot-9-1"></div><div class="dot" id="dot-9-2"></div><div class="dot" id="dot-9-3"></div><div class="dot" id="dot-9-4"></div><div class="dot" id="dot-9-5"></div><div class="dot" id="dot-9-6"></div><div class="dot" id="dot-9-7"></div><div class="dot" id="dot-9-8"></div><div class="dot" id="dot-9-9"></div><div class="dot" id="dot-9-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(10)">
+      <h3>第11课 国家监察机关</h3>
+      <div class="dots"><div class="dot" id="dot-10-0"></div><div class="dot" id="dot-10-1"></div><div class="dot" id="dot-10-2"></div><div class="dot" id="dot-10-3"></div><div class="dot" id="dot-10-4"></div><div class="dot" id="dot-10-5"></div><div class="dot" id="dot-10-6"></div><div class="dot" id="dot-10-7"></div><div class="dot" id="dot-10-8"></div><div class="dot" id="dot-10-9"></div><div class="dot" id="dot-10-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(11)">
+      <h3>第12课 国家司法机关</h3>
+      <div class="dots"><div class="dot" id="dot-11-0"></div><div class="dot" id="dot-11-1"></div><div class="dot" id="dot-11-2"></div><div class="dot" id="dot-11-3"></div><div class="dot" id="dot-11-4"></div><div class="dot" id="dot-11-5"></div><div class="dot" id="dot-11-6"></div><div class="dot" id="dot-11-7"></div><div class="dot" id="dot-11-8"></div><div class="dot" id="dot-11-9"></div><div class="dot" id="dot-11-10"></div></div>
+    </div>
+  </div>
+</div>
+<div id="page-unit5" class="page">
+  <button class="back-btn" onclick="showDashboard()">‹ 返回首页</button>
+  <div class="page-title">单元5 法治中国</div>
+  <div class="page-subtitle" style="color:#8E44AD">22题 · 2课</div>
+  <div class="core-concept" style="border-left-color:#8E44AD">
+    <div class="label" style="color:#8E44AD">核心大概念</div>
+    <p>建设法治中国——理解习近平法治思想，掌握全面依法治国的基本要求，认识法治与改革、法治与德治的关系。</p>
+  </div>
+  <div class="lesson-list" id="unit5-lessons">
+    <div class="lesson-card" onclick="showLesson(12)">
+      <h3>第13课 坚持全面依法治国</h3>
+      <div class="dots"><div class="dot" id="dot-12-0"></div><div class="dot" id="dot-12-1"></div><div class="dot" id="dot-12-2"></div><div class="dot" id="dot-12-3"></div><div class="dot" id="dot-12-4"></div><div class="dot" id="dot-12-5"></div><div class="dot" id="dot-12-6"></div><div class="dot" id="dot-12-7"></div><div class="dot" id="dot-12-8"></div><div class="dot" id="dot-12-9"></div><div class="dot" id="dot-12-10"></div></div>
+    </div>
+    <div class="lesson-card" onclick="showLesson(13)">
+      <h3>第14课 以法治推进国家治理现代化</h3>
+      <div class="dots"><div class="dot" id="dot-13-0"></div><div class="dot" id="dot-13-1"></div><div class="dot" id="dot-13-2"></div><div class="dot" id="dot-13-3"></div><div class="dot" id="dot-13-4"></div><div class="dot" id="dot-13-5"></div><div class="dot" id="dot-13-6"></div><div class="dot" id="dot-13-7"></div><div class="dot" id="dot-13-8"></div><div class="dot" id="dot-13-9"></div><div class="dot" id="dot-13-10"></div></div>
+    </div>
+  </div>
+</div>
+<div id="page-lesson0" class="page">
+  <button class="back-btn" onclick="showUnit(1)">‹ 返回单元1</button>
+  <div class="page-title" style="color:#DC143C">第1课 治国安邦的总章程</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">宪法是国家的根本法，是治国安邦的总章程，具有最高法律效力</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">中华人民共和国一切权力属于人民；国家尊重和保障人权</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">中国共产党领导是中国特色社会主义最本质的特征</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">国家性质：人民民主专政的社会主义国家；根本制度：社会主义制度</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">宪法规定国家生活中的根本问题，是国家立法活动的基础</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-0">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-0">
+    <div class="q-grid-item" id="qg-0-0" onclick="goToQ(0,0)">1</div>
+    <div class="q-grid-item" id="qg-0-1" onclick="goToQ(0,1)">2</div>
+    <div class="q-grid-item" id="qg-0-2" onclick="goToQ(0,2)">3</div>
+    <div class="q-grid-item" id="qg-0-3" onclick="goToQ(0,3)">4</div>
+    <div class="q-grid-item" id="qg-0-4" onclick="goToQ(0,4)">5</div>
+    <div class="q-grid-item" id="qg-0-5" onclick="goToQ(0,5)">6</div>
+    <div class="q-grid-item" id="qg-0-6" onclick="goToQ(0,6)">7</div>
+    <div class="q-grid-item" id="qg-0-7" onclick="goToQ(0,7)">8</div>
+    <div class="q-grid-item" id="qg-0-8" onclick="goToQ(0,8)">9</div>
+    <div class="q-grid-item" id="qg-0-9" onclick="goToQ(0,9)">10</div>
+    <div class="q-grid-item" id="qg-0-10" onclick="goToQ(0,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-0">
+    <div class="q-num">第<span id="qnum-0">1</span>/11题</div>
+    <div class="q-text" id="qtext-0">2025年12月4日是第十二个国家宪法日，最高人民法院举行宪法宣誓仪式，新任职法官面对国旗庄严宣誓忠于宪法。国家工作人员就职时进行宪法宣誓，体现了宪法的什么地位？</div>
+    <div class="options" id="qopts-0">
+      <div class="option" onclick="selectOpt(0,0)" id="qopt-0-0"><span class="letter">A</span><span>宪法是国家的根本法，具有最高的法律效力</span></div>
+      <div class="option" onclick="selectOpt(0,1)" id="qopt-0-1"><span class="letter">B</span><span>宪法只规定公民的基本权利</span></div>
+      <div class="option" onclick="selectOpt(0,2)" id="qopt-0-2"><span class="letter">C</span><span>宪法与普通法律具有同等效力</span></div>
+      <div class="option" onclick="selectOpt(0,3)" id="qopt-0-3"><span class="letter">D</span><span>宪法只是政府工作人员的行为准则</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-0" onclick="prevQ(0)">上一题</button>
+    <span class="q-progress" id="qprog-0">1/11</span>
+    <button class="nav-btn next" id="next-0" onclick="nextQ(0)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(1)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(0)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson1" class="page">
+  <button class="back-btn" onclick="showUnit(1)">‹ 返回单元1</button>
+  <div class="page-title" style="color:#DC143C">第2课 维护宪法权威</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">坚持依法治国首先要坚持依宪治国，坚持依法执政首先要坚持依宪执政</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">宪法具有最高法律效力，一切法律行政法规都不得同宪法相抵触</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">全国人大及其常委会行使监督宪法实施的职权</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">宪法是国家法制统一的基础，是国家立法活动的基础</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">增强宪法意识，学习宪法、认同宪法、践行宪法</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-1">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-1">
+    <div class="q-grid-item" id="qg-1-0" onclick="goToQ(1,0)">1</div>
+    <div class="q-grid-item" id="qg-1-1" onclick="goToQ(1,1)">2</div>
+    <div class="q-grid-item" id="qg-1-2" onclick="goToQ(1,2)">3</div>
+    <div class="q-grid-item" id="qg-1-3" onclick="goToQ(1,3)">4</div>
+    <div class="q-grid-item" id="qg-1-4" onclick="goToQ(1,4)">5</div>
+    <div class="q-grid-item" id="qg-1-5" onclick="goToQ(1,5)">6</div>
+    <div class="q-grid-item" id="qg-1-6" onclick="goToQ(1,6)">7</div>
+    <div class="q-grid-item" id="qg-1-7" onclick="goToQ(1,7)">8</div>
+    <div class="q-grid-item" id="qg-1-8" onclick="goToQ(1,8)">9</div>
+    <div class="q-grid-item" id="qg-1-9" onclick="goToQ(1,9)">10</div>
+    <div class="q-grid-item" id="qg-1-10" onclick="goToQ(1,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-1">
+    <div class="q-num">第<span id="qnum-1">1</span>/11题</div>
+    <div class="q-text" id="qtext-1">2026年3月，十四届全国人大四次会议审议通过生态环境法典等法律。在立法过程中，全国人大常委会始终坚持每一个立法环节都把好宪法关。这体现了什么？</div>
+    <div class="options" id="qopts-1">
+      <div class="option" onclick="selectOpt(1,0)" id="qopt-1-0"><span class="letter">A</span><span>宪法是国家的根本法，是其他法律的立法基础和依据</span></div>
+      <div class="option" onclick="selectOpt(1,1)" id="qopt-1-1"><span class="letter">B</span><span>宪法与其他法律具有同等效力</span></div>
+      <div class="option" onclick="selectOpt(1,2)" id="qopt-1-2"><span class="letter">C</span><span>全国人大常委会可以随意制定任何法律</span></div>
+      <div class="option" onclick="selectOpt(1,3)" id="qopt-1-3"><span class="letter">D</span><span>普通法律不需要遵守宪法的原则</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-1" onclick="prevQ(1)">上一题</button>
+    <span class="q-progress" id="qprog-1">1/11</span>
+    <button class="nav-btn next" id="next-1" onclick="nextQ(1)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(1)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(1)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson2" class="page">
+  <button class="back-btn" onclick="showUnit(2)">‹ 返回单元2</button>
+  <div class="page-title" style="color:#E67E22">第3课 公民的基本权利和义务</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">公民基本权利：平等权、政治权利、人身自由、社会经济权利、文化教育权利、监督权等</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">政治权利：选举权和被选举权（年满18周岁的公民，未被剥夺政治权利）</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">人身自由是公民参加各项社会生活的基础</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">公民基本义务：维护国家统一和民族团结、遵守宪法和法律、依法服兵役、依法纳税等</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">权利义务相互依存、相互促进，公民既是权利享有者，也是义务承担者</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-2">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-2">
+    <div class="q-grid-item" id="qg-2-0" onclick="goToQ(2,0)">1</div>
+    <div class="q-grid-item" id="qg-2-1" onclick="goToQ(2,1)">2</div>
+    <div class="q-grid-item" id="qg-2-2" onclick="goToQ(2,2)">3</div>
+    <div class="q-grid-item" id="qg-2-3" onclick="goToQ(2,3)">4</div>
+    <div class="q-grid-item" id="qg-2-4" onclick="goToQ(2,4)">5</div>
+    <div class="q-grid-item" id="qg-2-5" onclick="goToQ(2,5)">6</div>
+    <div class="q-grid-item" id="qg-2-6" onclick="goToQ(2,6)">7</div>
+    <div class="q-grid-item" id="qg-2-7" onclick="goToQ(2,7)">8</div>
+    <div class="q-grid-item" id="qg-2-8" onclick="goToQ(2,8)">9</div>
+    <div class="q-grid-item" id="qg-2-9" onclick="goToQ(2,9)">10</div>
+    <div class="q-grid-item" id="qg-2-10" onclick="goToQ(2,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-2">
+    <div class="q-num">第<span id="qnum-2">1</span>/11题</div>
+    <div class="q-text" id="qtext-2">2026年5月，最高法发布典型案例：有人利用网络开盒，非法获取公民个人信息6亿余条用于网暴他人。这种行为主要侵犯了公民的什么权利？</div>
+    <div class="options" id="qopts-2">
+      <div class="option" onclick="selectOpt(2,0)" id="qopt-2-0"><span class="letter">A</span><span>人格尊严权和隐私权</span></div>
+      <div class="option" onclick="selectOpt(2,1)" id="qopt-2-1"><span class="letter">B</span><span>选举权和被选举权</span></div>
+      <div class="option" onclick="selectOpt(2,2)" id="qopt-2-2"><span class="letter">C</span><span>受教育权</span></div>
+      <div class="option" onclick="selectOpt(2,3)" id="qopt-2-3"><span class="letter">D</span><span>财产权</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-2" onclick="prevQ(2)">上一题</button>
+    <span class="q-progress" id="qprog-2">1/11</span>
+    <button class="nav-btn next" id="next-2" onclick="nextQ(2)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(2)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(2)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson3" class="page">
+  <button class="back-btn" onclick="showUnit(2)">‹ 返回单元2</button>
+  <div class="page-title" style="color:#E67E22">第4课 依法行使权利和履行义务</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">权利与义务相统一——没有无义务的权利，也没有无权利的义务</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">依法行使权利：行使自由权利不得损害国家、社会、集体利益和他人合法权益</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">纠纷解决方式：和解、调解、仲裁、诉讼</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">依法履行义务：法律要求做的必须去做，法律禁止做的坚决不做</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">违反法定义务需依法承担相应法律责任</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-3">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-3">
+    <div class="q-grid-item" id="qg-3-0" onclick="goToQ(3,0)">1</div>
+    <div class="q-grid-item" id="qg-3-1" onclick="goToQ(3,1)">2</div>
+    <div class="q-grid-item" id="qg-3-2" onclick="goToQ(3,2)">3</div>
+    <div class="q-grid-item" id="qg-3-3" onclick="goToQ(3,3)">4</div>
+    <div class="q-grid-item" id="qg-3-4" onclick="goToQ(3,4)">5</div>
+    <div class="q-grid-item" id="qg-3-5" onclick="goToQ(3,5)">6</div>
+    <div class="q-grid-item" id="qg-3-6" onclick="goToQ(3,6)">7</div>
+    <div class="q-grid-item" id="qg-3-7" onclick="goToQ(3,7)">8</div>
+    <div class="q-grid-item" id="qg-3-8" onclick="goToQ(3,8)">9</div>
+    <div class="q-grid-item" id="qg-3-9" onclick="goToQ(3,9)">10</div>
+    <div class="q-grid-item" id="qg-3-10" onclick="goToQ(3,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-3">
+    <div class="q-num">第<span id="qnum-3">1</span>/11题</div>
+    <div class="q-text" id="qtext-3">2026年5月，最高法发布开盒网暴案：林某某非法获取6亿余条个人信息用于网暴他人，被判处有期徒刑七年。这体现了什么？</div>
+    <div class="options" id="qopts-3">
+      <div class="option" onclick="selectOpt(3,0)" id="qopt-3-0"><span class="letter">A</span><span>公民行使权利时必须遵守法律，不得损害他人合法权益</span></div>
+      <div class="option" onclick="selectOpt(3,1)" id="qopt-3-1"><span class="letter">B</span><span>网络开盒不会被追究</span></div>
+      <div class="option" onclick="selectOpt(3,2)" id="qopt-3-2"><span class="letter">C</span><span>侵犯他人权利只需赔礼道歉</span></div>
+      <div class="option" onclick="selectOpt(3,3)" id="qopt-3-3"><span class="letter">D</span><span>个人信息可以随意收集</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-3" onclick="prevQ(3)">上一题</button>
+    <span class="q-progress" id="qprog-3">1/11</span>
+    <button class="nav-btn next" id="next-3" onclick="nextQ(3)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(2)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(3)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson4" class="page">
+  <button class="back-btn" onclick="showUnit(3)">‹ 返回单元3</button>
+  <div class="page-title" style="color:#27AE60">第5课 我国的政治制度</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">根本政治制度：人民代表大会制度（1954年确立）</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">全国人大职权：立法权、决定权、任免权、监督权</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">基本政治制度：中国共产党领导的多党合作和政治协商制度</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">基本政治制度：民族区域自治制度（在少数民族聚居地方实行）</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">基本政治制度：基层群众自治制度（村委会、居委会）</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-4">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-4">
+    <div class="q-grid-item" id="qg-4-0" onclick="goToQ(4,0)">1</div>
+    <div class="q-grid-item" id="qg-4-1" onclick="goToQ(4,1)">2</div>
+    <div class="q-grid-item" id="qg-4-2" onclick="goToQ(4,2)">3</div>
+    <div class="q-grid-item" id="qg-4-3" onclick="goToQ(4,3)">4</div>
+    <div class="q-grid-item" id="qg-4-4" onclick="goToQ(4,4)">5</div>
+    <div class="q-grid-item" id="qg-4-5" onclick="goToQ(4,5)">6</div>
+    <div class="q-grid-item" id="qg-4-6" onclick="goToQ(4,6)">7</div>
+    <div class="q-grid-item" id="qg-4-7" onclick="goToQ(4,7)">8</div>
+    <div class="q-grid-item" id="qg-4-8" onclick="goToQ(4,8)">9</div>
+    <div class="q-grid-item" id="qg-4-9" onclick="goToQ(4,9)">10</div>
+    <div class="q-grid-item" id="qg-4-10" onclick="goToQ(4,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-4">
+    <div class="q-num">第<span id="qnum-4">1</span>/11题</div>
+    <div class="q-text" id="qtext-4">2026年3月，十四届全国人大四次会议在北京隆重召开，近3000名全国人大代表出席大会，审议政府工作报告、表决通过三部重要法律。这体现了我国的根本政治制度是什么？</div>
+    <div class="options" id="qopts-4">
+      <div class="option" onclick="selectOpt(4,0)" id="qopt-4-0"><span class="letter">A</span><span>人民代表大会制度</span></div>
+      <div class="option" onclick="selectOpt(4,1)" id="qopt-4-1"><span class="letter">B</span><span>中国共产党领导的多党合作和政治协商制度</span></div>
+      <div class="option" onclick="selectOpt(4,2)" id="qopt-4-2"><span class="letter">C</span><span>民族区域自治制度</span></div>
+      <div class="option" onclick="selectOpt(4,3)" id="qopt-4-3"><span class="letter">D</span><span>基层群众自治制度</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-4" onclick="prevQ(4)">上一题</button>
+    <span class="q-progress" id="qprog-4">1/11</span>
+    <button class="nav-btn next" id="next-4" onclick="nextQ(4)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(3)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(4)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson5" class="page">
+  <button class="back-btn" onclick="showUnit(3)">‹ 返回单元3</button>
+  <div class="page-title" style="color:#27AE60">第6课 我国的基本经济制度</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">公有制为主体、多种所有制经济共同发展</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">国有经济是国民经济的主导力量</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">按劳分配为主体、多种分配方式并存</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">生产要素参与分配：劳动、资本、土地、知识、技术、管理、数据等</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">社会主义市场经济体制：市场在资源配置中起决定性作用，更好发挥政府作用</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-5">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-5">
+    <div class="q-grid-item" id="qg-5-0" onclick="goToQ(5,0)">1</div>
+    <div class="q-grid-item" id="qg-5-1" onclick="goToQ(5,1)">2</div>
+    <div class="q-grid-item" id="qg-5-2" onclick="goToQ(5,2)">3</div>
+    <div class="q-grid-item" id="qg-5-3" onclick="goToQ(5,3)">4</div>
+    <div class="q-grid-item" id="qg-5-4" onclick="goToQ(5,4)">5</div>
+    <div class="q-grid-item" id="qg-5-5" onclick="goToQ(5,5)">6</div>
+    <div class="q-grid-item" id="qg-5-6" onclick="goToQ(5,6)">7</div>
+    <div class="q-grid-item" id="qg-5-7" onclick="goToQ(5,7)">8</div>
+    <div class="q-grid-item" id="qg-5-8" onclick="goToQ(5,8)">9</div>
+    <div class="q-grid-item" id="qg-5-9" onclick="goToQ(5,9)">10</div>
+    <div class="q-grid-item" id="qg-5-10" onclick="goToQ(5,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-5">
+    <div class="q-num">第<span id="qnum-5">1</span>/11题</div>
+    <div class="q-text" id="qtext-5">2026年1月国家统计局发布数据：2025年我国GDP达到140.19万亿元，比上年增长5.0%。这一成就的取得是因为我国坚持了什么？</div>
+    <div class="options" id="qopts-5">
+      <div class="option" onclick="selectOpt(5,0)" id="qopt-5-0"><span class="letter">A</span><span>社会主义基本经济制度</span></div>
+      <div class="option" onclick="selectOpt(5,1)" id="qopt-5-1"><span class="letter">B</span><span>单一公有制经济</span></div>
+      <div class="option" onclick="selectOpt(5,2)" id="qopt-5-2"><span class="letter">C</span><span>计划经济体制</span></div>
+      <div class="option" onclick="selectOpt(5,3)" id="qopt-5-3"><span class="letter">D</span><span>平均分配制度</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-5" onclick="prevQ(5)">上一题</button>
+    <span class="q-progress" id="qprog-5">1/11</span>
+    <button class="nav-btn next" id="next-5" onclick="nextQ(5)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(3)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(5)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson6" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第7课 国家权力机关</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">全国人民代表大会是最高国家权力机关</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">地方各级人民代表大会是地方国家权力机关</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">人民代表大会的四大职权：立法权、决定权、任免权、监督权</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">人大代表由人民民主选举产生，代表人民统一行使国家权力</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-6">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-6">
+    <div class="q-grid-item" id="qg-6-0" onclick="goToQ(6,0)">1</div>
+    <div class="q-grid-item" id="qg-6-1" onclick="goToQ(6,1)">2</div>
+    <div class="q-grid-item" id="qg-6-2" onclick="goToQ(6,2)">3</div>
+    <div class="q-grid-item" id="qg-6-3" onclick="goToQ(6,3)">4</div>
+    <div class="q-grid-item" id="qg-6-4" onclick="goToQ(6,4)">5</div>
+    <div class="q-grid-item" id="qg-6-5" onclick="goToQ(6,5)">6</div>
+    <div class="q-grid-item" id="qg-6-6" onclick="goToQ(6,6)">7</div>
+    <div class="q-grid-item" id="qg-6-7" onclick="goToQ(6,7)">8</div>
+    <div class="q-grid-item" id="qg-6-8" onclick="goToQ(6,8)">9</div>
+    <div class="q-grid-item" id="qg-6-9" onclick="goToQ(6,9)">10</div>
+    <div class="q-grid-item" id="qg-6-10" onclick="goToQ(6,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-6">
+    <div class="q-num">第<span id="qnum-6">1</span>/11题</div>
+    <div class="q-text" id="qtext-6">2026年3月，十四届全国人大四次会议表决通过生态环境法典、民族团结进步促进法等三部重要法律。这体现了全国人大行使哪项职权？</div>
+    <div class="options" id="qopts-6">
+      <div class="option" onclick="selectOpt(6,0)" id="qopt-6-0"><span class="letter">A</span><span>立法权</span></div>
+      <div class="option" onclick="selectOpt(6,1)" id="qopt-6-1"><span class="letter">B</span><span>决定权</span></div>
+      <div class="option" onclick="selectOpt(6,2)" id="qopt-6-2"><span class="letter">C</span><span>任免权</span></div>
+      <div class="option" onclick="selectOpt(6,3)" id="qopt-6-3"><span class="letter">D</span><span>监督权</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-6" onclick="prevQ(6)">上一题</button>
+    <span class="q-progress" id="qprog-6">1/11</span>
+    <button class="nav-btn next" id="next-6" onclick="nextQ(6)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(6)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson7" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第8课 中华人民共和国主席</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">国家主席由全国人民代表大会选举产生</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">国家主席是中华人民共和国的代表，是国家机构的重要组成部分</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">国家主席的职权：公布法律/发布命令、任免国务院组成人员、外交权、荣典权</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-7">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-7">
+    <div class="q-grid-item" id="qg-7-0" onclick="goToQ(7,0)">1</div>
+    <div class="q-grid-item" id="qg-7-1" onclick="goToQ(7,1)">2</div>
+    <div class="q-grid-item" id="qg-7-2" onclick="goToQ(7,2)">3</div>
+    <div class="q-grid-item" id="qg-7-3" onclick="goToQ(7,3)">4</div>
+    <div class="q-grid-item" id="qg-7-4" onclick="goToQ(7,4)">5</div>
+    <div class="q-grid-item" id="qg-7-5" onclick="goToQ(7,5)">6</div>
+    <div class="q-grid-item" id="qg-7-6" onclick="goToQ(7,6)">7</div>
+    <div class="q-grid-item" id="qg-7-7" onclick="goToQ(7,7)">8</div>
+    <div class="q-grid-item" id="qg-7-8" onclick="goToQ(7,8)">9</div>
+    <div class="q-grid-item" id="qg-7-9" onclick="goToQ(7,9)">10</div>
+    <div class="q-grid-item" id="qg-7-10" onclick="goToQ(7,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-7">
+    <div class="q-num">第<span id="qnum-7">1</span>/11题</div>
+    <div class="q-text" id="qtext-7">2026年3月，十四届全国人大四次会议上，习近平当选为中华人民共和国主席、中央军事委员会主席。国家主席由哪个机关选举产生？</div>
+    <div class="options" id="qopts-7">
+      <div class="option" onclick="selectOpt(7,0)" id="qopt-7-0"><span class="letter">A</span><span>全国人民代表大会</span></div>
+      <div class="option" onclick="selectOpt(7,1)" id="qopt-7-1"><span class="letter">B</span><span>国务院</span></div>
+      <div class="option" onclick="selectOpt(7,2)" id="qopt-7-2"><span class="letter">C</span><span>中国共产党全国代表大会</span></div>
+      <div class="option" onclick="selectOpt(7,3)" id="qopt-7-3"><span class="letter">D</span><span>全国人民直接选举</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-7" onclick="prevQ(7)">上一题</button>
+    <span class="q-progress" id="qprog-7">1/11</span>
+    <button class="nav-btn next" id="next-7" onclick="nextQ(7)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(7)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson8" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第9课 国家行政机关</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">人民政府是行政机关，是权力机关的执行机关</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">国务院是最高国家行政机关</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">依法行政：法定职责必须为、法无授权不可为</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">建设法治政府，纠正不作为、慢作为、乱作为</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-8">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-8">
+    <div class="q-grid-item" id="qg-8-0" onclick="goToQ(8,0)">1</div>
+    <div class="q-grid-item" id="qg-8-1" onclick="goToQ(8,1)">2</div>
+    <div class="q-grid-item" id="qg-8-2" onclick="goToQ(8,2)">3</div>
+    <div class="q-grid-item" id="qg-8-3" onclick="goToQ(8,3)">4</div>
+    <div class="q-grid-item" id="qg-8-4" onclick="goToQ(8,4)">5</div>
+    <div class="q-grid-item" id="qg-8-5" onclick="goToQ(8,5)">6</div>
+    <div class="q-grid-item" id="qg-8-6" onclick="goToQ(8,6)">7</div>
+    <div class="q-grid-item" id="qg-8-7" onclick="goToQ(8,7)">8</div>
+    <div class="q-grid-item" id="qg-8-8" onclick="goToQ(8,8)">9</div>
+    <div class="q-grid-item" id="qg-8-9" onclick="goToQ(8,9)">10</div>
+    <div class="q-grid-item" id="qg-8-10" onclick="goToQ(8,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-8">
+    <div class="q-num">第<span id="qnum-8">1</span>/11题</div>
+    <div class="q-text" id="qtext-8">2026年3月，国务院总理李强在十四届全国人大四次会议上作政府工作报告。这说明国务院与全国人大的关系是什么？</div>
+    <div class="options" id="qopts-8">
+      <div class="option" onclick="selectOpt(8,0)" id="qopt-8-0"><span class="letter">A</span><span>国务院由全国人大产生，对其负责受其监督</span></div>
+      <div class="option" onclick="selectOpt(8,1)" id="qopt-8-1"><span class="letter">B</span><span>国务院与全国人大平级</span></div>
+      <div class="option" onclick="selectOpt(8,2)" id="qopt-8-2"><span class="letter">C</span><span>国务院领导全国人大</span></div>
+      <div class="option" onclick="selectOpt(8,3)" id="qopt-8-3"><span class="letter">D</span><span>国务院不受全国人大监督</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-8" onclick="prevQ(8)">上一题</button>
+    <span class="q-progress" id="qprog-8">1/11</span>
+    <button class="nav-btn next" id="next-8" onclick="nextQ(8)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(8)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson9" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第10课 中央军事委员会</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">中央军事委员会是全国武装力量的最高领导机关</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">中央军事委员会实行主席负责制</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">中央军事委员会由全国人民代表大会产生</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">武装力量由中国人民解放军、中国人民武装警察部队和民兵组成</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-9">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-9">
+    <div class="q-grid-item" id="qg-9-0" onclick="goToQ(9,0)">1</div>
+    <div class="q-grid-item" id="qg-9-1" onclick="goToQ(9,1)">2</div>
+    <div class="q-grid-item" id="qg-9-2" onclick="goToQ(9,2)">3</div>
+    <div class="q-grid-item" id="qg-9-3" onclick="goToQ(9,3)">4</div>
+    <div class="q-grid-item" id="qg-9-4" onclick="goToQ(9,4)">5</div>
+    <div class="q-grid-item" id="qg-9-5" onclick="goToQ(9,5)">6</div>
+    <div class="q-grid-item" id="qg-9-6" onclick="goToQ(9,6)">7</div>
+    <div class="q-grid-item" id="qg-9-7" onclick="goToQ(9,7)">8</div>
+    <div class="q-grid-item" id="qg-9-8" onclick="goToQ(9,8)">9</div>
+    <div class="q-grid-item" id="qg-9-9" onclick="goToQ(9,9)">10</div>
+    <div class="q-grid-item" id="qg-9-10" onclick="goToQ(9,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-9">
+    <div class="q-num">第<span id="qnum-9">1</span>/11题</div>
+    <div class="q-text" id="qtext-9">我国武装力量的最高领导机关是什么？</div>
+    <div class="options" id="qopts-9">
+      <div class="option" onclick="selectOpt(9,0)" id="qopt-9-0"><span class="letter">A</span><span>中央军事委员会</span></div>
+      <div class="option" onclick="selectOpt(9,1)" id="qopt-9-1"><span class="letter">B</span><span>国务院</span></div>
+      <div class="option" onclick="selectOpt(9,2)" id="qopt-9-2"><span class="letter">C</span><span>国防部</span></div>
+      <div class="option" onclick="selectOpt(9,3)" id="qopt-9-3"><span class="letter">D</span><span>全国人民代表大会</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-9" onclick="prevQ(9)">上一题</button>
+    <span class="q-progress" id="qprog-9">1/11</span>
+    <button class="nav-btn next" id="next-9" onclick="nextQ(9)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(9)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson10" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第11课 国家监察机关</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">各级监察委员会是行使国家监察职能的专责机关</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">监察委员会的职责：监督职责、调查职责、处置职责</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">监察委员会依法独立行使监察权，不受行政机关、社会团体和个人的干涉</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">监察工作方针：一体推进不敢腐、不能腐、不想腐</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-10">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-10">
+    <div class="q-grid-item" id="qg-10-0" onclick="goToQ(10,0)">1</div>
+    <div class="q-grid-item" id="qg-10-1" onclick="goToQ(10,1)">2</div>
+    <div class="q-grid-item" id="qg-10-2" onclick="goToQ(10,2)">3</div>
+    <div class="q-grid-item" id="qg-10-3" onclick="goToQ(10,3)">4</div>
+    <div class="q-grid-item" id="qg-10-4" onclick="goToQ(10,4)">5</div>
+    <div class="q-grid-item" id="qg-10-5" onclick="goToQ(10,5)">6</div>
+    <div class="q-grid-item" id="qg-10-6" onclick="goToQ(10,6)">7</div>
+    <div class="q-grid-item" id="qg-10-7" onclick="goToQ(10,7)">8</div>
+    <div class="q-grid-item" id="qg-10-8" onclick="goToQ(10,8)">9</div>
+    <div class="q-grid-item" id="qg-10-9" onclick="goToQ(10,9)">10</div>
+    <div class="q-grid-item" id="qg-10-10" onclick="goToQ(10,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-10">
+    <div class="q-num">第<span id="qnum-10">1</span>/11题</div>
+    <div class="q-text" id="qtext-10">国家监察机关的性质是什么？</div>
+    <div class="options" id="qopts-10">
+      <div class="option" onclick="selectOpt(10,0)" id="qopt-10-0"><span class="letter">A</span><span>国家监察专责机关</span></div>
+      <div class="option" onclick="selectOpt(10,1)" id="qopt-10-1"><span class="letter">B</span><span>国家行政机关</span></div>
+      <div class="option" onclick="selectOpt(10,2)" id="qopt-10-2"><span class="letter">C</span><span>国家司法机关</span></div>
+      <div class="option" onclick="selectOpt(10,3)" id="qopt-10-3"><span class="letter">D</span><span>国家权力机关</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-10" onclick="prevQ(10)">上一题</button>
+    <span class="q-progress" id="qprog-10">1/11</span>
+    <button class="nav-btn next" id="next-10" onclick="nextQ(10)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(10)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson11" class="page">
+  <button class="back-btn" onclick="showUnit(4)">‹ 返回单元4</button>
+  <div class="page-title" style="color:#2980B9">第12课 国家司法机关</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">人民法院是国家的审判机关</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">人民检察院是国家的法律监督机关</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">人民法院依法独立行使审判权</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">人民检察院依法独立行使检察权</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">人民法院和人民检察院依法独立行使职权，不受行政机关、社会团体和个人的干涉</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-11">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-11">
+    <div class="q-grid-item" id="qg-11-0" onclick="goToQ(11,0)">1</div>
+    <div class="q-grid-item" id="qg-11-1" onclick="goToQ(11,1)">2</div>
+    <div class="q-grid-item" id="qg-11-2" onclick="goToQ(11,2)">3</div>
+    <div class="q-grid-item" id="qg-11-3" onclick="goToQ(11,3)">4</div>
+    <div class="q-grid-item" id="qg-11-4" onclick="goToQ(11,4)">5</div>
+    <div class="q-grid-item" id="qg-11-5" onclick="goToQ(11,5)">6</div>
+    <div class="q-grid-item" id="qg-11-6" onclick="goToQ(11,6)">7</div>
+    <div class="q-grid-item" id="qg-11-7" onclick="goToQ(11,7)">8</div>
+    <div class="q-grid-item" id="qg-11-8" onclick="goToQ(11,8)">9</div>
+    <div class="q-grid-item" id="qg-11-9" onclick="goToQ(11,9)">10</div>
+    <div class="q-grid-item" id="qg-11-10" onclick="goToQ(11,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-11">
+    <div class="q-num">第<span id="qnum-11">1</span>/11题</div>
+    <div class="q-text" id="qtext-11">人民法院的性质是什么？</div>
+    <div class="options" id="qopts-11">
+      <div class="option" onclick="selectOpt(11,0)" id="qopt-11-0"><span class="letter">A</span><span>国家审判机关</span></div>
+      <div class="option" onclick="selectOpt(11,1)" id="qopt-11-1"><span class="letter">B</span><span>国家法律监督机关</span></div>
+      <div class="option" onclick="selectOpt(11,2)" id="qopt-11-2"><span class="letter">C</span><span>国家行政机关</span></div>
+      <div class="option" onclick="selectOpt(11,3)" id="qopt-11-3"><span class="letter">D</span><span>国家监察机关</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-11" onclick="prevQ(11)">上一题</button>
+    <span class="q-progress" id="qprog-11">1/11</span>
+    <button class="nav-btn next" id="next-11" onclick="nextQ(11)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(4)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(11)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson12" class="page">
+  <button class="back-btn" onclick="showUnit(5)">‹ 返回单元5</button>
+  <div class="page-title" style="color:#8E44AD">第13课 坚持全面依法治国</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">习近平法治思想是全面依法治国的根本遵循和行动指南，核心要义：十二个坚持</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">全面依法治国的基本要求：科学立法、严格执法、公正司法、全民守法</span></div>
+    <div class="knowledge-item"><span class="tag base">基础</span><span class="text">科学立法是前提，严格执法是关键，公正司法是保障，全民守法是基础</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">全面推进依法治国总目标：建设中国特色社会主义法治体系，建设社会主义法治国家</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-12">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-12">
+    <div class="q-grid-item" id="qg-12-0" onclick="goToQ(12,0)">1</div>
+    <div class="q-grid-item" id="qg-12-1" onclick="goToQ(12,1)">2</div>
+    <div class="q-grid-item" id="qg-12-2" onclick="goToQ(12,2)">3</div>
+    <div class="q-grid-item" id="qg-12-3" onclick="goToQ(12,3)">4</div>
+    <div class="q-grid-item" id="qg-12-4" onclick="goToQ(12,4)">5</div>
+    <div class="q-grid-item" id="qg-12-5" onclick="goToQ(12,5)">6</div>
+    <div class="q-grid-item" id="qg-12-6" onclick="goToQ(12,6)">7</div>
+    <div class="q-grid-item" id="qg-12-7" onclick="goToQ(12,7)">8</div>
+    <div class="q-grid-item" id="qg-12-8" onclick="goToQ(12,8)">9</div>
+    <div class="q-grid-item" id="qg-12-9" onclick="goToQ(12,9)">10</div>
+    <div class="q-grid-item" id="qg-12-10" onclick="goToQ(12,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-12">
+    <div class="q-num">第<span id="qnum-12">1</span>/11题</div>
+    <div class="q-text" id="qtext-12">2026年5月，国新办举行发布会介绍推进全面依法治国情况。会议强调以习近平法治思想为指引推进全面依法治国。习近平法治思想的核心要义是什么？</div>
+    <div class="options" id="qopts-12">
+      <div class="option" onclick="selectOpt(12,0)" id="qopt-12-0"><span class="letter">A</span><span>十二个坚持</span></div>
+      <div class="option" onclick="selectOpt(12,1)" id="qopt-12-1"><span class="letter">B</span><span>四个全面</span></div>
+      <div class="option" onclick="selectOpt(12,2)" id="qopt-12-2"><span class="letter">C</span><span>五位一体</span></div>
+      <div class="option" onclick="selectOpt(12,3)" id="qopt-12-3"><span class="letter">D</span><span>八个明确</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-12" onclick="prevQ(12)">上一题</button>
+    <span class="q-progress" id="qprog-12">1/11</span>
+    <button class="nav-btn next" id="next-12" onclick="nextQ(12)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(5)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(12)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div id="page-lesson13" class="page">
+  <button class="back-btn" onclick="showUnit(5)">‹ 返回单元5</button>
+  <div class="page-title" style="color:#8E44AD">第14课 以法治推进国家治理现代化</div>
+  <div class="page-subtitle">11道基础巩固题</div>
+  <div style="margin:12px 0 8px;font-size:14px;font-weight:600;color:#555;">📖 本课知识点</div>
+  <div class="knowledge-list">
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">改革是社会发展的强大动力，法治是国家治理体系和治理能力的重要依托</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">改革和法治相辅相成、相互促进</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">坚持在法治下推进改革，在改革中完善法治</span></div>
+    <div class="knowledge-item"><span class="tag key">重点</span><span class="text">法治与德治：法安天下，德润人心；法律是成文的道德，道德是内心的法律</span></div>
+    <div class="knowledge-item"><span class="tag core">核心</span><span class="text">坚持依法治国和以德治国相结合——中国特色社会主义法治道路的鲜明特点</span></div>
+  </div>
+  <div class="practice-header">
+    <h3>📝 基础练习</h3>
+    <span class="q-count" id="progress-text-13">0/11</span>
+  </div>
+  <div class="q-grid" id="qgrid-13">
+    <div class="q-grid-item" id="qg-13-0" onclick="goToQ(13,0)">1</div>
+    <div class="q-grid-item" id="qg-13-1" onclick="goToQ(13,1)">2</div>
+    <div class="q-grid-item" id="qg-13-2" onclick="goToQ(13,2)">3</div>
+    <div class="q-grid-item" id="qg-13-3" onclick="goToQ(13,3)">4</div>
+    <div class="q-grid-item" id="qg-13-4" onclick="goToQ(13,4)">5</div>
+    <div class="q-grid-item" id="qg-13-5" onclick="goToQ(13,5)">6</div>
+    <div class="q-grid-item" id="qg-13-6" onclick="goToQ(13,6)">7</div>
+    <div class="q-grid-item" id="qg-13-7" onclick="goToQ(13,7)">8</div>
+    <div class="q-grid-item" id="qg-13-8" onclick="goToQ(13,8)">9</div>
+    <div class="q-grid-item" id="qg-13-9" onclick="goToQ(13,9)">10</div>
+    <div class="q-grid-item" id="qg-13-10" onclick="goToQ(13,10)">11</div>
+  </div>
+  <div class="q-card" id="qcard-13">
+    <div class="q-num">第<span id="qnum-13">1</span>/11题</div>
+    <div class="q-text" id="qtext-13">2025-2026年，个人信息保护法实施以来多部门联合开展App违法违规收集个人信息专项治理。个人信息保护法的出台体现了什么？</div>
+    <div class="options" id="qopts-13">
+      <div class="option" onclick="selectOpt(13,0)" id="qopt-13-0"><span class="letter">A</span><span>法治回应社会关切，保障公民合法权益</span></div>
+      <div class="option" onclick="selectOpt(13,1)" id="qopt-13-1"><span class="letter">B</span><span>法律可以完全杜绝信息泄露</span></div>
+      <div class="option" onclick="selectOpt(13,2)" id="qopt-13-2"><span class="letter">C</span><span>个人信息保护只需靠道德约束</span></div>
+      <div class="option" onclick="selectOpt(13,3)" id="qopt-13-3"><span class="letter">D</span><span>个人信息保护与法律无关</span></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prev-13" onclick="prevQ(13)">上一题</button>
+    <span class="q-progress" id="qprog-13">1/11</span>
+    <button class="nav-btn next" id="next-13" onclick="nextQ(13)">下一题</button>
+  </div>
+  <div class="bottom-actions">
+    <button class="action-btn" onclick="showUnit(5)">📋 返回本单元</button>
+    <button class="action-btn" onclick="resetLesson(13)">🔄 重做本课</button>
+  </div>
+  <div class="footer">星光·教学助手 | 基础巩固版 · 紧扣新课标</div>
+</div>
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>🎉 完成练习！</h2>
+    <div class="score" id="modal-score">0%</div>
+    <p id="modal-msg">继续加油！</p>
+    <button class="btn" onclick="closeModal()">确定</button>
+  </div>
+</div>
+<script>
+var DATA = [{"unit": 1, "lesson": 1, "title": "治国安邦的总章程", "questions": [{"q": "2025年12月4日是第十二个国家宪法日，最高人民法院举行宪法宣誓仪式，新任职法官面对国旗庄严宣誓忠于宪法。国家工作人员就职时进行宪法宣誓，体现了宪法的什么地位？", "opts": ["宪法是国家的根本法，具有最高的法律效力", "宪法只规定公民的基本权利", "宪法与普通法律具有同等效力", "宪法只是政府工作人员的行为准则"], "ans": 0}, {"q": "我国宪法第一条规定：中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家。这规定了我国的什么？", "opts": ["经济制度", "国家性质（国体）", "分配制度", "政治协商制度"], "ans": 1}, {"q": "2025年12月，最高人民检察院举行宪法宣誓仪式，强调全面贯彻实施宪法，忠实履行宪法赋予的法律监督职责。这体现了宪法规定的什么原则？", "opts": ["权利与义务相统一原则", "一切权力属于人民的原则", "自由平等原则", "效率优先原则"], "ans": 1}, {"q": "四川省政府在2025年宪法日举行宪法宣誓仪式。根据规定，国家工作人员就职时应当公开进行宪法宣誓。这一制度说明宪法具有怎样的地位？", "opts": ["宪法是国家的根本法，是一切组织和个人的根本活动准则", "宪法只约束政府工作人员", "宪法与普通法律地位相同", "宪法仅在国家宪法日当天有效"], "ans": 0}, {"q": "我国宪法规定：中华人民共和国的一切权力属于人民。人民行使国家权力的机关是？", "opts": ["国务院", "人民法院", "全国人民代表大会和地方各级人民代表大会", "人民检察院"], "ans": 2}, {"q": "2025年12月，最高人民法院院长强调要带头做维护宪法尊严、保证宪法实施的表率。宪法具有最高的法律效力，主要因为什么？", "opts": ["宪法制定和修改的程序比普通法律严格", "宪法是普通法律的总和", "宪法规定国家生活中的根本问题，具有最高法律权威", "宪法只规定了国家机构设置"], "ans": 2}, {"q": "我国宪法规定：社会主义制度是中华人民共和国的根本制度。以下理解正确的是？", "opts": ["社会主义制度是我国的根本政治制度", "禁止任何组织或者个人破坏社会主义制度", "社会主义制度仅指经济制度", "社会主义制度可以随时被其他制度取代"], "ans": 1}, {"q": "2025年国家宪法日期间，最高法发布新时代推动法治进程十大案件，邀请社会公众参与网络投票。这主要体现了宪法中的什么原则？", "opts": ["人民主权原则，人民有权参与国家法治建设", "法律面前人人平等原则", "权力分立原则", "无罪推定原则"], "ans": 0}, {"q": "在宪法宣誓仪式上，新任职法官右手举拳面对国旗庄严宣誓。宪法宣誓制度的建立体现了什么？", "opts": ["宪法是国家的根本法，国家工作人员要增强宪法意识维护宪法权威", "宪法宣誓只是形式没有实际意义", "只有法官才需要遵守宪法", "宪法宣誓制度是2025年才开始实行的"], "ans": 0}, {"q": "我国宪法规定：国家尊重和保障人权。2025年最高法发布依法平等保护民营企业典型案例，涉及融资环境优化、企业名誉信用保护等。这体现了宪法对哪一权利的保障？", "opts": ["公民的人身自由权", "公民的选举权和被选举权", "公民合法的私有财产权和合法权益", "公民的知识产权"], "ans": 2}, {"q": "2025年最高法宪法宣誓仪式上，96名新任职干部齐声宣誓：忠于中华人民共和国宪法，维护宪法权威，履行法定职责。这说明宪法与普通法律相比有什么不同？", "opts": ["宪法是国家的根本法，具有最高的法律地位和法律效力", "宪法和普通法律一样可以随时修改", "宪法只对公务员有约束力", "宪法不规定公民权利"], "ans": 0}]}, {"unit": 1, "lesson": 2, "title": "维护宪法权威", "questions": [{"q": "2026年3月，十四届全国人大四次会议审议通过生态环境法典等法律。在立法过程中，全国人大常委会始终坚持每一个立法环节都把好宪法关。这体现了什么？", "opts": ["宪法是国家的根本法，是其他法律的立法基础和依据", "宪法与其他法律具有同等效力", "全国人大常委会可以随意制定任何法律", "普通法律不需要遵守宪法的原则"], "ans": 0}, {"q": "2026年3月，全国人大常委会工作报告指出，对报送备案的2218件行政法规、地方性法规等进行审查，对存在合宪性、合法性问题的督促修改或废止。这体现了什么？", "opts": ["全国人大及其常委会行使监督宪法实施的职权", "地方法规不需要审查", "备案审查制度与宪法无关", "普通法律可以违反宪法的规定"], "ans": 0}, {"q": "2026年3月，全国人大常委会对公民、组织提出的6705件备案审查建议逐一研究并依法反馈。依法进行备案审查工作是为了什么？", "opts": ["维护国家法治统一，保障宪法权威", "审查公民的违法行为", "取消地方立法权", "扩大政府权力"], "ans": 0}, {"q": "2025年11月，全国人大常委会法工委公布2025年备案审查工作情况，全年收到公民、组织提出的审查建议6705件。公民提出审查建议的权利是宪法赋予的，这说明什么？", "opts": ["宪法是公民权利的根本保障", "公民可以直接修改法律", "备案审查是公民的义务", "宪法只规定了国家机构"], "ans": 0}, {"q": "2026年全国两会上，委员们表示：生态环境法典在制定过程中严格依照宪法确定的生态文明建设原则。实践证明，宪法的生命和权威在于什么？", "opts": ["实施", "频繁修改", "束之高阁", "仅靠宣传"], "ans": 0}, {"q": "2026年3月，习近平总书记在两会上强调，坚持依法治国首先要坚持依宪治国。下列做法体现依宪治国的是？", "opts": ["全国人大常委会对地方法规进行合宪性审查", "国务院随意更改税收政策", "某地方法规规定与宪法相抵触的内容", "地方人大可以制定与宪法冲突的法律"], "ans": 0}, {"q": "全国人大常委会工作报告显示，2025年共接收报送备案的法规2218件。对法规进行备案审查的目的是什么？", "opts": ["保证宪法权威和法制统一", "限制地方立法的积极性", "取消地方法规", "扩大中央权力"], "ans": 0}, {"q": "公民小明发现某地方法规与宪法精神不符，他可以通过哪种方式维护宪法权威？", "opts": ["向全国人大常委会提出备案审查建议", "直接废止该地方法规", "在网络上随意批评", "不采取任何行动"], "ans": 0}, {"q": "2025年12月4日，各地广泛开展国家宪法日宣传活动，学校组织学生诵读宪法、进行宪法知识竞赛。增强宪法意识要求青少年做到什么？", "opts": ["学习宪法、认同宪法、践行宪法", "只背诵宪法条文", "认为宪法与己无关", "只在宪法日关注宪法"], "ans": 0}, {"q": "2026年3月，全国人大常委会工作报告强调要健全保证宪法全面实施的制度体系。为什么要健全这一体系？", "opts": ["保证宪法全面有效实施，维护宪法最高法律地位", "增加国家机构数量", "扩大政府权力", "取消对宪法的监督"], "ans": 0}, {"q": "某校开展宪法晨读活动，全体学生齐声朗读宪法条文。该活动的意义在于？", "opts": ["增强青少年宪法意识，弘扬宪法精神", "提高学生考试成绩", "增加学生课余负担", "完成学校宣传任务"], "ans": 0}]}, {"unit": 2, "lesson": 3, "title": "公民的基本权利和义务", "questions": [{"q": "2026年5月，最高法发布典型案例：有人利用网络开盒，非法获取公民个人信息6亿余条用于网暴他人。这种行为主要侵犯了公民的什么权利？", "opts": ["人格尊严权和隐私权", "选举权和被选举权", "受教育权", "财产权"], "ans": 0}, {"q": "2025年9月，国家网信办查处82款违法违规App，通报33款App存在个人信息收集使用问题。企业超范围收集个人信息侵犯了公民的什么权利？", "opts": ["公民的隐私权和个人信息受保护的权利", "公民的政治权利", "公民的受教育权", "公民的文化权利"], "ans": 0}, {"q": "2026年，我国通过民法典、个人信息保护法等法律加强对公民权利的保护。公民行使选举权和被选举权的必备条件是什么？", "opts": ["年满18周岁、未被剥夺政治权利", "具有大学以上学历", "有固定工作和收入", "居住在城市地区"], "ans": 0}, {"q": "2026年5月，四川成都破获特大侵犯公民个人信息案，全链条打掉房产家装领域信息泄露黑灰产。房产信息泄露导致居民频繁收到骚扰电话，这侵犯了公民的什么权利？", "opts": ["人身自由权（生活安宁受法律保护）", "选举权和被选举权", "受教育权", "文化权利"], "ans": 0}, {"q": "2025年12月，最高法发布依法平等保护民营企业典型案例，涉及企业名誉信用保护。企业名誉权受保护体现了宪法规定的什么？", "opts": ["公民的人格尊严不受侵犯", "公民的言论自由不受侵犯", "公民的财产权不受侵犯", "公民的通信自由不受侵犯"], "ans": 0}, {"q": "2026年3月，北京打掉一个网络开盒黑灰产业链，5名犯罪嫌疑人有4人不满20岁。这给青少年的启示是什么？", "opts": ["公民在行使自由和权利时不得损害他人的合法权益", "青少年年龄小违法不会被追究", "网络空间不受法律约束", "个人信息可以随意买卖"], "ans": 0}, {"q": "小明的爸爸在2026年区人大代表选举中投下了庄严一票。这体现了公民享有哪项基本权利？", "opts": ["选举权和被选举权", "人身自由权", "物质帮助权", "受教育权"], "ans": 0}, {"q": "2025年，网信部门发现某App后台运行时收集用户应用程序信息，超出了必要范围。这启示我们公民在享受网络便利的同时，也要注意保护自己的什么权利？", "opts": ["隐私权和个人信息权", "选举权", "受教育权", "劳动权"], "ans": 0}, {"q": "公民小张发现某公司泄露了他的个人信息，他可以依据哪部法律维护自己的权益？", "opts": ["个人信息保护法", "义务教育法", "劳动法", "环境保护法"], "ans": 0}, {"q": "2025-2026年，我国持续推进净网专项行动。下列行为中属于正确行使公民权利的是？", "opts": ["依法举报网络违法行为", "在网络上随意辱骂他人", "公开他人隐私信息", "制造和传播网络谣言"], "ans": 0}, {"q": "某校开展法治教育课，老师讲解公民的权利和义务。下列既是公民基本权利又是公民基本义务的是？", "opts": ["劳动和受教育", "选举权和被选举权", "人身自由", "物质帮助权"], "ans": 0}]}, {"unit": 2, "lesson": 4, "title": "依法行使权利和履行义务", "questions": [{"q": "2026年5月，最高法发布开盒网暴案：林某某非法获取6亿余条个人信息用于网暴他人，被判处有期徒刑七年。这体现了什么？", "opts": ["公民行使权利时必须遵守法律，不得损害他人合法权益", "网络开盒不会被追究", "侵犯他人权利只需赔礼道歉", "个人信息可以随意收集"], "ans": 0}, {"q": "2025年9月，广东某科技公司因未修复系统漏洞导致网页被篡改为违法内容，被依法处罚。这启示我们什么？", "opts": ["履行网络安全保护义务是法律要求，违反要承担法律责任", "网络安全只是政府的事", "企业数据安全与公民无关", "违法只需改正不需受罚"], "ans": 0}, {"q": "2026年5月，最高法典型案例中，林某某同时构成侵犯公民个人信息罪和非法利用信息网络罪，数罪并罚。这说明什么？", "opts": ["一人有多个违法行为应当合并处罚", "违法行为只需承担一种责任", "网络群组发布信息不用负责", "侮辱他人是言论自由不是违法"], "ans": 0}, {"q": "2025年12月，最高法院长强调要带头做维护宪法尊严的表率。这体现了宪法规定的什么？", "opts": ["任何公民享有宪法权利的同时必须履行宪法义务", "只有普通公民需要遵守法律", "国家工作人员可以特殊对待", "宪法只约束政府行为"], "ans": 0}, {"q": "2026年3月，全国人大常委会依法打击台独分裂势力，将10月25日设立为台湾光复纪念日。这有利于公民履行什么基本义务？", "opts": ["维护国家统一和全国各民族团结的义务", "依法纳税的义务", "受教育的义务", "劳动的义务"], "ans": 0}, {"q": "2025年，网信部门查处82款违法违规App，要求限期整改。这些App违反个人信息保护法等法律，说明企业必须怎样做？", "opts": ["遵守宪法和法律履行法律规定的义务", "只追求利润最大化", "有权收集任何用户信息", "法律只约束个人不约束企业"], "ans": 0}, {"q": "2025年，网信部门查处某App后台运行时收集用户应用程序信息超出必要范围。这体现了什么？", "opts": ["权利和义务是相统一的，公民和企业都要履行相应义务", "用户权利与企业义务无关", "只有企业有义务用户只有权利", "权利可以放弃义务也可以放弃"], "ans": 0}, {"q": "2026年5月，最高法对开盒网暴案判决要求被告向社会公众赔礼道歉并支付赔偿金10万元。这说明什么？", "opts": ["任何违法行为都要承担相应法律责任，法律面前人人平等", "开盒行为只需道歉即可", "网络违法行为不需承担民事责任", "违法行为不涉及金钱就不用赔偿"], "ans": 0}, {"q": "小张在小区散步时被高空坠物砸伤，他可以通过哪种方式维权？", "opts": ["调解、仲裁、诉讼等合法方式", "在小区大吵大闹", "找朋友私下报复", "忍气吞声不维权"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议通过生态环境法典，确立更严格的环保制度。每个公民在享有良好生态环境权利的同时也要履行环保义务。这体现了什么？", "opts": ["公民的权利和义务是相互依存相互促进的，二者是统一的", "公民只享有权利不需要履行义务", "保护环境只是企业的责任", "权利与义务可以分离"], "ans": 0}, {"q": "2026年4月，国家网信办通报33款App存在个人信息收集问题，要求限期整改。监管部门依法查处违规企业体现了什么？", "opts": ["法律对全体社会成员具有普遍约束力，任何组织和个人都必须遵守法律", "只有大型企业需要遵守法律", "App运营者可以拒绝整改", "违法行为不会受到法律制裁"], "ans": 0}]}, {"unit": 3, "lesson": 5, "title": "我国的政治制度", "questions": [{"q": "2026年3月，十四届全国人大四次会议在北京隆重召开，近3000名全国人大代表出席大会，审议政府工作报告、表决通过三部重要法律。这体现了我国的根本政治制度是什么？", "opts": ["人民代表大会制度", "中国共产党领导的多党合作和政治协商制度", "民族区域自治制度", "基层群众自治制度"], "ans": 0}, {"q": "2026年3月，全国人大代表就生态环境法典草案等进行充分审议并提出修改意见。材料表明人大代表行使了什么职权？", "opts": ["审议权", "立法权", "决定权", "任免权"], "ans": 0}, {"q": "2026年3月，全国政协委员围绕政府工作报告和十五五规划踊跃建言献策。这体现了人民政协的主要职能是什么？", "opts": ["政治协商、民主监督、参政议政", "民主选举、民主决策、民主管理", "依法执政、严格执法", "依法行政、公正司法"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议表决通过民族团结进步促进法，自2026年7月1日起施行。该法有利于什么？①维护平等团结互助和谐的社会主义民族关系 ②促进各民族共同繁荣发展 ③铸牢中华民族共同体意识 ④保障少数民族享有高度自治权", "opts": ["①②③", "①③④", "①②④", "②③④"], "ans": 1}, {"q": "2025年，某社区居委会召开居民议事会，就老旧小区加装电梯等问题听取居民意见，投票表决形成方案。这体现了什么基本政治制度？", "opts": ["基层群众自治制度", "人民代表大会制度", "民族区域自治制度", "多党合作和政治协商制度"], "ans": 0}, {"q": "2026年3月，国务院总理在全国人大作政府工作报告，并请政协委员提出意见。这体现了什么？①国务院受全国人大监督 ②人民政协履行民主监督职能 ③全国人大是最高国家权力机关 ④政协委员直接行使管理国家事务的权力", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "广西隆林各族自治县成立70年来，各族群众在党的领导下经济社会发展取得巨大成就。这证明民族区域自治制度有什么作用？", "opts": ["有利于促进民族地区发展和民族团结", "是我国的根本政治制度", "赋予少数民族完全独立权", "是我国最高权力机关"], "ans": 0}, {"q": "2026年3月，生态环境法典由全国人大代表认真审议、充分讨论后表决通过，生动诠释了什么原则？", "opts": ["民主集中制原则", "多党合作原则", "民族区域自治原则", "基层自治原则"], "ans": 0}, {"q": "2026年两会期间，各民主党派中央围绕科技创新等重大问题向大会提交提案。这体现了多党合作的基本方针是什么？", "opts": ["长期共存、互相监督、肝胆相照、荣辱与共", "平等团结互助和谐", "民主选举、民主决策、民主管理", "自我管理、自我服务、自我教育"], "ans": 0}, {"q": "某村开展村务公开日活动，将村级财务收支等情况向村民张榜公布接受监督。这一做法保障了村民的什么权利？", "opts": ["监督权和知情权", "选举权和被选举权", "人身自由权", "财产所有权"], "ans": 0}, {"q": "某中学开展民族团结主题教育活动，各民族学生一起学习民族团结进步促进法。作为中学生维护民族团结应该怎么做？①尊重各民族的宗教信仰风俗习惯语言文字 ②自觉履行维护民族团结的义务 ③坚决反对一切形式的民族分裂活动 ④把民族团结作为当前的中心工作", "opts": ["①②③", "①②④", "①③④", "②③④"], "ans": 0}]}, {"unit": 3, "lesson": 6, "title": "我国的基本经济制度", "questions": [{"q": "2026年1月国家统计局发布数据：2025年我国GDP达到140.19万亿元，比上年增长5.0%。这一成就的取得是因为我国坚持了什么？", "opts": ["社会主义基本经济制度", "单一公有制经济", "计划经济体制", "平均分配制度"], "ans": 0}, {"q": "2026年2月国资委发布：截至2025年底中央企业资产总额突破95万亿元，实现利润总额2.5万亿元。这表明国有经济是什么？", "opts": ["是国民经济的主导力量", "是社会主义经济制度的基础", "是我国基本经济制度的主体", "控制着国民经济的所有领域"], "ans": 0}, {"q": "2025年5月民营经济促进法正式施行，将两个毫不动摇明确为法律制度。该法的施行体现了我国什么？", "opts": ["鼓励、支持、引导非公有制经济发展", "限制非公有制经济发展", "逐步取消公有制经济", "只发展民营经济"], "ans": 0}, {"q": "2025年民营企业在我国高新技术企业中的占比超过92%，在技术创新、增加就业等方面发挥了重要作用。这说明非公有制经济是什么？", "opts": ["是社会主义市场经济的重要组成部分", "是国民经济的主导力量", "控制着国民经济的命脉", "是我国基本经济制度的主体"], "ans": 0}, {"q": "2025年2月习近平总书记出席民营企业座谈会，强调党和国家对民营经济发展的基本方针政策一以贯之。这是因为非公有制经济？①是稳定经济的重要基础 ②是国家税收的重要来源 ③是技术创新的重要主体 ④是国民经济的主导力量", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "2025年中央企业研发投入保持高水平，在关键核心技术攻关方面取得重大突破。这启示我们要怎样？", "opts": ["毫不动摇巩固和发展公有制经济", "以非公有制经济为主体", "完全实行市场经济", "取消所有国有经济"], "ans": 0}, {"q": "2026年政府工作报告提出坚持和落实两个毫不动摇。下列做法符合这一要求的是？①深化国资国企改革做强做优做大国有经济 ②破除民营企业市场准入壁垒促进公平竞争 ③依法保护民营企业产权和企业家权益 ④限制民营经济发展确保国有经济绝对地位", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "某科技公司是民营企业，凭借自主创新研发出国际领先的AI芯片。该公司属于哪种经济形式？", "opts": ["非公有制经济中的私营经济", "公有制经济中的集体经济", "公有制经济中的国有经济", "混合所有制经济中的公有制成分"], "ans": 0}, {"q": "2025年我国持续推进全国统一大市场建设，破除地方保护和市场分割。这体现了社会主义市场经济的什么特点？", "opts": ["市场在资源配置中起决定性作用和更好发挥政府作用", "完全由市场自由调节", "完全由政府指令性计划安排", "取消政府对经济的任何干预"], "ans": 0}, {"q": "2025年民营经济促进法明确规定国家坚持平等对待公平竞争的原则。这反映了我国基本经济制度中的什么？", "opts": ["公有制为主体、多种所有制经济共同发展", "按劳分配为主体、多种分配方式并存", "社会主义市场经济体制", "以上都是社会主义基本经济制度"], "ans": 0}, {"q": "2025年中央企业资产总额突破95万亿元，同时大量民营企业在数字经济领域蓬勃发展。这反映了我国坚持什么？", "opts": ["公有制为主体、多种所有制经济共同发展", "只发展国有经济", "只发展民营经济", "取消公有制经济"], "ans": 0}]}, {"unit": 4, "lesson": 7, "title": "国家权力机关", "questions": [{"q": "2026年3月，十四届全国人大四次会议表决通过生态环境法典、民族团结进步促进法等三部重要法律。这体现了全国人大行使哪项职权？", "opts": ["立法权", "决定权", "任免权", "监督权"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议审查和批准了国务院提出的十五五规划纲要。这体现了全国人大行使哪项职权？", "opts": ["决定权", "立法权", "任免权", "监督权"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议听取和审议了最高人民法院工作报告、最高人民检察院工作报告。这体现了全国人大行使哪项职权？", "opts": ["监督权", "立法权", "决定权", "任免权"], "ans": 0}, {"q": "全国人大常委会2025年共接收报送备案的法规2218件，对存在合宪性问题的督促修改。这体现了全国人大的什么职能？", "opts": ["监督宪法实施的职权", "立法权", "任免权", "决定权"], "ans": 0}, {"q": "我国的最高国家权力机关是什么？", "opts": ["全国人民代表大会", "国务院", "最高人民法院", "最高人民检察院"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议共收到代表议案276件、建议8000余件。人大代表提交议案和建议是在行使什么权利？", "opts": ["提出议案和建议的权利", "立法权", "决定权", "任免权"], "ans": 0}, {"q": "2026年3月，生态环境法典由近3000名全国人大代表表决通过。人大代表来自各地区各民族各方面，这体现了人大的什么特点？", "opts": ["具有广泛的代表性", "具有专业性", "具有独立性", "具有强制性"], "ans": 0}, {"q": "2025年，全国人大常委会对国务院、监察委、最高法、最高检的工作进行了监督。地方各级人民代表大会的性质是什么？", "opts": ["地方国家权力机关", "地方国家行政机关", "地方国家司法机关", "地方国家监察机关"], "ans": 0}, {"q": "2026年3月，全国人大会议期间代表们对生态环境法典草案提出了上万条修改意见，最终形成的草案获高票通过。这体现了什么？", "opts": ["民主立法、科学立法", "代表可以直接决定法律内容", "少数服从多数原则", "代表可以随意修改法律"], "ans": 0}, {"q": "十四届全国人大四次会议审议批准了政府工作报告。全国人大与国务院的关系是什么？", "opts": ["国务院由全国人大产生，对全国人大负责受其监督", "国务院与全国人大平级", "国务院领导全国人大", "全国人大服从国务院领导"], "ans": 0}, {"q": "某县人大代表在开展调研活动时，深入社区听取群众关于老旧小区改造的意见。人大代表为什么要这样做？", "opts": ["人大代表要密切联系群众，反映人民意愿", "人大代表可以自行决定重大事务", "人大代表不需要听取群众意见", "人大代表只需在开会时出席即可"], "ans": 0}]}, {"unit": 4, "lesson": 8, "title": "中华人民共和国主席", "questions": [{"q": "2026年3月，十四届全国人大四次会议上，习近平当选为中华人民共和国主席、中央军事委员会主席。国家主席由哪个机关选举产生？", "opts": ["全国人民代表大会", "国务院", "中国共产党全国代表大会", "全国人民直接选举"], "ans": 0}, {"q": "2026年3月，国家主席习近平签署主席令，公布十四届全国人大四次会议通过的生态环境法典。这体现了国家主席行使哪项职权？", "opts": ["公布法律权", "荣典权", "外交权", "任免权"], "ans": 0}, {"q": "2026年，国家主席习近平根据全国人大常委会的决定，任免驻外全权代表。这体现了国家主席行使哪项职权？", "opts": ["外交权", "荣典权", "任免权", "公布法律权"], "ans": 0}, {"q": "2025年，国家主席习近平授予在抗击自然灾害中作出突出贡献的个人国家荣誉称号。这体现了国家主席行使哪项职权？", "opts": ["荣典权（授予荣誉权）", "外交权", "任免权", "公布法律权"], "ans": 0}, {"q": "2025-2026年，国家主席习近平出席多场国际会议，进行国事访问。这体现了国家主席行使哪项职权？", "opts": ["外交权", "荣典权", "任免权", "公布法律权"], "ans": 0}, {"q": "2026年3月，国家主席习近平根据全国人大决定，任命李强为国务院总理。这体现了国家主席行使哪项职权？", "opts": ["任免权", "外交权", "荣典权", "公布法律权"], "ans": 0}, {"q": "国家主席根据全国人大的决定发布特赦令，这体现了哪项职权？", "opts": ["发布命令权", "外交权", "荣典权", "任免权"], "ans": 0}, {"q": "2026年3月，习近平主席在十四届全国人大四次会议上左手抚按宪法右手举拳进行宪法宣誓。这说明了什么？", "opts": ["国家主席要带头尊崇宪法维护宪法权威", "国家主席可以不受宪法约束", "宪法宣誓只是形式", "国家主席的权力不受限制"], "ans": 0}, {"q": "中华人民共和国主席的地位是什么？", "opts": ["国家元首，代表中华人民共和国", "政府首脑，管理国家行政事务", "立法机关负责人", "司法机关负责人"], "ans": 0}, {"q": "国家主席习近平授予外国友好人士友谊勋章，这体现了国家主席的什么职权？", "opts": ["荣典权", "外交权", "任免权", "公布法律权"], "ans": 0}, {"q": "国家主席是怎样产生的？", "opts": ["由全国人民代表大会选举产生", "由全国人民直接选举产生", "由国务院任命", "由中国共产党中央委员会任命"], "ans": 0}]}, {"unit": 4, "lesson": 9, "title": "国家行政机关", "questions": [{"q": "2026年3月，国务院总理李强在十四届全国人大四次会议上作政府工作报告。这说明国务院与全国人大的关系是什么？", "opts": ["国务院由全国人大产生，对其负责受其监督", "国务院与全国人大平级", "国务院领导全国人大", "国务院不受全国人大监督"], "ans": 0}, {"q": "2025年国务院印发多项政策推动高质量发展，包括优化营商环境、促进民营经济发展等。我国最高国家行政机关是什么？", "opts": ["国务院", "全国人民代表大会", "最高人民法院", "国家监察委员会"], "ans": 0}, {"q": "人民政府的性质是什么？", "opts": ["国家行政机关", "国家权力机关", "国家司法机关", "国家监察机关"], "ans": 0}, {"q": "2025年国务院加快推进放管服改革，取消和下放一批行政审批事项。依法行政要求行政机关做到什么？", "opts": ["法定职责必须为、法无授权不可为", "可以自行扩大职权", "可以随意设定行政规则", "不需要接受监督"], "ans": 0}, {"q": "2026年政府工作报告提出努力建设人民满意的法治政府。各级政府行使权力时必须遵循什么原则？", "opts": ["依法行政原则", "自由裁量原则", "效率优先原则", "权力集中原则"], "ans": 0}, {"q": "2025年，国务院对部分地方政府的乱作为问题进行督查问责，纠正了一批不作为慢作为乱作为问题。这体现了什么？", "opts": ["建设法治政府要求纠正不作为乱作为", "政府行为无需接受监督", "乱作为是正常现象", "政府可以随意行使权力"], "ans": 0}, {"q": "各级人民政府对本级人民代表大会负责并报告工作，体现了什么原则？", "opts": ["民主集中制", "三权分立", "联邦制", "总统制"], "ans": 0}, {"q": "2025年国务院出台多项措施优化营商环境，包括精简审批流程、减轻企业负担。这些措施体现了政府的什么职能？", "opts": ["经济管理和社会服务职能", "立法职能", "司法职能", "监察职能"], "ans": 0}, {"q": "2026年3月，国务院机构设置经过全国人大批准后调整优化。政府的行政职权来自哪里？", "opts": ["宪法和法律的授予", "政府的自我授权", "领导人的决定", "企业的要求"], "ans": 0}, {"q": "某市在推进老旧小区改造中，充分征求居民意见依法依规操作。这体现了政府的什么原则？", "opts": ["依法行政，尊重和保障公民权利", "以政府意愿为主", "可以不听取群众意见", "追求速度不顾程序"], "ans": 0}, {"q": "2025年国务院推进全国一体化政务服务平台建设，让数据多跑路群众少跑腿。这体现了政府怎样的工作导向？", "opts": ["以人民为中心，建设服务型政府", "以效率为中心忽视质量", "只注重政府自身建设", "忽视群众需求"], "ans": 0}]}, {"unit": 4, "lesson": 10, "title": "中央军事委员会", "questions": [{"q": "我国武装力量的最高领导机关是什么？", "opts": ["中央军事委员会", "国务院", "国防部", "全国人民代表大会"], "ans": 0}, {"q": "中央军事委员会实行什么领导体制？", "opts": ["主席负责制", "集体领导制", "委员会制", "总理负责制"], "ans": 0}, {"q": "中央军事委员会主席由哪个机关选举产生？", "opts": ["全国人民代表大会", "国务院", "中共中央", "全国政协"], "ans": 0}, {"q": "下列属于我国武装力量组成部分的是？", "opts": ["中国人民武装警察部队", "公安警察", "交通警察", "司法警察"], "ans": 0}, {"q": "2025年，我国国防和军队改革持续推进，军队建设取得新成就。中央军事委员会副主席由谁任命？", "opts": ["全国人民代表大会或全国人大常委会", "国务院", "国家主席", "国防部"], "ans": 0}, {"q": "2026年3月，习近平再次当选中央军事委员会主席。中央军委主席向谁负责？", "opts": ["全国人民代表大会和全国人大常委会", "国务院", "国家主席", "全体公民"], "ans": 0}, {"q": "2025年，我国颁布实施新修订的国防教育法，推动全民国防教育深入普及。中央军事委员会的首要任务是？", "opts": ["保卫国家安全，维护国家主权和领土完整", "管理国家行政事务", "制定经济政策", "领导立法工作"], "ans": 0}, {"q": "中央军事委员会与其他国家机关的关系是？", "opts": ["中央军委由全国人大产生，对全国人大负责", "中央军委领导全国人大", "中央军委与国务院平级互不隶属", "中央军委不受任何机关监督"], "ans": 0}, {"q": "2025年，我国成功举办多项军事交流活动，深化国际军事合作。中央军事委员会的任期是？", "opts": ["每届任期与全国人大每届任期相同（5年）", "终身制", "每届2年", "每届10年"], "ans": 0}, {"q": "宪法规定中央军事委员会主席向谁负责？", "opts": ["全国人民代表大会和全国人大常委会", "国务院总理", "国家主席", "中央政治局"], "ans": 0}, {"q": "中央军事委员会是全国武装力量的最高领导机关。这个规定出自哪里？", "opts": ["中华人民共和国宪法", "中华人民共和国国防法", "中华人民共和国兵役法", "中华人民共和国军事设施保护法"], "ans": 0}]}, {"unit": 4, "lesson": 11, "title": "国家监察机关", "questions": [{"q": "国家监察机关的性质是什么？", "opts": ["国家监察专责机关", "国家行政机关", "国家司法机关", "国家权力机关"], "ans": 0}, {"q": "2026年3月，最高人民检察院和最高人民法院联合发布惩治三农领域职务犯罪典型案例。监察委员会对公职人员涉嫌职务犯罪进行调查，体现的是哪项职责？", "opts": ["调查职责", "监督职责", "处置职责", "检察职责"], "ans": 0}, {"q": "监察委员会独立行使监察权，不受下列哪项的干涉？", "opts": ["行政机关、社会团体和个人", "全国人民代表大会", "国家主席", "中国共产党"], "ans": 0}, {"q": "监察委员会对违法的公职人员依法作出政务处分决定，体现的是哪项职责？", "opts": ["处置职责", "监督职责", "调查职责", "检察职责"], "ans": 0}, {"q": "2025年12月，两高联合发布依法惩治群众身边腐败犯罪典型案例，涉及住房保障、征地拆迁等领域。这些案例体现了监察机关与司法机关的什么关系？", "opts": ["各司其职、相互配合、相互制约", "监察机关领导司法机关", "司法机关领导监察机关", "二者互不相关"], "ans": 0}, {"q": "2026年3月，国家监委在两会工作报告中通报全年查处违反中央八项规定精神问题情况。监察机关对公职人员进行日常监督，这属于哪项职责？", "opts": ["监督职责", "调查职责", "处置职责", "检察职责"], "ans": 0}, {"q": "2025年，全国各级监察委员会共查处群众身边腐败和作风问题。监察委员会的监察对象是谁？", "opts": ["所有行使公权力的公职人员", "只有政府官员", "只有企业负责人", "只有普通公民"], "ans": 0}, {"q": "监察委员会发现某官员涉嫌职务犯罪，经调查后将案件移送人民检察院审查起诉。这体现了监察机关与检察机关的什么关系？", "opts": ["相互配合、相互制约", "相互独立互不相关", "监察机关领导检察机关", "检察机关领导监察机关"], "ans": 0}, {"q": "某市监察委员会根据举报线索，对一名在征地拆迁中涉嫌贪污的干部进行调查。这体现了监察委员会行使哪项职责？", "opts": ["调查职责", "立法职责", "审判职责", "行政职责"], "ans": 0}, {"q": "2025-2026年，反腐败斗争持续深入推进。监察委员会的监督属于什么性质的监督？", "opts": ["国家监察（专责监督）", "群众监督", "舆论监督", "民主监督"], "ans": 0}, {"q": "监察委员会做出处置后，被调查人对处置决定不服可以怎么办？", "opts": ["依法申请复审复核", "直接提起行政诉讼", "向上访部门投诉", "在媒体上公开发泄不满"], "ans": 0}]}, {"unit": 4, "lesson": 12, "title": "国家司法机关", "questions": [{"q": "人民法院的性质是什么？", "opts": ["国家审判机关", "国家法律监督机关", "国家行政机关", "国家监察机关"], "ans": 0}, {"q": "人民检察院的性质是什么？", "opts": ["国家法律监督机关", "国家审判机关", "国家行政机关", "国家监察机关"], "ans": 0}, {"q": "2025年12月，两高联合发布依法惩治群众身边腐败犯罪典型案例。下列属于专门人民法院的是？", "opts": ["军事法院", "高级人民法院", "中级人民法院", "基层人民法院"], "ans": 0}, {"q": "2026年3月，最高人民法院院长在两会作工作报告，介绍全年审结案件情况。人民法院依法独立行使职权不受哪项的干涉？", "opts": ["行政机关、社会团体和个人", "全国人民代表大会", "中国共产党", "国家主席"], "ans": 0}, {"q": "2026年3月，最高人民检察院工作报告显示，全年共办理各类案件425万余件。人民检察院依法独立行使哪项职权？", "opts": ["检察权", "审判权", "立法权", "行政权"], "ans": 0}, {"q": "2025年，人民法院审理了一系列侵犯公民个人信息犯罪案件，有力维护了公民合法权益。关于人民法院行使审判权，下列说法正确的是？", "opts": ["法院依法独立公正行使审判权", "法院可以听从行政机关的指挥", "法院可以不依据法律判决", "法院的判决可以不执行"], "ans": 0}, {"q": "2025年，人民检察院对一系列侵害民营企业合法权益的案件进行法律监督，保护了企业合法权益。人民检察院在刑事诉讼中的作用包括什么？", "opts": ["审查逮捕、审查起诉、法律监督", "审理案件、作出判决", "制定法律政策", "管理监狱"], "ans": 0}, {"q": "2026年，两高联合发布惩治金融领域职务犯罪典型案例。人民法院和人民检察院的关系是什么？", "opts": ["分工负责、互相配合、互相制约", "法院领导检察院", "检察院领导法院", "二者互不相干"], "ans": 0}, {"q": "2025年，某地人民法院对一起侵犯公民个人信息案公开审理并当庭宣判。人民法院的审判活动体现的司法原则是？", "opts": ["公开审判、公正司法", "以审理者个人意志为准则", "可以随意改变法律", "注重效率忽视公正"], "ans": 0}, {"q": "2025年，某地人民检察院就一起破坏生态环境案件提起公益诉讼。人民检察院履行公益诉讼职能体现了什么？", "opts": ["法律监督机关在维护社会公共利益方面的职责", "审判机关的审判职能", "行政机关的管理职能", "监察机关的调查职能"], "ans": 0}, {"q": "2025-2026年，人民法院持续推进司法公开，通过互联网公开裁判文书。司法公开的意义在于？", "opts": ["保障人民群众的知情权和监督权，促进司法公正", "增加法院工作量", "增加诉讼成本", "减少审判效率"], "ans": 0}]}, {"unit": 5, "lesson": 13, "title": "坚持全面依法治国", "questions": [{"q": "2026年5月，国新办举行发布会介绍推进全面依法治国情况。会议强调以习近平法治思想为指引推进全面依法治国。习近平法治思想的核心要义是什么？", "opts": ["十二个坚持", "四个全面", "五位一体", "八个明确"], "ans": 0}, {"q": "2026年5月，中央政法委负责人在发布会上指出十五五规划明确了法治中国建设的路线图。全面依法治国的总目标是什么？", "opts": ["建设中国特色社会主义法治体系，建设社会主义法治国家", "实现全体公民的绝对自由", "完全照搬西方法治模式", "取消党对法治工作的领导"], "ans": 0}, {"q": "2025年9月，十四届全国人大常委会表决通过法治宣传教育法，首次将习近平法治思想写入国家法律文本。这说明什么？", "opts": ["习近平法治思想具有重要的法律地位", "法治宣传教育法是一部刑法", "国家不再需要其他法律", "法治教育只针对领导干部"], "ans": 0}, {"q": "2026年十五五规划纲要明确提出建设更高水平的社会主义法治国家。建设法治国家要求？①坚持宪法法律至上 ②坚持良法之治 ③尊重和保障公民权利 ④限制公民言论自由", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "2026年3月，十四届全国人大四次会议表决通过三部重要法律。这体现了全面依法治国首先要坚持什么？", "opts": ["科学立法", "严格执法", "公正司法", "全民守法"], "ans": 0}, {"q": "十五五法治中国建设强调完善以宪法为核心的中国特色社会主义法律体系。这是因为宪法是？", "opts": ["国家的根本法", "普通法律的总和", "可以随意修改的", "只规定公民义务的"], "ans": 0}, {"q": "2026年5月，司法部负责人介绍我国将加快研究推进人工智能、低空经济等新兴领域立法。这体现了科学立法要怎样？", "opts": ["顺应时代发展需要，回应社会关切", "脱离社会实践", "只关注传统领域", "不考虑实际可行性"], "ans": 0}, {"q": "2025年全国人大常委会制定原子能法、危险化学品安全法等法律，修改传染病防治法等。这表明我国正在怎样？", "opts": ["不断完善法律体系，推进法治建设", "法律法规已经足够完善", "立法工作不再需要推进", "法律越多越好不需要考虑质量"], "ans": 0}, {"q": "全面依法治国是国家治理的一场深刻革命。关于全面依法治国说法正确的是？①坚持党对全面依法治国的领导 ②坚持法治为了人民依靠人民 ③坚持依法治国依法执政依法行政共同推进 ④法治建设只靠政府就可以完成", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "全面依法治国要求全民守法。对于青少年来说全民守法意味着什么？", "opts": ["尊法学法守法用法，增强法治意识", "青少年年龄小不需要遵守法律", "只有成年人才需要守法", "知道法律就足够了"], "ans": 0}, {"q": "2025年全国人大常委会制定了多部法律修改了多部法律法规，涵盖国家安全、民生保障、生态文明等各领域。这体现了全面依法治国在哪方面的要求？", "opts": ["科学立法——完善以宪法为核心的中国特色社会主义法律体系", "严格执法——政府要依法行政", "公正司法——法院要公正审判", "全民守法——公民要自觉守法"], "ans": 0}]}, {"unit": 5, "lesson": 14, "title": "以法治推进国家治理现代化", "questions": [{"q": "2025-2026年，个人信息保护法实施以来多部门联合开展App违法违规收集个人信息专项治理。个人信息保护法的出台体现了什么？", "opts": ["法治回应社会关切，保障公民合法权益", "法律可以完全杜绝信息泄露", "个人信息保护只需靠道德约束", "个人信息保护与法律无关"], "ans": 0}, {"q": "民法典作为社会生活的百科全书，自实施以来在保护公民民事权利方面发挥了重要作用。民法典的实施有利于？①保护公民的民事权利 ②维护社会公平正义 ③推进全面依法治国 ④替代所有其他法律", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "十五五规划提出在隐私保护方面深化国际交流合作。我国坚持法治与德治协同推进个人信息保护，这是因为什么？", "opts": ["法治与德治相辅相成、相互促进", "法治比德治更重要", "德治可以完全替代法治", "法治是多余的靠道德就够了"], "ans": 0}, {"q": "2025年，习近平总书记强调要坚持依法治国和以德治国相结合。这是因为？①法律是成文的道德，道德是内心的法律 ②法律和道德都具有规范社会行为的作用 ③国家治理既需要法律也需要道德 ④法治和德治是一回事", "opts": ["①②③", "①②④", "②③④", "①③④"], "ans": 0}, {"q": "2025年8月，最高法发布关于贯彻落实民营经济促进法的意见，以法治手段为民营经济发展保驾护航。这体现了什么？", "opts": ["法治为改革和发展提供保障", "法治阻碍经济发展", "改革可以不受法律约束", "法治与改革是对立的"], "ans": 0}, {"q": "民法典规定死者的姓名肖像名誉荣誉隐私等受到侵害的其近亲属有权依法请求赔偿。这一规定体现了民法典对什么的保护？", "opts": ["人格尊严的保护", "财产权利的保护", "合同自由的保护", "知识产权的保护"], "ans": 0}, {"q": "习近平总书记强调改革和法治如鸟之两翼车之两轮相辅相成相伴而生。这句话说明什么？", "opts": ["改革与法治相互促进、不可偏废", "改革比法治更重要", "法治比改革更重要", "改革不需要法治的保障"], "ans": 0}, {"q": "某地在推进老旧小区加装电梯这一民生工程中，既依法依规操作又倡导邻里互助协商解决矛盾。这种做法体现了什么？", "opts": ["法治与德治相结合", "只重视法治", "只依靠德治", "法治与德治互不相干"], "ans": 0}, {"q": "2025年民营经济促进法将两个毫不动摇明确为法律制度，同时倡导企业家爱国敬业守法经营回报社会。该法的制定体现了什么？", "opts": ["法治与德治在国家治理中的协同推进", "只强调法律约束", "只依靠道德说教", "法律和道德互不相关"], "ans": 0}, {"q": "2025年，我国至少有十余部涉及个人信息保护的政策法规出台施行。这表明我国在法治建设方面正在怎样？", "opts": ["个人信息保护法律制度体系正在加速完善", "个人信息已经不需要保护了", "法律越多越好不需要考虑实际效果", "个人信息保护只靠一部法律就够了"], "ans": 0}, {"q": "法律是成文的道德，道德是内心的法律。这句话体现了法治与德治怎样的关系？", "opts": ["法治与德治相辅相成、相互促进、相得益彰", "法治优于德治", "德治优于法治", "法治与德治互不相干"], "ans": 0}]}];
+var TOTAL_LESSONS = 14;
+
+var state = {};
+for (var i = 0; i < TOTAL_LESSONS; i++) {
+    state[i] = {
+        current: 0,
+        selected: (function(n){var a=[];for(var i=0;i<n;i++)a.push(-1);return a;})(DATA[i].questions.length),
+        answered: (function(n){var a=[];for(var i=0;i<n;i++)a.push(false);return a;})(DATA[i].questions.length),
+        correct: (function(n){var a=[];for(var i=0;i<n;i++)a.push(false);return a;})(DATA[i].questions.length)
+    };
+}
+
+function showDashboard() {
+    var pages = document.querySelectorAll(".page");
+    for (var pi = 0; pi < pages.length; pi++) { pages[pi].classList.remove("active"); }
+    document.getElementById("page-dashboard").classList.add("active");
+    updateStats();
+}
+
+function showUnit(u) {
+    var pages = document.querySelectorAll(".page");
+    for (var pi = 0; pi < pages.length; pi++) { pages[pi].classList.remove("active"); }
+    document.getElementById("page-unit" + u).classList.add("active");
+}
+
+function showLesson(idx) {
+    var pages = document.querySelectorAll(".page");
+    for (var pi = 0; pi < pages.length; pi++) { pages[pi].classList.remove("active"); }
+    document.getElementById("page-lesson" + idx).classList.add("active");
+    renderLesson(idx);
+}
+
+function renderLesson(idx) {
+    var l = DATA[idx];
+    var s = state[idx];
+    var q = l.questions[s.current];
+
+    // 题目网格
+    for (var i = 0; i < l.questions.length; i++) {
+        var el = document.getElementById("qg-" + idx + "-" + i);
+        if (!el) continue;
+        el.className = "q-grid-item";
+        if (i === s.current) el.classList.add("current");
+        if (s.answered[i] && s.correct[i]) el.classList.add("done");
+        if (s.answered[i] && !s.correct[i]) el.classList.add("wrong");
+    }
+
+    // 题号
+    document.getElementById("qnum-" + idx).textContent = s.current + 1;
+
+    // 题目文本
+    document.getElementById("qtext-" + idx).textContent = q.q;
+
+    // 选项
+    var letters = ["A","B","C","D"];
+    var optsDiv = document.getElementById("qopts-" + idx);
+    optsDiv.innerHTML = "";
+    for (var i = 0; i < q.opts.length; i++) {
+        var opt = document.createElement("div");
+        opt.className = "option";
+        if (s.answered[s.current]) {
+            opt.classList.add("disabled");
+            if (i === q.ans) opt.classList.add("correct");
+            if (i === s.selected[s.current] && i !== q.ans) opt.classList.add("wrong");
+        } else if (s.selected[s.current] === i) {
+            opt.classList.add("selected");
+        }
+        opt.innerHTML = '<span class="letter">' + letters[i] + '</span><span>' + q.opts[i] + '</span>';
+        if (!s.answered[s.current]) {
+            opt.onclick = (function(li, oi) {
+                return function() { selectOpt(li, oi); };
+            })(idx, i);
+        }
+        optsDiv.appendChild(opt);
+    }
+
+    // 进度
+    document.getElementById("qprog-" + idx).textContent = (s.current + 1) + "/" + l.questions.length;
+    var answeredCount = 0;
+    for (var fi = 0; fi < s.answered.length; fi++) { if (s.answered[fi]) answeredCount++; }
+    document.getElementById("progress-text-" + idx).textContent = answeredCount + "/" + l.questions.length;
+
+    // 按钮
+    document.getElementById("prev-" + idx).disabled = (s.current === 0);
+    document.getElementById("next-" + idx).disabled = (s.current === l.questions.length - 1);
+
+    // 圆点
+    for (var i = 0; i < l.questions.length; i++) {
+        var dot = document.getElementById("dot-" + idx + "-" + i);
+        if (dot) {
+            dot.className = "dot" + (s.answered[i] ? " done" : "");
+        }
+    }
+
+    updateStats();
+}
+
+function selectOpt(idx, oi) {
+    var s = state[idx];
+    if (s.answered[s.current]) return;
+    var l = DATA[idx];
+    s.selected[s.current] = oi;
+    s.answered[s.current] = true;
+    s.correct[s.current] = (oi === l.questions[s.current].ans);
+
+    // 判断全课完成
+    var allDone = true;
+    for (var ei = 0; ei < s.answered.length; ei++) { if (!s.answered[ei]) { allDone = false; break; } }
+    if (allDone) {
+        var total = s.answered.length;
+        var corrects = 0;
+        for (var i = 0; i < s.correct.length; i++) { if (s.correct[i]) corrects++; }
+        setTimeout(function() {
+            document.getElementById("modal-score").textContent = Math.round(corrects / total * 100) + "%";
+            var rate = corrects / total;
+            var msg = "继续加油！";
+            if (rate >= 0.9) msg = "太棒了，掌握得很好！🌟";
+            else if (rate >= 0.7) msg = "不错，再巩固一下效果更好！👍";
+            else if (rate >= 0.5) msg = "需要多复习一下知识点哦！📖";
+            document.getElementById("modal-msg").textContent = msg;
+            document.getElementById("modal").classList.add("show");
+        }, 500);
+    }
+
+    renderLesson(idx);
+}
+
+function goToQ(idx, qi) {
+    state[idx].current = qi;
+    renderLesson(idx);
+}
+
+function prevQ(idx) {
+    if (state[idx].current > 0) {
+        state[idx].current--;
+        renderLesson(idx);
+    }
+}
+
+function nextQ(idx) {
+    if (state[idx].current < DATA[idx].questions.length - 1) {
+        state[idx].current++;
+        renderLesson(idx);
+    }
+}
+
+function resetLesson(idx) {
+    state[idx] = {
+        current: 0,
+        selected: (function(n){var a=[];for(var i=0;i<n;i++)a.push(-1);return a;})(DATA[idx].questions.length),
+        answered: (function(n){var a=[];for(var i=0;i<n;i++)a.push(false);return a;})(DATA[idx].questions.length),
+        correct: (function(n){var a=[];for(var i=0;i<n;i++)a.push(false);return a;})(DATA[idx].questions.length)
+    };
+    renderLesson(idx);
+}
+
+function closeModal() {
+    document.getElementById("modal").classList.remove("show");
+}
+
+function updateStats() {
+    var totalDone = 0;
+    var totalCorrect = 0;
+    var totalAnswered = 0;
+    for (var i = 0; i < TOTAL_LESSONS; i++) {
+        var s = state[i];
+        for (var j = 0; j < s.answered.length; j++) {
+            if (s.answered[j]) {
+                totalDone++;
+                totalAnswered++;
+                if (s.correct[j]) totalCorrect++;
+            }
+        }
+    }
+    document.getElementById("stat-done").textContent = totalDone;
+    var rate = totalAnswered > 0 ? Math.round(totalCorrect / totalAnswered * 100) : 0;
+    document.getElementById("stat-rate").textContent = rate + "%";
+
+    // 已完成单元数
+    var unitLessons = {};
+    for (var i = 0; i < TOTAL_LESSONS; i++) {
+        var u = DATA[i].unit;
+        if (!unitLessons[u]) unitLessons[u] = [];
+        unitLessons[u].push(i);
+    }
+    var unitsDone = 0;
+    for (var u in unitLessons) {
+        var all = true;
+        for (var k = 0; k < unitLessons[u].length; k++) {
+            var idx = unitLessons[u][k];
+            var s = state[idx];
+            for (var j = 0; j < s.answered.length; j++) {
+                if (!s.answered[j]) { all = false; break; }
+            }
+            if (!all) break;
+        }
+        if (all) unitsDone++;
+    }
+    document.getElementById("stat-streak").textContent = unitsDone + "/5";
+}
+</script>
+</body>
+</html>
