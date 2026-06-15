@@ -1,34 +1,907 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>分层教学&八下复习专项课件汇总</title>
-    <style>
-        body {
-            text-align: center;
-            margin-top: 100px;
-            font-size:24px;
-        }
-        a {
-            display:block;
-            margin:18px;
-            color:#0366d6;
-            text-decoration:none;
-        }
-        a:hover {
-            text-decoration:underline;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八下道德与法治 · 单元复习交互课件</title>
+<style>
+  :root {
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --primary: #1a56db;
+    --primary-light: #e8f0fe;
+    --accent: #d97706;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --success: #059669;
+    --danger: #dc2626;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,.1);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 30%, #f0f4ff 60%, #fef3c7 100%);
+    min-height: 100vh;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #1e3a5f, #1a56db);
+    color: #fff;
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+  .header .sub { font-size: 13px; opacity: .85; margin-top: 6px; }
+  .header .badge {
+    display: inline-block;
+    margin-top: 8px;
+    background: rgba(255,255,255,.2);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: .5px;
+  }
+  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px 40px; }
+
+  .progress-bar-wrap {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1a56db, #3b82f6);
+    transition: width .4s ease;
+    border-radius: 5px;
+  }
+  .progress-text { font-size: 13px; color: var(--text-light); white-space: nowrap; font-weight: 500; }
+
+  .unit-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .unit-btn {
+    flex: 1 1 calc(20% - 8px);
+    min-width: 100px;
+    padding: 12px 8px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .unit-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+  .unit-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; box-shadow: 0 0 0 3px rgba(26,86,219,.2); }
+  .unit-btn.done { border-color: var(--success); background: #ecfdf5; }
+  .unit-btn .num { display: block; font-size: 11px; opacity: .7; font-weight: 400; }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    transition: all .3s;
+  }
+  .card:hover { box-shadow: var(--shadow-lg); }
+  .card h2 { font-size: 20px; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .card .unit-kw {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .knowledge-list { display: flex; flex-direction: column; gap: 10px; }
+  .k-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all .2s;
+    background: #fafbfc;
+  }
+  .k-item:hover { border-color: var(--primary); background: var(--primary-light); }
+  .k-item .k-title { font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+  .k-item .k-detail { max-height: 0; overflow: hidden; transition: max-height .4s ease, margin .4s ease; font-size: 14px; color: var(--text-light); }
+  .k-item.open .k-detail { max-height: 300px; margin-top: 10px; }
+  .k-item .arrow { transition: transform .3s; font-size: 12px; color: var(--text-light); }
+  .k-item.open .arrow { transform: rotate(180deg); }
+  .k-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .tag-important { background: #fef2f2; color: #dc2626; }
+  .tag-key { background: #eff6ff; color: #1a56db; }
+  .tag-basic { background: #f0fdf4; color: #059669; }
+
+  .quiz-section { margin-top: 20px; }
+  .quiz-header-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .quiz-header-bar h3 { font-size: 17px; color: #1e293b; margin: 0; }
+  .quiz-pagination { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+  .quiz-pagination button {
+    width: 32px; height: 32px; border: 1px solid var(--border);
+    border-radius: 6px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600;
+    transition: all .15s; color: var(--text);
+  }
+  .quiz-pagination button:hover { border-color: var(--primary); background: var(--primary-light); }
+  .quiz-pagination button.answered-correct { background: #d1fae5; border-color: var(--success); color: var(--success); }
+  .quiz-pagination button.answered-wrong { background: #fee2e2; border-color: var(--danger); color: var(--danger); }
+  .quiz-pagination button.active-q { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .quiz-pagination .sep { color: var(--text-light); font-size: 13px; margin: 0 2px; }
+
+  .quiz-card {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    background: #fafbfc;
+  }
+  .quiz-card .q-num { font-size: 12px; color: var(--text-light); margin-bottom: 6px; font-weight: 500; }
+  .quiz-card .q-text { font-size: 15px; font-weight: 600; margin-bottom: 16px; line-height: 1.6; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all .2s;
+    background: #fff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .option:hover { border-color: var(--primary); }
+  .option.selected { border-color: var(--primary); background: var(--primary-light); }
+  .option.correct { border-color: var(--success); background: #ecfdf5; color: var(--success); }
+  .option.wrong { border-color: var(--danger); background: #fef2f2; color: var(--danger); }
+  .option .opt-letter {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; flex-shrink: 0;
+    border: 2px solid var(--border); background: #f8fafc;
+  }
+  .option.correct .opt-letter { border-color: var(--success); background: #d1fae5; }
+  .option.wrong .opt-letter { border-color: var(--danger); background: #fee2e2; }
+
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+  .feedback.wrong { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+
+  .quiz-nav-row { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; border: none; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: #1e40af; }
+  .btn-outline { background: #fff; border: 2px solid var(--primary); color: var(--primary); }
+  .btn-outline:hover { background: var(--primary-light); }
+  .btn-sm { padding: 6px 14px; font-size: 12px; }
+  .btn-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+  .mindmap {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; overflow-x: auto;
+  }
+  .mindmap svg { display: block; margin: 0 auto; }
+
+  .stats-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat-card {
+    flex: 1; min-width: 80px; background: var(--card);
+    border-radius: var(--radius-sm); padding: 14px;
+    text-align: center; box-shadow: var(--shadow);
+  }
+  .stat-card .val { font-size: 28px; font-weight: 700; color: var(--primary); }
+  .stat-card .lbl { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: var(--text-light); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeIn .4s ease; }
+
+  @media (max-width: 600px) {
+    .unit-btn { flex: 1 1 calc(33.33% - 8px); font-size: 12px; }
+    .header h1 { font-size: 18px; }
+    .card { padding: 16px; }
+  }
+</style>
 </head>
 <body>
-    <h1>分层教学&八下复习专项课件汇总</h1>
-    <h3>难易分层课件</h3>
-    <a href="./easy/">简单难度课件</a>
-    <a href="./middle/">中等难度课件</a>
-    <a href="./hard/">困难难度课件</a>
 
-    <h3>八下复习专项课件</h3>
-      <a href="./siweidaotu/">思维导图</a>
-    <a href="./xuanzheti/">选择题</a>
+<div class="header">
+  <h1>八年级下册 · 道德与法治</h1>
+  <div class="sub">2026版统编教材 · 2022版新课标 · 单元复习交互课件</div>
+  <div class="badge">核心主题：2026年时政 · 五单元十四课复习</div>
+</div>
+
+<div class="container">
+  <div class="stats-bar fade-in">
+    <div class="stat-card">
+      <div class="val" id="totalQuiz">0</div>
+      <div class="lbl">总练习题</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="doneQuiz">0</div>
+      <div class="lbl">已完成</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="scoreRate">0%</div>
+      <div class="lbl">正确率</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="streak">0</div>
+      <div class="lbl">连续正确</div>
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap fade-in">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressLabel">0 / 5 单元</div>
+  </div>
+
+  <div class="unit-nav fade-in" id="unitNav"></div>
+
+  <div id="mainContent"></div>
+
+  <div class="footer">
+    星光 · 教学助手 &nbsp; | &nbsp; 紧扣2022版新课标，基于2026版统编教材
+  </div>
+</div>
+
+<script>
+// ==================== 数据 ====================
+const unitData = [
+{
+    id: 1,
+    title: "第一单元 坚持宪法至上",
+    titleShort: "宪法至上",
+    kw: "宪法是国家的根本法，是治国安邦的总章程，具有最高的法律地位、法律权威和法律效力",
+    badges: [
+      "宪法至上",
+      "根本法",
+      "依宪治国"
+    ],
+    lessons: [
+      {
+        title: "第1课 治国安邦的总章程",
+        points: [
+          {
+            text: "党领导人民制定宪法——宪法是党的主张和人民意志的统一",
+            tag: "key",
+            detail: "中国共产党领导人民制定宪法，以法律形式确认了中国各族人民奋斗的成果，确立了党的历史领导地位。"
+          },
+          {
+            text: "宪法基本原则：国家一切权力属于人民；尊重和保障人权",
+            tag: "important",
+            detail: "我国是人民民主专政的社会主义国家，国家一切权力属于人民。广大人民通过人民代表大会行使国家权力。"
+          },
+          {
+            text: "规范国家权力运行以保障公民权利——宪法的核心价值追求",
+            tag: "important",
+            detail: "权力是一把双刃剑。把权力关进制度的笼子，依法设定权力、规范权力、制约权力、监督权力。"
+          }
+        ]
+      },
+      {
+        title: "第2课 维护宪法权威",
+        points: [
+          {
+            text: "宪法具有最高的法律地位、法律权威、法律效力",
+            tag: "key",
+            detail: "宪法是国家一切法律法规的总依据、总源头。与宪法相违背的法规因违宪而无效。"
+          },
+          {
+            text: "一切组织和个人都必须在宪法和法律范围内活动",
+            tag: "important",
+            detail: "任何组织或个人都不能凌驾于宪法之上。中国共产党也必须依据宪法法律治国理政。"
+          },
+          {
+            text: "增强宪法意识——认同宪法、学习宪法、践行宪法",
+            tag: "basic",
+            detail: "宪法的根基在于人民发自内心的拥护。我们要了解宪法发展历程，自觉抵制损害宪法尊严的行为。"
+          }
+        ]
+      }
+    ],
+    quiz: [
+    { q: "2026年3月，十四届全国人大四次会议在京召开，审议通过十五五规划纲要等重大事项。这体现了全国人大是？", opts: ["最高国家行政机关", "最高国家审判机关", "最高国家权力机关", "最高国家监察机关"], ans: 2 },
+    { q: "2026年国务院发布《国家人权行动计划(2026-2030年)》，将受教育权健康权等纳入保障。这体现了宪法中什么原则？", opts: ["程序性原则", "国家尊重和保障人权", "独立自主原则", "对外开放原则"], ans: 1 },
+    { q: "全国人大会议期间代表在人民大会堂进行宪法宣誓。宪法宣誓制度的意义在于？", opts: ["强化宪法意识和宪法权威", "增加就职仪式感", "提高代表薪酬待遇", "简化法律会议流程"], ans: 0 },
+    { q: "全国人大审议十五五规划纲要时需确保内容符合宪法原则和精神。这说明宪法具有？", opts: ["与规划同等效力", "仅约束公民的效力", "最高的法律地位和法律效力", "低于规划的地位"], ans: 2 },
+    { q: "全国人大常委会在十五五规划建议中提出强化合宪性审查。合宪性审查的目的是？", opts: ["增加审查流程环节", "限制行政法规制定", "推动立法程序简化", "维护宪法权威保证国家法制统一"], ans: 3 },
+    { q: "全国人大会议上代表审议国务院工作报告并进行满意度表决。这体现人大与政府间的什么关系？", opts: ["相互制衡", "各自独立运行", "人大监督政府工作", "政府领导人大"], ans: 2 },
+    { q: "十五五规划纲要提出推进全面依法治国强调一切组织个人须遵守宪法法律。这体现了？", opts: ["官员可超越法律", "法律只约束公民", "宪法仅约束国家机关", "宪法是一切组织个人的根本活动准则"], ans: 3 },
+    { q: "国家人权行动计划将尊重和保障人权写入各领域规划。这体现了宪法人权保障原则的什么特征？", opts: ["是空洞的原则", "通过具体制度在立法执法司法各环节落实", "可选择性遵守", "仅在文件中存在"], ans: 1 },
+    { q: "全国人大四次会议通过决议要求地方性法规须与宪法保持一致。这一制度的目的是？", opts: ["削弱地方积极性", "保证社会主义法制统一", "取消地方立法权", "减缓立法效率"], ans: 1 },
+    { q: "全国人大会议期间代表就民生保障新质生产力等议题提出数千条建议交由政府逐件办理。这体现了？", opts: ["人民通过人大行使国家权力", "代表无权提建议", "政府可以不回复", "提案只是形式需要"], ans: 0 },
+    { q: "十五五规划纲要将建设法治中国纳入总体目标与宪法坚持依法治国原则相呼应。这是为了？", opts: ["以宪法为根本推进国家治理现代化", "完成立法数量指标", "取代现有法律体系", "削弱宪法权威"], ans: 0 },
+    { q: "赵乐际委员长在全国人大会议上作全国人大常委会工作报告交大会审议。这表明宪法赋予全国人大的职权是？", opts: ["管理社会事务", "执行行政命令", "审批企业项目", "立法权决定权监督权任免权"], ans: 3 }
+    ]
+  },
+{
+    id: 2,
+    title: "第二单元 理解权利义务",
+    titleShort: "权利义务",
+    kw: "公民权利与义务相统一，依法行使权利、自觉履行义务",
+    badges: [
+      "权利意识",
+      "义务观念",
+      "法治素养"
+    ],
+    lessons: [
+      {
+        title: "第3课 公民的基本权利和义务",
+        points: [
+          {
+            text: "政治权利和自由：选举权被选举权、六项政治自由、监督权",
+            tag: "important",
+            detail: "公民享有选举权和被选举权；有言论出版集会结社游行示威的自由；对国家机关工作人员有批评建议申诉控告检举权。"
+          },
+          {
+            text: "人身自由：不受侵犯、人格尊严、住宅、通信自由和秘密",
+            tag: "key",
+            detail: "人身自由是公民最基本最重要的权利。包括人身自由不受侵犯、人格尊严不受侵犯、住宅不受侵犯、通信自由和通信秘密受法律保护。"
+          },
+          {
+            text: "社会经济与文化教育权利：财产权、劳动权、受教育权等",
+            tag: "important",
+            detail: "公民合法私有财产不受侵犯；公民有劳动的权利和义务；受教育既是公民权利也是公民义务。"
+          }
+        ]
+      },
+      {
+        title: "第4课 依法行使权利和履行义务",
+        points: [
+          {
+            text: "行使权利有界限——不得损害国家社会集体利益和其他公民合法权利",
+            tag: "key",
+            detail: "任何权利都有范围，公民在行使自由和权利时不得损害国家社会集体利益和其他公民合法的自由和权利。"
+          },
+          {
+            text: "权利义务相统一——相互依存相互促进",
+            tag: "important",
+            detail: "没有无义务的权利也没有无权利的义务。权利的实现需要义务的履行，义务的履行促进权利的实现。"
+          },
+          {
+            text: "法定义务须履行——法律要求做的必须做，法律禁止做的坚决不做",
+            tag: "basic",
+            detail: "违反法定义务须承担相应法律责任：民事责任、行政责任、刑事责任。公民权利受侵害时应依法维权。"
+          }
+        ]
+      }
+    ],
+    quiz: [
+    { q: "《国家人权行动计划(2026-2030年)》明确保障公民受教育权健康权等。受教育权对公民来说？", opts: ["仅是权利", "既是权利也是义务", "仅是义务", "与义务教育无关"], ans: 1 },
+    { q: "2026年中央政法工作会议提出关注新就业群体权益保护，保障快递员外卖骑手等群体劳动权益。这体现了？", opts: ["新就业群体不享有权利", "平台可自行定义", "公民劳动权受宪法和法律保护", "只有传统劳动者受保护"], ans: 2 },
+    { q: "某市民通过12345热线反映交通拥堵问题，相关部门一周内完成整改并公示。这体现了公民行使了？", opts: ["监督权", "选举权", "肖像权", "教育权"], ans: 0 },
+    { q: "两高报告显示法院去年审结严重暴力犯罪四万余件打击犯罪保护公民人身安全。这体现了？", opts: ["人格尊严受法律保护", "执法可以超越法律", "司法忽视公民权益", "人身自由不受侵犯"], ans: 3 },
+    { q: "十五五规划纲要提出完善全民健身公共服务体系各地新建健身步道和运动场馆。这保障了公民的？", opts: ["政治权利", "选举权", "立法权", "文化权利"], ans: 3 },
+    { q: "某平台骑手在派送途中受伤经劳动仲裁确认劳动关系并获得工伤赔偿。从劳动者权益角度这说明了？", opts: ["新型劳动者不受保护", "平台可免责", "劳动者权益受法律保护权益受侵害应依法维权", "仲裁结果非终局"], ans: 2 },
+    { q: "今年两会期间一位人大代表提出加强个人信息保护的建议被列入重点办理。从公民权利角度看这涉及？", opts: ["选举权", "隐私权和个人信息保护", "集会自由", "税收权利"], ans: 1 },
+    { q: "国家多部门开展打击电信网络诈骗专项行动2025年破获案件数十万起为群众挽回巨额损失。这体现了？", opts: ["反诈与公民无关", "诈骗是小事可忽略", "国家保障公民财产安全打击违法犯罪", "反诈只靠个人防范"], ans: 2 },
+    { q: "某社区在十五五规划基层调研中组织居民对改造方案进行投票表决。这体现了公民的什么参与方式？", opts: ["无权参与决策", "基层民主和民主决策实践", "只有干部说了算", "民主与居民生活无关"], ans: 1 },
+    { q: "十五五期间继续实施义务教育巩固提升工程保障每个孩子上得起学上好学。关于受教育权以下理解正确的是？", opts: ["受教育权是由国家宪法和法律保障的基本权利", "受教育仅与个人命运有关", "读书不需政府保障", "教育没有国界"], ans: 0 },
+    { q: "各地推进政务公开将政府决策依据和结果向社会公布接受各界监督。从公民权利角度看这主要保障了？", opts: ["隐私权", "肖像权", "专利权", "知情权和监督权"], ans: 3 },
+    { q: "新修订的个人信息保护法实施后某APP因过度收集用户信息被网信办下架处罚。这说明了什么？", opts: ["公民个人信息受法律保护违法收集须承担法律责任", "APP可随意收集信息", "处罚过重不当", "法律形同虚设"], ans: 0 }
+    ]
+  },
+{
+    id: 3,
+    title: "第三单元 认识国家制度",
+    titleShort: "国家制度",
+    kw: "中国特色社会主义制度包括根本政治制度、基本政治制度和基本经济制度",
+    badges: [
+      "制度自信",
+      "政治认同",
+      "国家认同"
+    ],
+    lessons: [
+      {
+        title: "第5课 我国的政治制度",
+        points: [
+          {
+            text: "根本政治制度：人民代表大会制度",
+            tag: "key",
+            detail: "人民通过民主选举选出代表组成各级人民代表大会作为国家权力机关。全国人大是最高国家权力机关。"
+          },
+          {
+            text: "基本政治制度：多党合作和政治协商、民族区域自治、基层群众自治",
+            tag: "important",
+            detail: "中国共产党领导的多党合作和政治协商制度：长期共存互相监督肝胆相照荣辱与共。民族区域自治：在少数民族聚居地方实行。基层群众自治：村民自治居民自治。"
+          }
+        ]
+      },
+      {
+        title: "第6课 我国的基本经济制度",
+        points: [
+          {
+            text: "公有制为主体：国有经济主导、集体经济重要组成部分",
+            tag: "key",
+            detail: "国有经济是国民经济的主导力量，对于发挥社会主义制度优越性具有关键作用。"
+          },
+          {
+            text: "多种所有制经济共同发展：非公有制经济是重要组成部分",
+            tag: "important",
+            detail: "非公有制经济在支撑增长促进创新扩大就业增加税收等方面具有重要作用。"
+          },
+          {
+            text: "分配制度：按劳分配为主体、多种分配方式并存",
+            tag: "basic",
+            detail: "社会主义市场经济体制把社会主义制度与市场经济有机结合起来，发挥市场决定性作用和更好发挥政府作用。"
+          }
+        ]
+      }
+    ],
+    quiz: [
+    { q: "2026年十四届全国人大四次会议审议并通过十五五规划纲要。这体现了我国的根本政治制度是？", opts: ["民族区域自治制度", "基层群众自治制度", "人民代表大会制度", "多党合作制度"], ans: 2 },
+    { q: "全国政协十四届四次会议与全国人大会议同期召开政协委员列席人大会议听取报告并提出建议。这体现了？", opts: ["政协等同于人大", "政协行使立法权", "人大服从政协", "多党合作和政治协商制度"], ans: 3 },
+    { q: "十五五规划纲要提出发挥国有经济主导作用同时激发民营经济活力。这反映的基本经济制度是？", opts: ["纯公有制", "公有制为主体多种所有制共同发展", "单一计划经济体制", "完全市场化模式"], ans: 1 },
+    { q: "今年两会提出发展新质生产力推动科技创新。国家在新能源汽车等领域形成国企引领民企协同格局。这体现了？", opts: ["多种所有制经济协同发展", "国企应退出所有领域", "民企不应参与科技创新", "科技创新只需市场化运作"], ans: 0 },
+    { q: "全国人大代表由各省选举产生汇集民意提交议案由全国人大统一审议。这体现了国家机构的什么原则？", opts: ["三权分立", "总统制", "联邦制", "民主集中制"], ans: 3 },
+    { q: "2026年国家在贵州云南等少数民族地区继续实施帮扶项目促进共同繁荣。这体现了什么制度？", opts: ["民族区域自治和各民族共同繁荣", "汉族优先制", "取消民族自治", "少数民族特殊优待"], ans: 0 },
+    { q: "某村通过村民代表大会投票决定土地流转方案方案经公示后执行。这属于什么治理方式？", opts: ["群众无权参与", "乡镇直接管理一切", "基层群众自治的民主实践", "村务可由少数人决定"], ans: 2 },
+    { q: "十五五规划纲要提出完善按劳分配与按要素分配相结合的机制对有贡献的科研人员给予股权激励。这反映了？", opts: ["多种分配方式并存鼓励创新", "平均主义大锅饭", "只有按劳分配一种方式", "科研人员不应获股权"], ans: 0 },
+    { q: "全国两会期间人大代表联络站收集群众诉求转化为数千件书面建议。这说明全过程人民民主的什么特征？", opts: ["形式大于实质", "从为民作主到由民作主的转变", "民主就是单纯投票", "只有选举才是民主"], ans: 1 },
+    { q: "今年国家设立集成电路产业基金数百亿元撬动社会资本引导芯片产业发展。从经济制度角度这体现了？", opts: ["产业只需市场调节", "政府不应干预任何产业", "产业基金不起关键作用", "发挥政府作用与市场机制结合的优势"], ans: 3 },
+    { q: "在西北某民族地区政府投入数亿元改善当地交通教育医疗条件大幅提升了群众生活水平。这体现了？", opts: ["只发展沿海地区", "取消区域自治", "民族区域自治制度保障各民族共同繁荣", "边疆无需发展"], ans: 2 },
+    { q: "今年两会期间政协委员就教育改革医疗保障等议题提交提案被纳入政府工作议程。这体现了政协的什么职能？", opts: ["立法决策", "政治协商民主监督参政议政", "行政管理", "司法审判"], ans: 1 }
+    ]
+  },
+{
+    id: 4,
+    title: "第四单元 走近国家机构",
+    titleShort: "国家机构",
+    kw: "我国国家机构依据宪法和法律设立，包括权力机关、主席、行政机关、军事机关、监察机关和司法机关",
+    badges: [
+      "国家机构",
+      "权力运行",
+      "依法行政"
+    ],
+    lessons: [
+      {
+        title: "第7课 国家权力机关",
+        points: [
+          {
+            text: "全国人民代表大会与地方各级人民代表大会",
+            tag: "key",
+            detail: "全国人大是最高国家权力机关，地方各级人大是地方国家权力机关。全国人大行使立法权、决定权、任免权、监督权。"
+          }
+        ]
+      },
+      {
+        title: "第8课 中华人民共和国主席",
+        points: [
+          {
+            text: "国家主席的职权：公布法律、任免国务院组成人员、外事活动等",
+            tag: "important",
+            detail: "国家主席由全国人大选举产生，代表中华人民共和国进行国事活动，公布法律、授予国家勋章荣誉称号。"
+          }
+        ]
+      },
+      {
+        title: "第9课 国家行政机关",
+        points: [
+          {
+            text: "国务院与地方各级人民政府，依法行政",
+            tag: "key",
+            detail: "国务院即中央人民政府，是最高国家行政机关。地方各级人民政府对本级人大和上一级国家行政机关负责并报告工作。"
+          }
+        ]
+      },
+      {
+        title: "第10课 中央军事委员会",
+        points: [
+          {
+            text: "中央军事委员会领导全国武装力量",
+            tag: "important",
+            detail: "中央军事委员会是最高军事领导机关，负责领导全国武装力量，保障国家安全和领土完整。"
+          }
+        ]
+      },
+      {
+        title: "第11课 国家监察机关",
+        points: [
+          {
+            text: "监察委员会对所有行使公权力的公职人员进行监察",
+            tag: "key",
+            detail: "监察委员会依法独立行使监察权，不受行政机关社会团体和个人干涉。实现国家监察全面覆盖。"
+          }
+        ]
+      },
+      {
+        title: "第12课 国家司法机关",
+        points: [
+          {
+            text: "人民法院（审判机关）与人民检察院（法律监督机关）",
+            tag: "important",
+            detail: "人民法院依法独立公正行使审判权。人民检察院依法独立行使检察权。司法是维护社会公平正义的最后一道防线。"
+          }
+        ]
+      }
+    ],
+    quiz: [
+    { q: "全国人大会议闭幕会上表决通过十五五规划纲要。这体现了全国人大行使了什么职权？", opts: ["行政管理权", "执法权", "任免权", "决定权"], ans: 3 },
+    { q: "国务院总理在两会期间作政府工作报告接受人大审议并回答代表提问。这体现了行政机关与权力机关的什么关系？", opts: ["各自独立", "政府领导权力机关", "政府是国家权力机关的执行机关受其监督", "互不干涉"], ans: 2 },
+    { q: "两高报告显示检察院全年提起公诉一百四十余万件监督了一批重大刑事案件。这体现了检察院的什么职能？", opts: ["行政管理", "军事指挥", "法律监督", "立法工作"], ans: 2 },
+    { q: "某省监委在查处工程领域腐败时发现多名官员受贿依法采取留置措施并移送检察院。这体现了监委的什么职责？", opts: ["经济建设", "对所有公职人员进行监察", "审判案件", "制定法规"], ans: 1 },
+    { q: "十五五规划纲要中提出完善司法责任制法官对案件质量终身负责。这体现了什么司法原则？", opts: ["效率优先", "法官可以免责", "判决不可更改", "公正司法维护社会公平正义"], ans: 3 },
+    { q: "法院在审理某行政案件时依法判决政府行为违法并要求赔偿当事人损失。从监督角度看这说明？", opts: ["人民法院依法独立行使审判权维护公民权益", "法院不能审政府", "政府不受司法管辖", "行政案件无需审理"], ans: 0 },
+    { q: "十五五明确提出落实一府一委两院向人大报告工作的制度。这一制度设计体现了什么？", opts: ["人大对一府一委两院监督保障权力正确运行", "人大仅起象征作用", "报告只是走过场形式", "人大代表无权提出监督"], ans: 0 },
+    { q: "某市推动行政执法三项制度即公示制度全过程记录制度审核制度被列为全国示范。这体现了什么？", opts: ["行政执法不需要透明", "执法可以不受任何约束", "依法行政推进执法规范化建设", "三项制度没有实际作用"], ans: 2 },
+    { q: "全国人大常委会开展执法检查发现某省地方性法规与上位法冲突要求限期修改。从维护法制统一角度看？", opts: ["地方立法独立不受约束", "备案审查没有意义", "地方可自行其是", "人大通过备案审查维护国家法制统一"], ans: 3 },
+    { q: "十五五期间某县法院设立驻村法官工作室开展巡回审判让群众在家门口解决纠纷。这体现了什么？", opts: ["司法为民便利群众的实践创新", "法官不应下乡走访", "驻点降低了司法权威", "诉讼只能远赴法院"], ans: 0 },
+    { q: "某检察院发现一起环境污染事件向环保部门发出检察建议并提起公益诉讼法院判令企业赔偿。这体现了？", opts: ["检察院不关注环保", "检察院行使法律监督权维护公共利益", "公益诉讼不是检察职责", "环保部门没有责任"], ans: 1 },
+    { q: "国务院推出新一轮简政放权取消数十项行政审批事项为企业减负激发市场活力。这说明行政机关在？", opts: ["行政审批越多越好", "深化改革转变职能提高治理效能", "放权导致管理混乱", "放管服改革没有意义"], ans: 1 }
+    ]
+  },
+{
+    id: 5,
+    title: "第五单元 建设法治中国",
+    titleShort: "法治中国",
+    kw: "全面依法治国是中国特色社会主义的本质要求和重要保障，以法治推进国家治理现代化",
+    badges: [
+      "法治中国",
+      "全面依法治国",
+      "公平正义"
+    ],
+    lessons: [
+      {
+        title: "第13课 坚持全面依法治国",
+        points: [
+          {
+            text: "法治的意义：国家治理体系和治理能力现代化的重要标志",
+            tag: "key",
+            detail: "法治是现代政治文明的核心。走法治道路是实现中华民族伟大复兴的必然选择。"
+          },
+          {
+            text: "全面依法治国的总目标：建设中国特色社会主义法治体系，建设社会主义法治国家",
+            tag: "important",
+            detail: "全面依法治国必须坚持党的领导、人民当家作主、依法治国有机统一。"
+          },
+          {
+            text: "十六字方针：科学立法、严格执法、公正司法、全民守法",
+            tag: "key",
+            detail: "科学立法是前提，严格执法是关键，公正司法是保障，全民守法是基础。"
+          }
+        ]
+      },
+      {
+        title: "第14课 以法治推进国家治理现代化",
+        points: [
+          {
+            text: "法治与德治相结合：法律是准绳，道德是基石",
+            tag: "key",
+            detail: "法律与道德相辅相成、相得益彰。以法治承载道德理念，以道德滋养法治精神。"
+          },
+          {
+            text: "法律面前人人平等，反对特权",
+            tag: "important",
+            detail: "平等地享有权利、平等地履行义务、平等地受法律保护。任何组织个人都没有超越宪法法律的特权。"
+          },
+          {
+            text: "公平正义：权利公平、规则公平、机会公平",
+            tag: "important",
+            detail: "制度保障公平，司法维护正义。公民要守护正义，见义勇为，敢于并善于同非正义行为作斗争。"
+          }
+        ]
+      }
+    ],
+    quiz: [
+    { q: "2026年中央全面依法治国工作会议强调协同推进科学立法严格执法公正司法全民守法。这被称为？", opts: ["四项基本原则", "十四五发展规划", "新发展理念", "全面依法治国十六字方针"], ans: 3 },
+    { q: "十五五规划纲要明确提出推进全面依法治国协同推进法治国家法治政府法治社会一体建设。这说明？", opts: ["全面依法治国是国家治理现代化的重要保障", "法治只是口号", "法治与规划无关", "一体建设不可行"], ans: 0 },
+    { q: "国家人权行动计划将充分发挥检察监督的作用写入法律监督专章。这体现了什么法治原则？", opts: ["权力任性", "法律监督保障公民权利促进公正司法", "检察监督仅是形式", "监督无关紧要"], ans: 1 },
+    { q: "全国两会上两高报告以大量数据展示了去年惩治犯罪保护人民的工作成效。从法治角度这说明？", opts: ["公正司法是维护社会公平正义的最后防线", "司法不需公开", "数据统计没有意义", "公开影响司法公信力"], ans: 0 },
+    { q: "十五五中提出完善司法责任制加强法官检察官员额管理提升审判质效。这一改革指向的是什么？", opts: ["增加法官数量", "减少独立审判", "让司法更公正高效可监督", "削弱检察独立性"], ans: 2 },
+    { q: "中央政法工作会议提出法治与改革发展稳定相协同更加注重保障促进社会公平正义。这体现了？", opts: ["法治与发展无关", "法治保障改革发展和公平正义的重要作用", "法治只是消极规范", "改革不需要法治"], ans: 1 },
+    { q: "近年来多地推行法治文化主题公园市民在休闲中可以学习宪法法律知识。从法治建设角度看这是？", opts: ["浪费公共资源", "形式大于内容", "与普法教育无关", "社会主义法治文化建设的重要载体"], ans: 3 },
+    { q: "十五五规划纲要将民法典实施和宣传教育纳入全民守法工程让民法典走进群众生活。因为法律权威源自？", opts: ["执法强制力", "人民的内心拥护和真诚信仰", "条文数量多少", "执法力度大小"], ans: 1 },
+    { q: "某网红为博流量编造虚假信息造成社会恐慌被公安机关依法行政拘留。从法治精神看这说明了？", opts: ["网红有绝对言论自由", "编造谎言可以谅解", "处罚过重不合理", "网络空间不是法外之地"], ans: 3 },
+    { q: "十五五期间推进重大决策合法性审查制度各级政府出台规范性文件须经法治审核。这体现了什么？", opts: ["审核只是走过场", "审查阻碍行政效率", "重大行政决策须经合法性审查做到依法决策", "它仅是形式要求"], ans: 2 },
+    { q: "全国检察长会议提出高质效履行法律监督职责在刑事民事行政公益诉讼四大检察全面发力。这体现了？", opts: ["法律监督全面覆盖保障公正司法", "监督并不重要", "检察只管刑事案件", "法律监督只是形式上的"], ans: 0 },
+    { q: "全国公安机关依法打击电信网络诈骗跨境赌博不断提升群众安全感和满意度。从法治角度看这体现了？", opts: ["执法没有标准", "执法只是惩罚威慑", "严格执法保障人民群众生命财产安全", "安全感与执法无关"], ans: 2 }
+    ]
+  }
+];
+
+// ==================== 状态 ====================
+let currentUnit = 0;
+let quizState = {};
+let totalQuestions = 0;
+let answeredQuestions = 0;
+let correctCount = 0;
+let currentStreak = 0;
+let currentQuizIdx = 0;  // 每单元当前显示的题目索引
+
+// 初始化 quizState
+unitData.forEach(u => {
+  quizState[u.id] = {};
+  u.quiz.forEach((q, i) => {
+    quizState[u.id][i] = { selected: null, status: null };
+  });
+  totalQuestions += u.quiz.length;
+});
+
+// ==================== 渲染 ====================
+function renderUnitNav() {
+  const nav = document.getElementById('unitNav');
+  nav.innerHTML = unitData.map((u, i) => {
+    const done = u.quiz.every((q, qi) => quizState[u.id][qi].status === 'correct');
+    const active = i === currentUnit ? ' active' : '';
+    const doneCls = done ? ' done' : '';
+    return `<button class="unit-btn${active}${doneCls}" onclick="switchUnit(${i})">
+      <span class="num">单元${u.id}</span> ${u.titleShort}
+    </button>`;
+  }).join('');
+}
+
+function renderUnit() {
+  const u = unitData[currentUnit];
+  let html = `<div class="card fade-in">
+    <h2>${u.title}</h2>
+    <div class="unit-kw">${u.kw}</div>`;
+
+  // 知识点
+  html += `<div class="knowledge-list">`;
+  u.lessons.forEach(lesson => {
+    html += `<div style="font-weight:700;font-size:16px;margin:8px 0 6px;color:#1e293b">${lesson.title}</div>`;
+    lesson.points.forEach(p => {
+      const tagCls = p.tag === 'important' ? 'tag-important' : p.tag === 'key' ? 'tag-key' : 'tag-basic';
+      const tagText = p.tag === 'important' ? '重点' : p.tag === 'key' ? '核心' : '基础';
+      html += `<div class="k-item" onclick="this.classList.toggle('open')">
+        <div class="k-title">
+          <span>${p.text}</span>
+          <span class="k-tag ${tagCls}">${tagText}</span>
+        </div>
+        <div class="k-detail">
+          <span class="arrow">▼</span> 点击展开查看详情
+        </div>
+      </div>`;
+    });
+  });
+  html += `</div>`;
+
+  // 练习区 - 带分页
+  const qi = currentQuizIdx;
+  const q = u.quiz[qi];
+  const state = quizState[u.id][qi];
+
+  // 分页按钮
+  let paginationHtml = '';
+  u.quiz.forEach((qq, ii) => {
+    const s = quizState[u.id][ii];
+    let cls = '';
+    if (s.status === 'correct') cls = ' answered-correct';
+    else if (s.status === 'wrong') cls = ' answered-wrong';
+    if (ii === qi) cls += ' active-q';
+    paginationHtml += `<button class="${cls}" onclick="goToQuiz(${ii})">${ii + 1}</button>`;
+  });
+
+  html += `<div class="quiz-section">
+    <div class="quiz-header-bar">
+      <h3>单元练习（${u.quiz.length} 题）</h3>
+      <div class="quiz-pagination">${paginationHtml}</div>
+    </div>
+    <div class="quiz-card fade-in">
+      <div class="q-num">第 ${qi + 1} / ${u.quiz.length} 题</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options" id="opts-${u.id}-${qi}">`;
+  q.opts.forEach((opt, oi) => {
+    const letter = 'ABCD'[oi];
+    let cls = '';
+    if (state.status === 'correct' && state.selected === oi) cls = ' correct';
+    else if (state.status === 'wrong' && state.selected === oi) cls = ' wrong';
+    else if (state.selected === oi && state.status === null) cls = ' selected';
+    const disabled = state.status !== null ? 'style="pointer-events:none"' : '';
+    html += `<div class="option${cls}" onclick="answer(${u.id},${qi},${oi})" ${disabled}>
+      <span class="opt-letter">${letter}</span>${opt}
+    </div>`;
+  });
+  html += `</div>
+      <div class="feedback" id="fb-${u.id}-${qi}"></div>
+      <div class="quiz-nav-row" style="margin-top:12px">
+        <button class="btn btn-sm btn-outline" onclick="prevQuiz()" ${qi===0?'disabled':''}>上一题</button>
+        <button class="btn btn-sm btn-outline" onclick="nextQuiz()" ${qi>=u.quiz.length-1?'disabled':''}>下一题</button>
+        <span style="margin-left:auto;font-size:13px;color:var(--text-light)">${qi+1}/${u.quiz.length}</span>
+      </div>
+    </div>
+  </div>`;
+
+  // 思维导图按钮
+  html += `<div class="btn-row">
+    <button class="btn btn-primary" onclick="showMindmap()">查看本单元思维导图</button>
+    <button class="btn btn-outline" id="resetUnitBtn" onclick="resetUnit(${u.id})">重做本单元练习</button>
+  </div>`;
+
+  html += `</div>`;
+  document.getElementById('mainContent').innerHTML = html;
+
+  // 恢复已答题目的 feedback
+  if (state.status) {
+    const fb = document.getElementById(`fb-${u.id}-${qi}`);
+    if (fb) {
+      fb.className = 'feedback show ' + state.status;
+      fb.innerHTML = state.status === 'correct'
+        ? '回答正确！'
+        : `回答错误。正确答案是 <b>${'ABCD'[q.ans]}. ${q.opts[q.ans]}</b>`;
+    }
+  }
+}
+
+function goToQuiz(qi) {
+  currentQuizIdx = qi;
+  renderUnit();
+}
+
+function prevQuiz() {
+  if (currentQuizIdx > 0) {
+    currentQuizIdx--;
+    renderUnit();
+  }
+}
+
+function nextQuiz() {
+  const u = unitData[currentUnit];
+  if (currentQuizIdx < u.quiz.length - 1) {
+    currentQuizIdx++;
+    renderUnit();
+  }
+}
+
+function answer(unitId, qi, selected) {
+  const q = unitData.find(u => u.id === unitId).quiz[qi];
+  const state = quizState[unitId][qi];
+  if (state.status !== null) return; // 已答
+
+  state.selected = selected;
+  state.status = selected === q.ans ? 'correct' : 'wrong';
+
+  if (state.status === 'correct') {
+    correctCount++;
+    currentStreak++;
+  } else {
+    currentStreak = 0;
+  }
+  answeredQuestions++;
+
+  // 自动跳到下一题
+  const u = unitData[currentUnit];
+  if (qi < u.quiz.length - 1) {
+    currentQuizIdx = qi + 1;
+  }
+
+  updateStats();
+  renderUnit();
+  renderUnitNav();
+}
+
+function resetUnit(unitId) {
+  const u = unitData.find(u => u.id === unitId);
+  u.quiz.forEach((q, qi) => {
+    const state = quizState[unitId][qi];
+    if (state.status === 'correct') correctCount--;
+    state.selected = null;
+    state.status = null;
+  });
+  answeredQuestions = Math.max(0, answeredQuestions - u.quiz.length);
+  currentQuizIdx = 0;
+  updateStats();
+  renderUnit();
+  renderUnitNav();
+}
+
+function switchUnit(idx) {
+  currentUnit = idx;
+  currentQuizIdx = 0;
+  renderUnit();
+  renderUnitNav();
+  document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateStats() {
+  document.getElementById('totalQuiz').textContent = totalQuestions;
+  document.getElementById('doneQuiz').textContent = answeredQuestions;
+  const rate = answeredQuestions > 0 ? Math.round(correctCount / answeredQuestions * 100) : 0;
+  document.getElementById('scoreRate').textContent = rate + '%';
+  document.getElementById('streak').textContent = currentStreak;
+
+  const doneUnits = unitData.filter(u => u.quiz.every((q, qi) => quizState[u.id][qi].status === 'correct')).length;
+  const pct = Math.round(doneUnits / 5 * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${doneUnits} / 5 单元`;
+}
+
+// ==================== 思维导图 ====================
+function showMindmap() {
+  const u = unitData[currentUnit];
+  const svgW = 800, svgH = 500;
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgW} ${svgH}" style="max-width:100%;height:auto">
+    <defs>
+      <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#1a56db"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+    </defs>
+    <rect rx="15" ry="15" width="${svgW}" height="${svgH}" fill="#f8fafc"/>
+    <rect x="300" y="200" width="200" height="60" rx="10" fill="url(#grad)"/>
+    <text x="400" y="237" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">${u.titleShort}</text>`;
+
+  const colors = ['#1a56db','#7c3aed','#059669','#d97706','#dc2626','#2563eb','#9333ea','#0891b2'];
+  u.lessons.forEach((lesson, li) => {
+    const cx = 400, cy = 270 + li * 70;
+    svg += `<line x1="${li % 2 === 0 ? 310 : 490}" y1="230" x2="${li % 2 === 0 ? 180 : 620}" y2="${cy}" stroke="${colors[li]}" stroke-width="2" stroke-dasharray="4,2"/>`;
+    svg += `<rect x="${li % 2 === 0 ? 80 : 540}" y="${cy - 15}" width="180" height="40" rx="8" fill="${colors[li]}" opacity=".9"/>`;
+    svg += `<text x="${li % 2 === 0 ? 170 : 630}" y="${cy + 11}" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">${lesson.title}</text>`;
+  });
+
+  svg += `</svg>`;
+
+  const mindmapHtml = `<div class="card fade-in">
+    <h2>${u.title} · 思维导图</h2>
+    <div class="mindmap">${svg}</div>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn btn-outline" onclick="renderUnit()">← 返回知识点</button>
+    </div>
+  </div>`;
+  document.getElementById('mainContent').innerHTML = mindmapHtml;
+}
+
+// ==================== 初始化 ====================
+function init() {
+  renderUnitNav();
+  renderUnit();
+  updateStats();
+}
+
+init();
+</script>
+
 </body>
 </html>
