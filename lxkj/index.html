@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八下道法素养提升课件</title>
+<style>
+:root{--primary:#1a5276;--accent:#c0392b;--bg:#f4f6f9;--card:#fff;--gold:#e67e22;--correct:#27ae60;--wrong:#e74c3c;--nav-bg:#1a3c5e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:#2c3e50;line-height:1.7;min-height:100vh;padding-bottom:80px}
+.top-nav{background:var(--nav-bg);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.top-nav .title{font-size:1.1em;font-weight:700;letter-spacing:1px}
+.top-nav .title span{color:#f39c12}
+.progress-bar{width:200px;height:8px;background:rgba(255,255,255,0.2);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:#f39c12;transition:width .5s ease}
+.score-display{font-size:.95em;color:#f39c12;font-weight:700}
+.container{max-width:900px;margin:20px auto;padding:0 16px}
+.cover{background:linear-gradient(135deg,#1a5276,#2c3e50);color:#fff;border-radius:16px;padding:50px 30px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(243,156,18,0.15) 0%,transparent 50%);animation:rotate 20s linear infinite}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.cover h1{font-size:2em;margin-bottom:10px;position:relative}
+.cover h2{font-size:1.2em;font-weight:400;opacity:.9;margin-bottom:20px;position:relative}
+.cover .badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;position:relative}
+.cover .badge{background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:20px;font-size:.85em}
+.cover .source-tag{background:rgba(255,255,255,0.2);border-radius:8px;padding:8px 16px;margin:5px;display:inline-block;font-size:.8em}
+.cover .start-btn{display:inline-block;background:#f39c12;color:#1a3c5e;padding:14px 40px;border-radius:30px;font-size:1.1em;font-weight:700;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;position:relative}
+.cover .start-btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(243,156,18,0.4)}
+.question-card{background:var(--card);border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06);border-left:4px solid var(--primary);transition:all .3s}
+.question-card.answered-correct{border-left-color:var(--correct);background:#f0faf5}
+.question-card.answered-wrong{border-left-color:var(--wrong);background:#fdf2f2}
+.question-card .q-type{display:inline-block;font-size:.8em;font-weight:700;padding:4px 12px;border-radius:4px;margin-bottom:12px;letter-spacing:1px}
+.q-type.a{background:#eaf2f8;color:#1a5276}
+.q-type.b{background:#fef9e7;color:#b7950b}
+.q-type.c{background:#f5eef8;color:#7d3c98}
+.q-type.d{background:#e8f8f5;color:#148f77}
+.q-type.e{background:#fdebd0;color:#b9770e}
+.q-type.f{background:#ebdef0;color:#6c3483}
+.q-type.g{background:#e8f8f5;color:#0e6655}
+.question-card .q-stem{font-size:1.05em;margin-bottom:18px;font-weight:600}
+.question-card .q-material{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:16px;font-size:.93em;color:#555;border:1px dashed #ccc;white-space:pre-wrap;line-height:1.8}
+.question-card .options{display:grid;gap:10px;margin-bottom:16px}
+.question-card .option{display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;transition:all .2s;font-size:.95em}
+.question-card .option:hover{border-color:#1a5276;background:#f0f5fa}
+.question-card .option.selected{border-color:#1a5276;background:#e8f0fe}
+.question-card .option.correct{border-color:var(--correct);background:#eafaf1}
+.question-card .option.wrong{border-color:var(--wrong);background:#fdedec}
+.question-card .option .letter{width:30px;height:30px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.question-card .option.selected .letter{background:#1a5276;color:#fff}
+.question-card .option.correct .letter{background:var(--correct);color:#fff}
+.question-card .option.wrong .letter{background:var(--wrong);color:#fff}
+.feedback{display:none;padding:14px;border-radius:8px;margin-top:10px;font-size:.93em;animation:fadeIn .3s}
+.feedback.show{display:block}
+.feedback.success{background:#eafaf1;border:1px solid var(--correct);color:#1e7e34}
+.feedback.error{background:#fdedec;border:1px solid var(--wrong);color:#922b21}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.source-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.75em;font-weight:700;margin-left:8px}
+.source-badge.a{background:#eaf2f8;color:#1a5276}
+.source-badge.b{background:#e8f8f5;color:#148f77}
+.section-card{background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.section-card .s-header{color:#fff;padding:16px 24px;font-weight:700;font-size:1.1em;display:flex;justify-content:space-between;align-items:center}
+.section-card .s-header .score-badge{font-size:.9em;opacity:.9}
+.section-card .s-body{padding:24px}
+.section-card .s-body .q-material{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:16px;font-size:.93em;color:#555;border:1px dashed #ccc;white-space:pre-wrap;line-height:1.8}
+.section-card .s-body .q-stem{font-size:1.05em;margin-bottom:14px;font-weight:600}
+.section-card .s-body .sub-q{background:#fafafa;border-radius:8px;padding:16px;border:1px solid #eee;margin-bottom:12px}
+.section-card .s-body .sub-q .sub-q-title{font-weight:600;margin-bottom:8px;color:#555}
+.section-card .s-body .sub-q .sub-answer-input{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:.9em;font-family:inherit;resize:vertical;min-height:80px;transition:border-color .2s}
+.section-card .s-body .sub-q .sub-answer-input:focus{outline:none;border-color:#7d3c98}
+.section-card .s-body .sub-q .sub-check-btn{color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:.9em;margin-top:8px;transition:background .2s}
+.section-card .s-body .sub-q .sub-feedback{margin-top:8px;font-size:.85em;display:none;padding:8px;border-radius:6px}
+.section-card .s-body .sub-q .sub-feedback.show{display:block}
+.section-card .nl-chart{background:#f8f9fa;border-radius:8px;padding:20px;margin-bottom:16px;text-align:center}
+.section-card .nl-chart svg{max-width:100%;height:auto}
+.result-panel{display:none;background:#fff;border-radius:16px;padding:40px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:24px;animation:fadeIn .5s}
+.result-panel.show{display:block}
+.result-panel .score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.5em;font-weight:700;color:#fff;background:linear-gradient(135deg,#1a5276,#2980b9)}
+.result-panel .score-detail{font-size:1em;color:#666;margin-bottom:10px}
+.result-panel .review-btn{display:inline-block;background:#1a5276;color:#fff;padding:10px 30px;border-radius:25px;cursor:pointer;margin:10px;border:none;font-size:.95em;transition:background .2s}
+.result-panel .review-btn:hover{background:#154360}
+.hidden{display:none!important}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 -2px 10px rgba(0,0,0,0.06);z-index:90}
+.bottom-nav button{padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:.9em;font-weight:600;transition:all .2s}
+.bottom-nav .prev-btn{background:#e0e0e0;color:#333}
+.bottom-nav .next-btn{background:#1a5276;color:#fff}
+.bottom-nav .submit-btn{background:#27ae60;color:#fff}
+.bottom-nav button:hover{opacity:.85}
+.bottom-nav button:disabled{opacity:.4;cursor:default}
+.bottom-nav .section-indicator{font-size:.85em;color:#888}
+@media(max-width:600px){.container{padding:0 8px}.question-card{padding:16px}.cover{padding:30px 16px}.cover h1{font-size:1.4em}.bottom-nav{padding:10px 12px}}
+</style>
+</head>
+<body>
+<div class="top-nav">
+<div class="title">八下道法 <span>素养提升课件</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="score-display" id="scoreDisplay">得分: 0/75</div>
+</div>
+<div class="container" id="app">
+<div class="cover" id="coverPage">
+<h1>八年级道德与法治</h1>
+<h2>年度统考 · 素养提升特训</h2>
+<div class="badges">
+<span class="badge">14道选择题</span>
+<span class="badge">非连续性文本</span>
+<span class="badge">阅读与思考</span>
+<span class="badge">判断与分析</span>
+<span class="badge">实践与探究</span>
+</div>
+<div style="margin:15px 0;position:relative">
+<span class="source-tag">八上 30%（5题）</span>
+<span class="source-tag">八下 70%（13题）</span>
+</div>
+<p style="opacity:0.8;margin-bottom:20px;font-size:0.9em;position:relative">
+总分75分 · 八上八下融合 · 结合2026年6月时政情景材料<br>
+参照知识库中2025年秋八上期末试卷题型结构
+</p>
+<button class="start-btn" onclick="startQuiz()">开始答题</button>
+</div>
+<div id="questionsArea" class="hidden"></div>
+<div class="result-panel" id="resultPanel">
+<div class="score-circle" id="scoreCircle">0</div>
+<p style="font-size:1.2em;font-weight:700;margin-bottom:6px">你的成绩</p>
+<p class="score-detail" id="scoreDetail"></p>
+<p style="color:#888;font-size:0.9em;margin-bottom:20px">共 18 题 · 满分 75 分</p>
+<div id="resultComment" style="margin-bottom:20px;font-size:0.95em;color:#555"></div>
+<button class="review-btn" onclick="reviewAll()">查看解析</button>
+<button class="review-btn" onclick="resetQuiz()" style="background:#e67e22">重新挑战</button>
+</div>
+</div>
+<div class="bottom-nav hidden" id="bottomNav">
+<button class="prev-btn" id="prevBtn" onclick="prevQuestion()" disabled>上一题</button>
+<span class="section-indicator" id="sectionIndicator"></span>
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+<button class="submit-btn hidden" id="submitBtn" onclick="submitAll()">提交答卷</button>
+</div>
+<script>
+
+const questions = [
+  {
+    "id": 1,
+    "section": "一、选择题（每题2分，共28分）",
+    "type": "choice",
+    "score": 2,
+    "source": "八上",
+    "stem": "【情景一】2026年6月，中央网信办组织召开未成年人网络保护协调机制工作会议，多部门联合推进。这体现了网络生活需要：",
+    "material": "",
+    "options": [
+      "A. 随心所欲，不受约束",
+      "B. 遵守网络规则，共建清朗空间",
+      "C. 完全依靠技术手段管理",
+      "D. 只靠法律约束，无需道德自律"
+    ],
+    "answer": 1,
+    "analysis": "网络空间是公共空间，需要遵守规则。多部门联合推进未成年人网络保护，体现了网络生活需要共同维护秩序，遵守网络规则，共建清朗空间。（八上·网络生活新空间）"
+  },
+  {
+    "id": 2,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八上",
+    "stem": "【情景二】网暴案受害人家属将5.7万元赔偿款全部捐赠，设立专项基金帮扶网暴困境孩童。从「亲社会行为」角度看，这一行为：",
+    "material": "",
+    "options": [
+      "A. 是关爱他人、服务社会的亲社会行为",
+      "B. 是浪费金钱的行为",
+      "C. 与社会主义核心价值观无关",
+      "D. 说明法律保护没有意义"
+    ],
+    "answer": 0,
+    "analysis": "亲社会行为包括谦让、分享、合作、帮助他人、关心社会发展等。受害人家属将赔偿款捐赠给更需要帮助的人，体现了关爱他人、服务社会的亲社会精神。（八上·丰富的社会生活）"
+  },
+  {
+    "id": 3,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八上",
+    "stem": "【情景三】自习课上，小明大声喧哗被同学制止。他说「这是我的自由」。下列评价正确的是：",
+    "material": "",
+    "options": [
+      "A. 正确，自由就是不受任何限制",
+      "B. 错误，自由不是随心所欲，受规则约束",
+      "C. 正确，每个人都有言论自由",
+      "D. 错误，但他有权利在自习课上喧哗"
+    ],
+    "answer": 1,
+    "analysis": "社会规则划定了自由的边界。自由不是随心所欲，它受道德、纪律、法律等社会规则的约束。公民在行使自由和权利时，不得损害其他公民的合法自由和权利。（八上·遵守社会规则）"
+  },
+  {
+    "id": 4,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八上",
+    "stem": "【情景四】某电商平台因虚假宣传被市场监管部门处罚。从道德角度看，这警示商家要：",
+    "material": "",
+    "options": [
+      "A. 诚实守信，合法经营",
+      "B. 只要能赚钱就行",
+      "C. 等被处罚了再整改",
+      "D. 诚信只是个人的事，与商家无关"
+    ],
+    "answer": 0,
+    "analysis": "诚实守信是中华民族的传统美德，也是一项民法原则。商家在经营活动中应诚实守信，不虚假宣传，遵守商业道德。（八上·诚实守信）"
+  },
+  {
+    "id": 5,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景五】我国宪法规定：「中华人民共和国的一切权力属于人民。」这体现了宪法的哪一基本原则？",
+    "material": "",
+    "options": [
+      "A. 民主集中制",
+      "B. 国家权力属于人民",
+      "C. 依法治国",
+      "D. 尊重和保障人权"
+    ],
+    "answer": 1,
+    "analysis": "我国是人民民主专政的社会主义国家，国家的一切权力属于人民，这是我国宪法的基本原则。一切权力属于人民的原则，归根结底就是要保证人民当家作主。（八下·坚持宪法至上）"
+  },
+  {
+    "id": 6,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景六】2026年6月，25名全国、省人大代表视察河南未成年人检察工作。人大代表依法行使了：",
+    "material": "",
+    "options": [
+      "A. 立法权",
+      "B. 任免权",
+      "C. 监督权",
+      "D. 决定权"
+    ],
+    "answer": 2,
+    "analysis": "人大代表视察检察院工作，是在依法行使监督权。人大代表有权依法对国家机关及其工作人员的工作提出质询、进行视察，监督其依法履职。（八下·我国国家机构）"
+  },
+  {
+    "id": 7,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景七】《吉林省未成年人保护条例》构建了六大保护体系。从宪法角度看，这体现了国家对人权的：",
+    "material": "",
+    "options": [
+      "A. 尊重和保障",
+      "B. 限制和约束",
+      "C. 忽视和放任",
+      "D. 仅对成年人的保护"
+    ],
+    "answer": 0,
+    "analysis": "尊重和保障人权是我国宪法的基本原则。国家通过立法构建未成年人保护体系，正是履行尊重和保障人权的宪法义务。（八下·公民基本权利）"
+  },
+  {
+    "id": 8,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景八】国务院常务会议审议通过《教育发展「十五五」规划》，体现了国家行政机关依法行使：",
+    "material": "",
+    "options": [
+      "A. 立法权",
+      "B. 行政管理权",
+      "C. 监察权",
+      "D. 审判权"
+    ],
+    "answer": 1,
+    "analysis": "我国行政机关是国家权力机关的执行机关，负责执行国家权力机关通过的法律和决议。国务院审议通过教育发展规划，体现了国家行政机关依法行使行政管理职权。（八下·我国国家机构）"
+  },
+  {
+    "id": 9,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景九】宪法规定公民有受教育的权利和义务。这体现了权利与义务的哪一关系？",
+    "material": "",
+    "options": [
+      "A. 权利与义务没有关系",
+      "B. 权利与义务相统一",
+      "C. 先享受权利后履行义务",
+      "D. 义务可以放弃"
+    ],
+    "answer": 1,
+    "analysis": "权利与义务相统一，是公民参与社会生活的基本原则。受教育既是公民的基本权利，也是公民的基本义务，体现了权利与义务的辩证统一。（八下·公民基本义务）"
+  },
+  {
+    "id": 10,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景十】全国人大常委会2026年度工作要点强调「发展全过程人民民主」。这表明我国坚持：",
+    "material": "",
+    "options": [
+      "A. 人民代表大会制度",
+      "B. 多党合作制度",
+      "C. 民族区域自治制度",
+      "D. 基层群众自治制度"
+    ],
+    "answer": 0,
+    "analysis": "人民代表大会制度是我国的根本政治制度，是人民掌握国家政权、行使权力的根本途径。发展全过程人民民主，必须坚持和完善人民代表大会制度。（八下·根本政治制度）"
+  },
+  {
+    "id": 11,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景十一】2026年6月，中央网信办要求各平台落实未成年人网络保护责任。从权利与义务关系看，网络平台：",
+    "material": "",
+    "options": [
+      "A. 只有权利，没有义务",
+      "B. 权利与义务相统一，在行使经营权利的同时必须履行保护义务",
+      "C. 义务可以随意放弃",
+      "D. 保护未成年人只是政府的责任"
+    ],
+    "answer": 1,
+    "analysis": "权利与义务相统一，是公民（包括法人）参与社会生活的基本原则。网络平台在享有经营权利的同时，必须履行保护未成年人等法定义务。（八下·依法履行义务）"
+  },
+  {
+    "id": 12,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景十二】在全国人大常委会2026年度监督工作计划中，强调「加强宪法法律实施和监督」。行使监督宪法实施职权的是：",
+    "material": "",
+    "options": [
+      "A. 国务院",
+      "B. 全国人大及其常委会",
+      "C. 人民法院",
+      "D. 人民检察院"
+    ],
+    "answer": 1,
+    "analysis": "全国人大及其常委会行使监督宪法实施的职权。加强宪法实施和监督，维护宪法权威，是全国人大及其常委会的重要职责。（八下·坚持依宪治国）"
+  },
+  {
+    "id": 13,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景十三】2026年检察机关以「检爱四十载 携手向未来」为主题开展检察开放日活动。检察机关是国家的：",
+    "material": "",
+    "options": [
+      "A. 行政机关",
+      "B. 监察机关",
+      "C. 审判机关",
+      "D. 法律监督机关"
+    ],
+    "answer": 3,
+    "analysis": "人民检察院是国家的法律监督机关，依法独立行使检察权。检察机关开展未成年人检察工作，履行法律监督职能。（八下·我国国家机构）"
+  },
+  {
+    "id": 14,
+    "section": "一、选择题",
+    "type": "choice",
+    "score": 2,
+    "source": "八下",
+    "stem": "【情景十四】全国人大常委会2026年度工作要点中强调「健全人大对行政机关、监察机关、审判机关、检察机关的监督制度」。这体现了：",
+    "material": "",
+    "options": [
+      "A. 国家行政机关受人民代表大会监督",
+      "B. 人大可以代替其他机关行使职权",
+      "C. 人大与其他机关相互独立没有关系",
+      "D. 人大代表可以超越法律"
+    ],
+    "answer": 0,
+    "analysis": "国家行政机关、监察机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。这体现了人民代表大会制度的民主集中制原则。（八下·根本政治制度）"
+  },
+  {
+    "id": 15,
+    "section": "五、非连续性文本（8分）",
+    "type": "nonlinear",
+    "score": 8,
+    "source": "八下",
+    "material": "材料一：2026年6月，25名全国、省人大代表视察河南未成年人检察工作。代表们深入基层检察院，实地了解未成年人检察工作成效，并就未成年人司法保护提出意见建议。\n\n材料二：全国人大常委会2026年度工作要点强调，坚持党的领导、人民当家作主、依法治国有机统一，发展全过程人民民主，坚持好、完善好、运行好人民代表大会制度。\n\n材料三：《吉林省未成年人保护条例》于2026年6月1日起施行，首次以地方性法规形式将六大保护体系具体化。",
+    "nonlinearData": {
+      "title": "人大代表视察未成年人检察工作流程",
+      "items": [
+        {
+          "label": "人大代表",
+          "desc": "依法行使监督权，视察检察机关工作"
+        },
+        {
+          "label": "检察机关",
+          "desc": "法律监督机关，开展未成年人检察工作"
+        },
+        {
+          "label": "六大保护",
+          "desc": "家庭、学校、社会、网络、政府、司法"
+        },
+        {
+          "label": "全过程人民民主",
+          "desc": "人大代表参与、监督、建议"
+        },
+        {
+          "label": "宪法原则",
+          "desc": "尊重和保障人权，保护未成年人"
+        },
+        {
+          "label": "人民代表大会",
+          "desc": "国家权力机关，监督其他国家机关"
+        }
+      ]
+    },
+    "subQuestions": [
+      {
+        "id": "nl1",
+        "title": "第1问（4分）：根据材料一和材料二，人大代表视察未成年人检察工作体现了什么宪法原则？",
+        "ref": "体现了人民代表大会制度这一根本政治制度，以及全过程人民民主的原则。①国家行政机关、监察机关、审判机关、检察机关都由人民代表大会产生，对它负责，受它监督。②人大代表依法行使监督权，体现了人民当家作主。③发展全过程人民民主，确保人民通过各种途径和形式管理国家事务。"
+      },
+      {
+        "id": "nl2",
+        "title": "第2问（4分）：结合材料三及图示，说明国家权力机关如何通过立法和执法监督保障未成年人权益？",
+        "ref": "①国家权力机关（人大及其常委会）通过制定法律法规（如《未成年人保护条例》）为未成年人保护提供法律依据。②人大代表通过视察、调研等方式监督法律实施情况，确保法律落实到位。③六大保护体系通过立法固定下来，形成全方位保护网络。④体现了宪法尊重和保障人权的原则在具体制度中的落实。"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "section": "六、阅读与思考（9分）",
+    "type": "material",
+    "score": 9,
+    "source": "八下",
+    "stem": "阅读材料，回答问题。",
+    "material": "【情景材料】\n2026年「两会」期间，全国人大代表梁丽斌（广西金秀瑶族自治县桐木中学副校长）建议：人民法院要持续深化未成年人司法保护，加强少年法庭专业化建设，健全法治副校长等长效机制。\n\n【知识链接】\n我国宪法规定：「中华人民共和国人民法院是国家的审判机关。」「人民法院依照法律规定独立行使审判权，不受行政机关、社会团体和个人的干涉。」",
+    "options": [],
+    "answer": -1,
+    "subQuestions": [
+      {
+        "id": "rd1",
+        "title": "第1问（3分）：结合材料，说明人民法院在未成年人保护中发挥什么作用？",
+        "ref": "①人民法院是国家的审判机关，依法独立行使审判权。②通过审理未成年人案件，依法保护未成年人合法权益，惩罚侵害未成年人权益的行为。③加强少年法庭专业化建设，体现了对未成年人的特殊司法保护。④维护社会公平正义，保障未成年人健康成长。"
+      },
+      {
+        "id": "rd2",
+        "title": "第2问（3分）：从「坚持宪法至上」的角度，谈谈为什么要保障人民法院独立行使审判权？",
+        "ref": "①宪法是国家的根本法，是一切组织和个人的根本活动准则。②宪法规定人民法院独立行使审判权，不受干涉，这是维护司法公正的制度保障。③保障人民法院独立行使审判权，有利于维护宪法权威，实现依宪治国。④司法公正才能保障公民合法权益，维护社会公平正义。"
+      },
+      {
+        "id": "rd3",
+        "title": "第3问（3分）：结合人大代表梁丽斌的建议，说明人大代表在国家政治生活中发挥什么作用？",
+        "ref": "①人大代表是国家权力机关的组成人员，代表人民行使国家权力。②人大代表依法行使提案权、建议权，反映人民群众的意见和要求。③通过提出建议，推动国家机关改进工作，完善制度。④体现了人民代表大会制度的优越性，人民通过人大代表参与国家管理。"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "section": "七、判断与分析（9分）",
+    "type": "material",
+    "score": 9,
+    "source": "八下",
+    "stem": "判断下列观点是否正确，并说明理由。",
+    "material": "【情景材料】\n2026年6月，全国人大常委会2026年度工作要点公布，强调「加强宪法实施和监督，维护宪法权威和尊严」。\n\n对此，小丽认为：「宪法是国家的根本法，但离我们中学生太远了，和我们关系不大。」\n\n小强认为：「宪法与每个人息息相关，中学生也要学习宪法、尊崇宪法、维护宪法。」",
+    "options": [],
+    "answer": -1,
+    "subQuestions": [
+      {
+        "id": "pd1",
+        "title": "（1）（3分）判断小丽的观点是否正确，并说明理由。",
+        "ref": "小丽的观点是错误的。①宪法是国家的根本法，是公民权利的保障书，与每个人的生活息息相关。②宪法规定的公民基本权利（如受教育权、人身自由权等）直接影响中学生的日常生活。③宪法是一切组织和个人的根本活动准则，中学生也要遵守宪法。④学习宪法知识，增强宪法意识，是我们每个公民的责任。"
+      },
+      {
+        "id": "pd2",
+        "title": "（2）（3分）判断小强的观点是否正确，并说明理由。",
+        "ref": "小强的观点是正确的。①宪法与我们每个人息息相关，我们的一生都离不开宪法的保护。②中学生要学习宪法，了解宪法内容，领会宪法精神。③要认同宪法，增强对宪法的信服和尊崇，自觉接受宪法的指引。④要践行宪法，将宪法原则转化为自觉的行为准则，维护宪法权威。"
+      },
+      {
+        "id": "pd3",
+        "title": "（3）（3分）结合全国人大常委会加强宪法监督的举措，谈谈宪法监督制度的重要意义。",
+        "ref": "①宪法监督制度有利于维护宪法权威，确保宪法得到全面正确实施。②有利于保障公民基本权利，防止国家机关滥用权力。③有利于维护国家法治统一，促进依法治国方略的实施。④加强宪法监督，是坚持依宪治国、依宪执政的必然要求，体现了党领导人民全面实施宪法。"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "section": "八、实践与探究（21分）",
+    "type": "material",
+    "score": 21,
+    "source": "八下",
+    "stem": "",
+    "material": "【探究背景】\n2026年6月，某校八年级（1）班围绕「宪法在我心中·做守法公民」开展主题探究活动。请你参与并完成下列任务。\n\n【探究一：走进宪法】\n同学们在学习宪法时发现，宪法不仅规定了国家制度，还规定了公民的基本权利和义务。\n\n【探究二：聚焦时政】\n同学们了解到：全国人大常委会2026年度工作要点强调发展全过程人民民主；25名全国、省人大代表视察未成年人检察工作；《吉林省未成年人保护条例》构建六大保护体系。\n\n【探究三：践行宪法精神】\n班长小明在探究报告中写道：「作为新时代的中学生，我们要增强宪法意识，将宪法原则内化于心、外化于行。」",
+    "options": [],
+    "answer": -1,
+    "subQuestions": [
+      {
+        "id": "sj1",
+        "title": "（1）【探究一】（5分）列举宪法规定的公民基本权利和基本义务各两项，并说明权利与义务的关系。",
+        "ref": "基本权利：受教育权、人身自由权、人格尊严权、劳动权等。基本义务：遵守宪法和法律、受教育、依法纳税、维护国家统一和全国各民族团结等。权利与义务的关系：①权利与义务相统一，相互依存、相互促进。②权利的实现需要义务的履行，义务的履行促进权利的实现。③公民既是合法权利的享有者，又是法定义务的承担者。"
+      },
+      {
+        "id": "sj2",
+        "title": "（2）【探究二】（6分）结合材料，运用所学知识，说明「全过程人民民主」是如何在国家政治生活中体现的？",
+        "ref": "①人民代表大会制度是我国的根本政治制度，是人民掌握国家政权、行使权力的根本途径。②人大代表依法行使职权，通过视察、建议等方式参与国家管理，体现了人民当家作主。③全国人大常委会年度工作要点强调发展全过程人民民主，确保人民通过各种途径和形式管理国家事务。④未成年人保护条例的制定，体现了立法过程中广泛听取民意，保障人民参与。⑤全过程人民民主体现了党的领导、人民当家作主、依法治国的有机统一。"
+      },
+      {
+        "id": "sj3",
+        "title": "（3）【探究三】（5分）请以「增强宪法意识，从我做起」为主题，写一份倡议书提纲。（至少3点）",
+        "ref": "倡议书提纲：①认真学习宪法，了解宪法内容，领会宪法精神；②认同宪法价值，增强对宪法的信服和尊崇，自觉接受宪法的指引；③践行宪法原则，在日常生活中遵守宪法和法律，维护宪法权威；④积极参与宪法宣传活动，做宪法的小小宣传员；⑤敢于同违反宪法的行为作斗争，以实际行动维护宪法尊严。"
+      },
+      {
+        "id": "sj4",
+        "title": "（4）【总结提升】（5分）综合以上探究，结合八上「遵守社会规则」和八下「坚持宪法至上」的知识，谈谈青少年如何成为法治中国的建设者。",
+        "ref": "①八上角度：遵守社会规则，做到诚实守信、尊重他人、以礼待人；②学会辨析网络信息，合理利用网络，传播网络正能量；③八下角度：增强宪法意识，学习宪法、认同宪法、践行宪法；④了解国家机构，理解人民代表大会制度，增强制度自信；⑤在权利受到侵害时学会依法维权，同时自觉履行法定义务；⑥积极参与社会实践活动，培养亲社会行为，做负责任的公民。"
+      }
+    ]
+  }
+];
+
+let currentIndex = 0;
+let userAnswers = {};
+let userSubAnswers = {};
+let subChecked = {};
+let subScores = {};
+let quizStarted = false;
+let totalScore = 0;
+let maxScore = 75;
+
+const sectionColors = {
+  '一': { header: '#1a5276', btn: '#1a5276', typeClass: 'a', label: '选择题' },
+  '五': { header: '#7d3c98', btn: '#7d3c98', typeClass: 'c', label: '非连续性文本' },
+  '六': { header: '#148f77', btn: '#148f77', typeClass: 'd', label: '阅读与思考' },
+  '七': { header: '#b9770e', btn: '#b9770e', typeClass: 'e', label: '判断与分析' },
+  '八': { header: '#6c3483', btn: '#6c3483', typeClass: 'f', label: '实践与探究' }
+};
+
+function renderQuestion(q) {
+  if (q.type === 'choice') return renderChoice(q);
+  if (q.type === 'nonlinear') return renderNonlinear(q);
+  return renderSubQuestion(q);
+}
+
+function renderChoice(q) {
+  var srcTag = q.source === '八上' ? '<span class="source-badge a">八上</span>' : '<span class="source-badge b">八下</span>';
+  var html = '<div class="question-card" id="q' + q.id + '">';
+  html += '<span class="q-type a">单选题</span>' + srcTag;
+  html += '<span style="float:right;color:#888;font-size:0.85em">' + q.score + '分</span>';
+  html += '<div class="q-stem">' + q.id + '. ' + q.stem + '</div>';
+  if (q.material) html += '<div class="q-material">' + q.material + '</div>';
+  html += '<div class="options">';
+  var letters = ['A','B','C','D','E','F'];
+  q.options.forEach(function(opt, i) {
+    var cls = 'option';
+    var userAns = userAnswers[q.id];
+    if (userAns !== undefined) {
+      if (userAns === i) cls += ' selected';
+      if (q.answer === i) cls += ' correct';
+      if (userAns === i && q.answer !== i) cls += ' wrong';
+    }
+    html += '<div class="' + cls + '" onclick="selectChoice(' + q.id + ',' + i + ')">';
+    html += '<span class="letter">' + letters[i] + '</span>';
+    html += '<span>' + opt.substring(2).trim() + '</span></div>';
+  });
+  html += '</div><div class="feedback" id="fb' + q.id + '"></div></div>';
+  return html;
+}
+
+function renderNonlinear(q) {
+  var sec = sectionColors['五'];
+  var html = '<div class="section-card" id="q' + q.id + '">';
+  html += '<div class="s-header" style="background:' + sec.header + '">' + q.section + '<span class="score-badge">' + q.score + '分</span></div>';
+  html += '<div class="s-body">';
+  html += '<div class="q-material">' + q.material + '</div>';
+  html += '<div class="nl-chart">' + renderNLSVG(q.nonlinearData) + '</div>';
+  q.subQuestions.forEach(function(sq) { html += renderSubQItem(sq, q.id, sec); });
+  html += '</div></div>';
+  return html;
+}
+
+function renderSubQuestion(q) {
+  var secKey = q.section.charAt(0);
+  var sec = sectionColors[secKey] || { header: '#1a5276', btn: '#1a5276', typeClass: 'a', label: '大题' };
+  var html = '<div class="section-card" id="q' + q.id + '">';
+  html += '<div class="s-header" style="background:' + sec.header + '">' + q.section + '<span class="score-badge">' + q.score + '分</span></div>';
+  html += '<div class="s-body">';
+  if (q.stem) html += '<div class="q-stem">' + q.stem + '</div>';
+  if (q.material) html += '<div class="q-material">' + q.material + '</div>';
+  q.subQuestions.forEach(function(sq) { html += renderSubQItem(sq, q.id, sec); });
+  html += '</div></div>';
+  return html;
+}
+
+function renderSubQItem(sq, qid, sec) {
+  var checked = subChecked[sq.id] || false;
+  var html = '<div class="sub-q">';
+  html += '<div class="sub-q-title">' + sq.title + '</div>';
+  html += '<textarea class="sub-answer-input" id="subInput' + sq.id + '" placeholder="请输入你的答案..." ' + (checked?'disabled':'') + '>' + (userSubAnswers[sq.id]||'') + '</textarea>';
+  html += '<button class="sub-check-btn" id="subCheckBtn' + sq.id + '" style="background:' + sec.btn + '" ' + (checked?'disabled':'') + '>' + (checked?'已检查':'检查答案') + '</button>';
+  html += '<div class="sub-feedback" id="subFb' + sq.id + '"></div>';
+  if (checked) {
+    html += '<div style="margin-top:8px;font-size:0.85em;color:#555;background:#f5f5f5;padding:8px;border-radius:6px;border-left:3px solid ' + sec.btn + '">参考答案：' + sq.ref + '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderNLSVG(data) {
+  var colors = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
+  var cx = 300, cy = 200, r = 140;
+  var svg = '<svg viewBox="0 0 600 400" width="500" height="333"><text x="300" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#333">' + data.title + '</text>';
+  var angle = -90;
+  data.items.forEach(function(item, i) {
+    var sweep = 360 / data.items.length;
+    var startAngle = angle, endAngle = angle + sweep;
+    var x1 = cx + r * Math.cos(startAngle * Math.PI / 180);
+    var y1 = cy + r * Math.sin(startAngle * Math.PI / 180);
+    var x2 = cx + r * Math.cos(endAngle * Math.PI / 180);
+    var y2 = cy + r * Math.sin(endAngle * Math.PI / 180);
+    svg += '<path d="M' + cx + ' ' + cy + ' L' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + (sweep>180?1:0) + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + colors[i] + '" opacity="0.85" stroke="white" stroke-width="2"/>';
+    var mid = (startAngle + endAngle) / 2;
+    var lx = cx + r * 0.65 * Math.cos(mid * Math.PI / 180);
+    var ly = cy + r * 0.65 * Math.sin(mid * Math.PI / 180);
+    svg += '<text x="' + lx + '" y="' + ly + '" text-anchor="middle" font-size="12" fill="white" font-weight="600">' + item.label + '</text>';
+    angle = endAngle;
+  });
+  svg += '</svg><div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px">';
+  data.items.forEach(function(item, i) {
+    svg += '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px"><span style="width:12px;height:12px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + item.label + ': ' + item.desc + '</span>';
+  });
+  svg += '</div>';
+  return svg;
+}
+
+function selectChoice(qid, optIdx) {
+  if (userAnswers[qid] !== undefined) return;
+  userAnswers[qid] = optIdx;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var correct = optIdx === q.answer;
+  totalScore += correct ? q.score : 0;
+  updateScoreDisplay();
+  var fb = document.getElementById('fb' + qid);
+  fb.className = 'feedback show ' + (correct ? 'success' : 'error');
+  fb.innerHTML = correct ? '回答正确！' + q.analysis : '回答错误。' + q.analysis;
+  renderAll();
+  updateProgress();
+}
+
+function checkSubAnswer(subId, qid) {
+  var input = document.getElementById('subInput' + subId);
+  if (!input) return;
+  var answer = input.value.trim();
+  if (!answer) { alert('请先输入你的答案'); return; }
+  userSubAnswers[subId] = answer;
+  subChecked[subId] = true;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var sq = q.subQuestions.find(function(s) { return s.id === subId; });
+  var match = sq.title.match(/（(\d+)分）/);
+  var subScore = match ? parseInt(match[1]) : 3;
+  var score = 0;
+  if (answer.length >= 30) score = Math.floor(subScore * 0.7);
+  if (answer.length >= 60) score = Math.floor(subScore * 0.85);
+  if (answer.length >= 100) score = subScore;
+  subScores[subId] = score;
+  totalScore += score;
+  updateScoreDisplay();
+  renderAll();
+  setTimeout(function() {
+    var fb = document.getElementById('subFb' + subId);
+    if (fb) {
+      fb.className = 'sub-feedback show';
+      fb.style.background = score >= subScore * 0.7 ? '#eafaf1' : '#fef9e7';
+      fb.style.border = '1px solid ' + (score >= subScore * 0.7 ? '#27ae60' : '#f39c12');
+      fb.innerHTML = '得分：' + score + '/' + subScore + '分';
+    }
+    var btn = document.getElementById('subCheckBtn' + subId);
+    if (btn) btn.disabled = true;
+  }, 50);
+  updateProgress();
+}
+
+function updateScoreDisplay() {
+  document.getElementById('scoreDisplay').textContent = '得分: ' + totalScore + '/' + maxScore;
+}
+
+function updateProgress() {
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'choice') {
+      if (userAnswers[q.id] !== undefined) answered++;
+    } else {
+      if (q.subQuestions && q.subQuestions.every(function(sq) { return subChecked[sq.id]; })) answered++;
+    }
+  });
+  var pct = Math.round((answered / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  if (answered >= total) {
+    document.getElementById('submitBtn').classList.remove('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
+  }
+}
+
+function renderAll() {
+  var area = document.getElementById('questionsArea');
+  if (!quizStarted) return;
+  var q = questions[currentIndex];
+  area.innerHTML = renderQuestion(q);
+  if (q.subQuestions) {
+    q.subQuestions.forEach(function(sq) {
+      var btn = document.getElementById('subCheckBtn' + sq.id);
+      if (btn && !btn.dataset.bound) {
+        btn.addEventListener('click', function() { checkSubAnswer(sq.id, q.id); });
+        btn.dataset.bound = '1';
+      }
+    });
+  }
+  updateNavButtons();
+  updateProgress();
+  document.getElementById('sectionIndicator').textContent = '第 ' + (currentIndex + 1) + ' / ' + questions.length + ' 题';
+}
+
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'choice') { if (userAnswers[q.id] !== undefined) answered++; }
+    else { if (q.subQuestions && q.subQuestions.every(function(sq) { return subChecked[sq.id]; })) answered++; }
+  });
+  if (answered >= total) {
+    document.getElementById('nextBtn').classList.add('hidden');
+    document.getElementById('submitBtn').classList.remove('hidden');
+  }
+}
+
+function startQuiz() {
+  quizStarted = true;
+  document.getElementById('coverPage').classList.add('hidden');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  currentIndex = 0;
+  renderAll();
+}
+
+function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderAll(); } }
+function nextQuestion() { if (currentIndex < questions.length - 1) { currentIndex++; renderAll(); } }
+
+function submitAll() {
+  var finalScore = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'choice') {
+      if (userAnswers[q.id] !== undefined && userAnswers[q.id] === q.answer) finalScore += q.score;
+    } else {
+      if (q.subQuestions) q.subQuestions.forEach(function(sq) { finalScore += (subScores[sq.id] || 0); });
+    }
+  });
+  totalScore = finalScore;
+  updateScoreDisplay();
+  document.getElementById('scoreCircle').textContent = totalScore;
+  document.getElementById('scoreDetail').textContent = '满分75分，你得了 ' + totalScore + ' 分';
+  var comment = '';
+  if (totalScore >= 68) comment = '优秀！你对八上八下道法核心知识和时政热点掌握扎实，法治素养很高！';
+  else if (totalScore >= 52) comment = '良好！基础知识掌握较好，建议加强对宪法知识和国家机构的理解。';
+  else if (totalScore >= 38) comment = '还需努力！建议回顾八下「坚持宪法至上」「理解权利义务」和八上「遵守社会规则」等重点单元。';
+  else comment = '加油！建议系统复习知识库中的全册知识点和电子课本，重点关注宪法部分。';
+  document.getElementById('resultComment').textContent = comment;
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('bottomNav').classList.add('hidden');
+}
+
+function reviewAll() {
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  var allHtml = '';
+  questions.forEach(function(q) { allHtml += renderQuestion(q); });
+  document.getElementById('questionsArea').innerHTML = allHtml;
+  questions.forEach(function(q) {
+    if (q.subQuestions) {
+      q.subQuestions.forEach(function(sq) {
+        var btn = document.getElementById('subCheckBtn' + sq.id);
+        if (btn && !btn.dataset.bound) {
+          btn.addEventListener('click', function() { checkSubAnswer(sq.id, q.id); });
+          btn.dataset.bound = '1';
+        }
+      });
+    }
+  });
+  document.getElementById('prevBtn').disabled = true;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('submitBtn').classList.add('hidden');
+  document.getElementById('sectionIndicator').textContent = '查看全部解析';
+}
+
+function resetQuiz() {
+  userAnswers = {}; userSubAnswers = {}; subChecked = {}; subScores = {};
+  totalScore = 0; currentIndex = 0; quizStarted = false;
+  updateScoreDisplay();
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('coverPage').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.add('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  document.getElementById('submitBtn').classList.add('hidden');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!quizStarted) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextQuestion(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevQuestion(); }
+});
+
+</script>
+</body>
+</html>
