@@ -67,6 +67,33 @@
             margin-top: 20px;
             background: #ffb366;
         }
+        /* 教师弹窗样式 */
+        .teacher-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .modal-inner {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 420px;
+            text-align: center;
+        }
+        .modal-inner h3 {
+            font-size:26px;
+            margin-bottom:20px;
+        }
+        .modal-inner input {
+            margin-bottom:15px;
+        }
         /* 课件导航页面样式 */
         .content-wrap {
             max-width: 900px;
@@ -101,6 +128,16 @@
     </style>
 </head>
 <body>
+    <!-- 教师密码弹窗 -->
+    <div class="teacher-modal" id="teacherModal">
+        <div class="modal-inner">
+            <h3>教师身份验证</h3>
+            <input type="password" id="teacherPwdInput" placeholder="输入教师专属密码">
+            <button class="btn" onclick="checkTeacherPwd()">确认查看兑换码</button>
+            <button class="btn" style="background:#999;margin-top:10px" onclick="closeTeacherModal()">关闭</button>
+        </div>
+    </div>
+
     <!-- 登录表单区域 -->
     <div class="login-box" id="loginArea">
         <h1>课堂课件访问验证</h1>
@@ -117,12 +154,12 @@
             <input type="text" id="codeInput" placeholder="输入今日兑换码">
         </div>
         <button class="btn" onclick="verifyAll()">进入课件</button>
-        <button class="btn teacher-btn" onclick="showTeacherCode()">教师入口：查看今日兑换码</button>
+        <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看今日兑换码</button>
     </div>
 
     <!-- 课件导航页面（验证成功后显示） -->
     <div class="content-wrap" id="courseArea">
-        <h1>甘龙镇中学分层教学&八年级专项课件汇总</h1>
+        <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
         <h2>难易分层课件</h2>
         <a href="./easy/">简单难度课件</a>
         <a href="./middle/">中等难度课件</a>
@@ -133,11 +170,15 @@
         <a href="./siweidaotu/">思维导图</a>
         <a href="./xuanzeti/">选择题专项</a>
         <a href="./zongfuxi/">总复习课件一</a>
-     
+
         <p class="record-tip">你的学习记录已自动保存，老师可查看完成名单</p>
     </div>
 
 <script>
+// ========== 配置区，自行修改 ==========
+const TEACHER_PASSWORD = "laoshi2026"; // 你的教师密码，学生不知道
+// ======================================
+
 // 生成每日固定兑换码（依据日期自动变化，同一天码不变，次日刷新）
 function getTodayCode() {
     const now = new Date();
@@ -152,10 +193,25 @@ function getTodayCode() {
     return code.toString();
 }
 
-// 教师查看当日兑换码
-function showTeacherCode() {
-    const todayCode = getTodayCode();
-    alert("今日有效兑换码：" + todayCode + "\n请告知本班学生使用");
+// 打开教师验证弹窗
+function openTeacherModal() {
+    document.getElementById("teacherModal").style.display = "flex";
+}
+// 关闭弹窗
+function closeTeacherModal() {
+    document.getElementById("teacherModal").style.display = "none";
+    document.getElementById("teacherPwdInput").value = "";
+}
+// 校验教师密码，正确才显示兑换码
+function checkTeacherPwd() {
+    const inputPwd = document.getElementById("teacherPwdInput").value.trim();
+    if(inputPwd === TEACHER_PASSWORD) {
+        const todayCode = getTodayCode();
+        alert("今日有效兑换码：" + todayCode + "\n请告知本班学生使用");
+        closeTeacherModal();
+    } else {
+        alert("教师密码错误，无权查看兑换码");
+    }
 }
 
 // 校验班级、姓名、兑换码
