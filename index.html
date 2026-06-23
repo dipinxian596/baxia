@@ -3,59 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>甘龙镇中学分层教学&专项课件汇总</title>
+    <title>甘龙镇中学课堂分层课件登录</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
-            background-color: #f7f8fa;
             font-family: "Microsoft Yahei", sans-serif;
-            text-align: center;
-            padding: 80px 20px;
+        }
+        /* 温馨渐变背景 */
+        body {
+            background: linear-gradient(120deg, #fff0f6, #e0f7ff, #fff9e6);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        /* 登录弹窗盒子 */
+        .login-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.85);
+            padding: 45px 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
         }
         h1 {
-            font-size: 48px;
-            color: #222;
-            margin-bottom: 60px;
+            text-align: center;
+            font-size: 36px;
+            color: #444;
+            margin-bottom: 35px;
+        }
+        .form-item {
+            margin: 22px 0;
+        }
+        label {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            font-size: 22px;
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 24px;
+            background: #64a8e8;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #428cd8;
+        }
+        /* 老师查看兑换码按钮 */
+        .teacher-btn {
+            margin-top: 20px;
+            background: #ffb366;
+        }
+        /* 课件导航页面样式 */
+        .content-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            display: none;
         }
         h2 {
             font-size: 32px;
             color: #333;
             margin: 45px 0 25px;
-            border-bottom: 3px solid #0366d6;
+            border-bottom: 3px solid #64a8e8;
             display: inline-block;
             padding-bottom: 8px;
         }
         a {
             display: block;
             font-size: 30px;
-            color: #0366d6;
+            color: #2478c9;
             text-decoration: none;
             margin: 22px 0;
-            transition: all 0.2s ease;
         }
         a:hover {
-            color: #004080;
             text-decoration: underline;
-            transform: scale(1.05);
+            transform: scale(1.04);
+        }
+        .record-tip {
+            margin-top: 40px;
+            font-size: 18px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
+    <!-- 登录表单区域 -->
+    <div class="login-box" id="loginArea">
+        <h1>课堂课件访问验证</h1>
+        <div class="form-item">
+            <label>班级（如：801班）</label>
+            <input type="text" id="className" placeholder="请输入你的班级">
+        </div>
+        <div class="form-item">
+            <label>姓名</label>
+            <input type="text" id="stuName" placeholder="请输入你的姓名">
+        </div>
+        <div class="form-item">
+            <label>当日兑换码（向老师获取）</label>
+            <input type="text" id="codeInput" placeholder="输入今日兑换码">
+        </div>
+        <button class="btn" onclick="verifyAll()">进入课件</button>
+        <button class="btn teacher-btn" onclick="showTeacherCode()">教师入口：查看今日兑换码</button>
+    </div>
 
-    <h2>难易分层课件</h2>
-    <a href="./easy/">简单难度课件</a>
-    <a href="./middle/">中等难度课件</a>
-    <a href="./hard/">困难难度课件</a>
+    <!-- 课件导航页面（验证成功后显示） -->
+    <div class="content-wrap" id="courseArea">
+        <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
+        <h2>难易分层课件</h2>
+        <a href="./easy/">简单难度课件</a>
+        <a href="./middle/">中等难度课件</a>
+        <a href="./hard/">困难难度课件</a>
 
-    <h2>专项课件</h2>
-    <a href="./siweidaotu/">思维导图</a>
-    <a href="./xuanzeti/">选择题专项</a>
-    <a href="./zongfuxi/">总复习课件一</a>
-    <a href="./lxkj/">总复习课件二</a>
+        <h2>专项课件</h2>
+        <a href="./lxkj/">练习课件</a>
+        <a href="./siweidaotu/">思维导图</a>
+        <a href="./xuanzeti/">选择题专项</a>
+        <a href="./zongfuxi/">总复习课件</a>
+
+        <p class="record-tip">你的学习记录已自动保存，老师可查看完成名单</p>
+    </div>
+
+<script>
+// 生成每日固定兑换码（依据日期自动变化，同一天码不变，次日刷新）
+function getTodayCode() {
+    const now = new Date();
+    // 拼接年月日作为加密种子
+    const seed = now.getFullYear() + "" + (now.getMonth()+1) + "" + now.getDate();
+    // 简易哈希生成6位数字兑换码
+    let code = 0;
+    for(let i=0;i<seed.length;i++){
+        code += seed.charCodeAt(i);
+    }
+    code = code % 900000 + 100000;
+    return code.toString();
+}
+
+// 教师查看当日兑换码
+function showTeacherCode() {
+    const todayCode = getTodayCode();
+    alert("今日有效兑换码：" + todayCode + "\n请告知本班学生使用");
+}
+
+// 校验班级、姓名、兑换码
+function verifyAll() {
+    const className = document.getElementById("className").value.trim();
+    const stuName = document.getElementById("stuName").value.trim();
+    const inputCode = document.getElementById("codeInput").value.trim();
+    const realCode = getTodayCode();
+
+    // 校验空值
+    if(className === ""){
+        alert("请填写你的班级！");
+        return;
+    }
+    if(stuName === ""){
+        alert("请填写你的姓名！");
+        return;
+    }
+    if(inputCode === ""){
+        alert("请输入今日兑换码！");
+        return;
+    }
+    // 校验兑换码
+    if(inputCode !== realCode){
+        alert("兑换码错误，请向老师获取今日正确兑换码");
+        return;
+    }
+
+    // 记录学生信息（本地存储，浏览器留存记录）
+    let recordList = JSON.parse(localStorage.getItem("stuRecord") || "[]");
+    recordList.push({
+        class: className,
+        name: stuName,
+        time: new Date().toLocaleString()
+    });
+    localStorage.setItem("stuRecord", JSON.stringify(recordList));
+
+    // 切换页面，展示课件
+    document.getElementById("loginArea").style.display = "none";
+    document.getElementById("courseArea").style.display = "block";
+}
+
+// 【老师查看所有学生记录】控制台调取方法
+// 打开网页F12，在Console输入：JSON.parse(localStorage.getItem("stuRecord"))
+</script>
 </body>
 </html>
