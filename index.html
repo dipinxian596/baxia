@@ -89,7 +89,7 @@
             margin-bottom:20px;
         }
         .content-wrap {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             text-align: center;
             display: none;
@@ -97,20 +97,35 @@
         h2 {
             font-size: 32px;
             color: #333;
-            margin: 45px 0 25px;
+            margin: 30px 0 20px;
             border-bottom: 3px solid #e69c75;
             display: inline-block;
             padding-bottom: 8px;
         }
-        a {
+        /* 横向导航容器：弹性自动换行 */
+        .nav-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom:10px;
+        }
+        /* 导航按钮卡片样式 */
+        .nav-row a {
             display: block;
-            font-size: 30px;
+            min-width: 200px;
+            padding:16px 10px;
+            font-size: 24px;
             color: #c26538;
             text-decoration: none;
-            margin: 22px 0;
+            border:2px solid #e69c75;
+            border-radius:12px;
+            background:rgba(255,255,255,0.6);
+            transition: all 0.2s ease;
         }
-        a:hover {
-            text-decoration: underline;
+        .nav-row a:hover {
+            background:#e69c75;
+            color:#fff;
             transform: scale(1.04);
         }
         .record-tip {
@@ -129,7 +144,6 @@
             <button class="btn" style="background:#999;margin-top:10px" onclick="closeTeacherModal()">关闭</button>
         </div>
     </div>
-
     <div class="login-box" id="loginArea">
         <h1>课堂课件访问验证</h1>
         <div class="form-item">
@@ -147,44 +161,44 @@
         <button class="btn" onclick="verifyAll()">进入课件</button>
         <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看今日兑换码</button>
     </div>
-
     <div class="content-wrap" id="courseArea">
         <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
+
         <h2>难易分层课件</h2>
-        <a href="./easy/">简单难度课件</a>
-        <a href="./middle/">中等难度课件</a>
-        <a href="./hard/">困难难度课件</a>
+        <div class="nav-row">
+            <a href="./easy/">简单难度课件</a>
+            <a href="./middle/">中等难度课件</a>
+            <a href="./hard/">困难难度课件</a>
+        </div>
 
         <h2>专项课件</h2>
-        <a href="./siweidaotu/">思维导图</a>
-        <a href="./xuanzeti/">选择题专项</a>
-        <a href="./zongfuxi/">总复习课件一</a>
-        <a href="./lxkj/">总复习课件二</a>
-        <a href="./banianji/">八年级道法电子课本与资料</a>
+        <div class="nav-row">
+            <a href="./siweidaotu/">思维导图</a>
+            <a href="./xuanzeti/">选择题专项</a>
+            <a href="./zongfuxi/">总复习课件一</a>
+            <a href="./lxkj/">总复习课件二</a>
+            <a href="./banianji/">八年级道法电子课本与资料</a>
+        </div>
 
         <p class="record-tip">你的学习记录已自动保存，老师可查看完成名单</p>
     </div>
-
 <script>
 // ========== 自定义配置 ==========
 const TEACHER_PASSWORD = "laoshi2026";
 const PRIVATE_KEY = 37591;
 // =================================
-
 function getTodayCode() {
     const date = new Date();
     const y = date.getFullYear();
     const m = date.getMonth() + 1;
     const d = date.getDate();
     let num = y * 10000 + m * 100 + d;
-
     num = num * PRIVATE_KEY;
     num = num ^ 89273;
     num = num * 17;
     let code = (num % 900000) + 100000;
     return code.toString();
 }
-
 function openTeacherModal() {
     document.getElementById("teacherModal").style.display = "flex";
 }
@@ -202,13 +216,11 @@ function checkTeacherPwd() {
         alert("教师密码错误，无权查看兑换码");
     }
 }
-
 function verifyAll() {
     const className = document.getElementById("className").value.trim();
     const stuName = document.getElementById("stuName").value.trim();
     const inputCode = document.getElementById("codeInput").value.trim();
     const realCode = getTodayCode();
-
     if(className === ""){
         alert("请填写你的班级！");
         return;
@@ -225,7 +237,6 @@ function verifyAll() {
         alert("兑换码错误，请向老师获取今日正确兑换码");
         return;
     }
-
     let recordList = JSON.parse(localStorage.getItem("stuRecord") || "[]");
     recordList.push({
         class: className,
@@ -233,7 +244,6 @@ function verifyAll() {
         time: new Date().toLocaleString()
     });
     localStorage.setItem("stuRecord", JSON.stringify(recordList));
-
     document.getElementById("loginArea").style.display = "none";
     document.getElementById("courseArea").style.display = "block";
 }
