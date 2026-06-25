@@ -11,13 +11,12 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
-        /* 温馨渐变背景 */
+        /* 暖调温馨渐变：豆沙粉 + 奶米黄 + 浅橘色，无冷蓝色 */
         body {
-            background: linear-gradient(120deg, #fff0f6, #e0f7ff, #fff9e6);
+            background: linear-gradient(120deg, #ffe8ec, #fff5e6, #fff0d9);
             min-height: 100vh;
             padding: 40px 20px;
         }
-        /* 登录弹窗盒子 */
         .login-box {
             max-width: 600px;
             margin: 0 auto;
@@ -62,12 +61,10 @@
         .btn:hover {
             background: #428cd8;
         }
-        /* 老师查看兑换码按钮 */
         .teacher-btn {
             margin-top: 20px;
             background: #ffb366;
         }
-        /* 教师弹窗样式 */
         .teacher-modal {
             position: fixed;
             top: 0;
@@ -91,10 +88,6 @@
             font-size:26px;
             margin-bottom:20px;
         }
-        .modal-inner input {
-            margin-bottom:15px;
-        }
-        /* 课件导航页面样式 */
         .content-wrap {
             max-width: 900px;
             margin: 0 auto;
@@ -105,14 +98,14 @@
             font-size: 32px;
             color: #333;
             margin: 45px 0 25px;
-            border-bottom: 3px solid #64a8e8;
+            border-bottom: 3px solid #e69c75;
             display: inline-block;
             padding-bottom: 8px;
         }
         a {
             display: block;
             font-size: 30px;
-            color: #2478c9;
+            color: #c26538;
             text-decoration: none;
             margin: 22px 0;
         }
@@ -128,7 +121,6 @@
     </style>
 </head>
 <body>
-    <!-- 教师密码弹窗 -->
     <div class="teacher-modal" id="teacherModal">
         <div class="modal-inner">
             <h3>教师身份验证</h3>
@@ -138,7 +130,6 @@
         </div>
     </div>
 
-    <!-- 登录表单区域 -->
     <div class="login-box" id="loginArea">
         <h1>课堂课件访问验证</h1>
         <div class="form-item">
@@ -157,7 +148,6 @@
         <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看今日兑换码</button>
     </div>
 
-    <!-- 课件导航页面（验证成功后显示） -->
     <div class="content-wrap" id="courseArea">
         <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
         <h2>难易分层课件</h2>
@@ -175,34 +165,32 @@
     </div>
 
 <script>
-// ========== 配置区，自行修改 ==========
-const TEACHER_PASSWORD = "laoshi2026"; // 你的教师密码，学生不知道
-// ======================================
+// ========== 自定义配置 ==========
+const TEACHER_PASSWORD = "laoshi2026";
+const PRIVATE_KEY = 37591;
+// =================================
 
-// 生成每日固定兑换码（依据日期自动变化，同一天码不变，次日刷新）
 function getTodayCode() {
-    const now = new Date();
-    // 拼接年月日作为加密种子
-    const seed = now.getFullYear() + "" + (now.getMonth()+1) + "" + now.getDate();
-    // 简易哈希生成6位数字兑换码
-    let code = 0;
-    for(let i=0;i<seed.length;i++){
-        code += seed.charCodeAt(i);
-    }
-    code = code % 900000 + 100000;
+    const date = new Date();
+    const y = date.getFullYear();
+    const m = date.getMonth() + 1;
+    const d = date.getDate();
+    let num = y * 10000 + m * 100 + d;
+
+    num = num * PRIVATE_KEY;
+    num = num ^ 89273;
+    num = num * 17;
+    let code = (num % 900000) + 100000;
     return code.toString();
 }
 
-// 打开教师验证弹窗
 function openTeacherModal() {
     document.getElementById("teacherModal").style.display = "flex";
 }
-// 关闭弹窗
 function closeTeacherModal() {
     document.getElementById("teacherModal").style.display = "none";
     document.getElementById("teacherPwdInput").value = "";
 }
-// 校验教师密码，正确才显示兑换码
 function checkTeacherPwd() {
     const inputPwd = document.getElementById("teacherPwdInput").value.trim();
     if(inputPwd === TEACHER_PASSWORD) {
@@ -214,14 +202,12 @@ function checkTeacherPwd() {
     }
 }
 
-// 校验班级、姓名、兑换码
 function verifyAll() {
     const className = document.getElementById("className").value.trim();
     const stuName = document.getElementById("stuName").value.trim();
     const inputCode = document.getElementById("codeInput").value.trim();
     const realCode = getTodayCode();
 
-    // 校验空值
     if(className === ""){
         alert("请填写你的班级！");
         return;
@@ -234,13 +220,11 @@ function verifyAll() {
         alert("请输入今日兑换码！");
         return;
     }
-    // 校验兑换码
     if(inputCode !== realCode){
         alert("兑换码错误，请向老师获取今日正确兑换码");
         return;
     }
 
-    // 记录学生信息（本地存储，浏览器留存记录）
     let recordList = JSON.parse(localStorage.getItem("stuRecord") || "[]");
     recordList.push({
         class: className,
@@ -249,13 +233,9 @@ function verifyAll() {
     });
     localStorage.setItem("stuRecord", JSON.stringify(recordList));
 
-    // 切换页面，展示课件
     document.getElementById("loginArea").style.display = "none";
     document.getElementById("courseArea").style.display = "block";
 }
-
-// 【老师查看所有学生记录】控制台调取方法
-// 打开网页F12，在Console输入：JSON.parse(localStorage.getItem("stuRecord"))
 </script>
 </body>
 </html>
