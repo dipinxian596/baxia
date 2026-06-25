@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八年级道法·年度统考模拟试卷（B卷）</title>
+<style>
+:root{--primary:#2563eb;--accent:#e67e22;--bg:#eff6ff;--card:#fff;--correct:#27ae60;--wrong:#e74c3c;--nav-bg:#1e3a5f}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:#1e3a5f;line-height:1.7;min-height:100vh;padding-bottom:80px}
+.top-nav{background:var(--nav-bg);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.top-nav .title{font-size:1.1em;font-weight:700;letter-spacing:1px}
+.top-nav .title span{color:#60a5fa}
+.progress-bar{width:200px;height:8px;background:rgba(255,255,255,0.2);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:#60a5fa;transition:width .5s ease}
+.score-display{font-size:.95em;color:#60a5fa;font-weight:700}
+.container{max-width:900px;margin:20px auto;padding:0 16px}
+.cover{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff;border-radius:16px;padding:50px 30px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(96,165,250,0.15) 0%,transparent 50%);animation:rotate 20s linear infinite}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.cover h1{font-size:2em;margin-bottom:10px;position:relative}
+.cover h2{font-size:1.2em;font-weight:400;opacity:.9;margin-bottom:20px;position:relative}
+.cover .badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;position:relative}
+.cover .badge{background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:20px;font-size:.85em}
+.cover .start-btn{display:inline-block;background:#60a5fa;color:#1e3a5f;padding:14px 40px;border-radius:30px;font-size:1.1em;font-weight:700;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;position:relative}
+.cover .start-btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(96,165,250,0.4)}
+.question-card{background:var(--card);border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06);border-left:4px solid var(--primary);transition:all .3s}
+.question-card.answered-correct{border-left-color:var(--correct);background:#f0faf5}
+.question-card.answered-wrong{border-left-color:var(--wrong);background:#fdf2f2}
+.question-card .q-type{display:inline-block;font-size:.8em;font-weight:700;padding:4px 12px;border-radius:4px;margin-bottom:12px;letter-spacing:1px}
+.q-type.choice{background:#eff6ff;color:#2563eb}
+.q-type.material{background:#fef9e7;color:#b7950b}
+.q-type.nonlinear{background:#f5eef8;color:#7d3c98}
+.q-type.reading{background:#e8f8f5;color:#1abc9c}
+.q-type.judge{background:#eaf2f8;color:#2980b9}
+.q-type.practice{background:#fef5e7;color:#d35400}
+.question-card .q-stem{font-size:1.05em;margin-bottom:18px;font-weight:600}
+.question-card .q-material{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:16px;font-size:.93em;color:#555;border:1px dashed #ccc;white-space:pre-wrap;line-height:1.8}
+.question-card .options{display:grid;gap:10px;margin-bottom:16px}
+.question-card .option{display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;transition:all .2s;font-size:.95em}
+.question-card .option:hover{border-color:#2563eb;background:#eff6ff}
+.question-card .option.selected{border-color:#2563eb;background:#dbeafe}
+.question-card .option.correct{border-color:var(--correct);background:#eafaf1}
+.question-card .option.wrong{border-color:var(--wrong);background:#fdedec}
+.question-card .option .letter{width:30px;height:30px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.question-card .option.selected .letter{background:#2563eb;color:#fff}
+.question-card .option.correct .letter{background:var(--correct);color:#fff}
+.question-card .option.wrong .letter{background:var(--wrong);color:#fff}
+.feedback{display:none;padding:14px;border-radius:8px;margin-top:10px;font-size:.93em;animation:fadeIn .3s}
+.feedback.show{display:block}
+.feedback.success{background:#eafaf1;border:1px solid var(--correct);color:#1e7e34}
+.feedback.error{background:#fdedec;border:1px solid var(--wrong);color:#922b21}
+.feedback.nonlinear-fb{background:#fef9e7;border:1px solid #f39c12;color:#7d6608}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.nonlinear-card{background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.nonlinear-card .nl-header{background:linear-gradient(135deg,#7d3c98,#a569bd);color:#fff;padding:16px 24px;font-weight:700;font-size:1.1em}
+.nonlinear-card .nl-body{padding:24px}
+.nonlinear-card .nl-chart{background:#f8f9fa;border-radius:8px;padding:20px;margin-bottom:16px;text-align:center}
+.nonlinear-card .nl-questions{display:grid;gap:14px}
+.nonlinear-card .nl-q{background:#fafafa;border-radius:8px;padding:14px;border:1px solid #eee}
+.nonlinear-card .nl-q .nl-q-title{font-weight:600;margin-bottom:8px;color:#7d3c98}
+.nonlinear-card .nl-answer-input{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:.9em;font-family:inherit;resize:vertical;min-height:60px;transition:border-color .2s}
+.nonlinear-card .nl-answer-input:focus{outline:none;border-color:#7d3c98}
+.nonlinear-card .nl-check-btn{background:#7d3c98;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:.9em;margin-top:8px;transition:background .2s}
+.nonlinear-card .nl-check-btn:hover{background:#6c3483}
+.nonlinear-card .nl-feedback{margin-top:8px;font-size:.85em;display:none;padding:8px;border-radius:6px}
+.nonlinear-card .nl-feedback.show{display:block}
+.result-panel{display:none;background:#fff;border-radius:16px;padding:40px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:24px;animation:fadeIn .5s}
+.result-panel.show{display:block}
+.result-panel .score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.5em;font-weight:700;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.result-panel .score-detail{font-size:1em;color:#666;margin-bottom:10px}
+.result-panel .review-btn{display:inline-block;background:#2563eb;color:#fff;padding:10px 30px;border-radius:25px;cursor:pointer;margin:10px;border:none;font-size:.95em;transition:background .2s}
+.result-panel .review-btn:hover{background:#1d4ed8}
+.hidden{display:none!important}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 -2px 10px rgba(0,0,0,0.06);z-index:90}
+.bottom-nav button{padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:.9em;font-weight:600;transition:all .2s}
+.bottom-nav .prev-btn{background:#e0e0e0;color:#333}
+.bottom-nav .next-btn{background:#2563eb;color:#fff}
+.bottom-nav .submit-btn{background:#27ae60;color:#fff}
+.bottom-nav button:hover{opacity:.85}
+.bottom-nav button:disabled{opacity:.4;cursor:default}
+.bottom-nav .section-indicator{font-size:.85em;color:#888}
+@media(max-width:600px){.container{padding:0 8px}.question-card{padding:16px}.cover{padding:30px 16px}.cover h1{font-size:1.4em}.bottom-nav{padding:10px 12px}}
+</style>
+</head>
+<body>
+<div class="top-nav">
+<div class="title">八年级道法 <span>统考模拟B卷</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="score-display" id="scoreDisplay">选择题得分: 0</div>
+</div>
+<div class="container" id="app">
+<div class="cover" id="coverPage">
+<h1>八年级道德与法治</h1>
+<h2>年度统考模拟试卷（B卷）</h2>
+<div class="badges">
+<span class="badge">八上30%·八下70%</span>
+<span class="badge">2026年6月时政</span>
+<span class="badge">14选择题+4非选</span>
+<span class="badge">总分75分</span>
+<span class="badge">侧重宪法与法治</span>
+</div>
+<p style="opacity:0.8;margin-bottom:20px;font-size:0.9em;position:relative">
+本试卷基于2026年5月铜仁市统考深度分析，<br>结合新课标、八上八下电子课本与重难点命制<br>
+侧重宪法监督、公民权利、人大制度、司法公正<br>八上侧重社会规则、网络素养、国家安全
+</p>
+<button class="start-btn" onclick="startQuiz()">开始答题</button>
+</div>
+<div id="questionsArea" class="hidden"></div>
+<div class="result-panel" id="resultPanel">
+<div class="score-circle" id="scoreCircle">0</div>
+<p style="font-size:1.2em;font-weight:700;margin-bottom:6px">你的成绩</p>
+<p class="score-detail" id="scoreDetail"></p>
+<p style="color:#888;font-size:0.9em;margin-bottom:20px">共 18 题 · 满分 75 分</p>
+<div id="resultComment" style="margin-bottom:20px;font-size:0.95em;color:#555"></div>
+<button class="review-btn" onclick="reviewAll()">查看全部解析</button>
+<button class="review-btn" onclick="resetQuiz()" style="background:#e67e22">重新挑战</button>
+</div>
+</div>
+<div class="bottom-nav hidden" id="bottomNav">
+<button class="prev-btn" id="prevBtn" onclick="prevQuestion()" disabled>上一题</button>
+<span class="section-indicator" id="sectionIndicator"></span>
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+<button class="submit-btn hidden" id="submitBtn" onclick="submitAll()">提交答卷</button>
+</div>
+<script>
+var questions = [
+  {"id":1,"section":"一、选择题（第1-14题，每题2分，共28分）","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】某市针对「行人闯红灯「现象推出「智能斑马线「系统，通过人脸识别技术对闯红灯者进行语音提醒并记录。系统运行一个月后，该路口闯红灯行为下降了85%。这说明","material":"","options":["A. 科技手段可以完全替代道德约束","B. 社会规则限制了人们的出行自由","C. 社会规则保障社会秩序的实现","D. 遵守规则主要依靠外在强制力"],"answer":2,"analysis":"社会规则明确社会秩序的内容，保障社会秩序的实现。智能斑马线作为一种规则约束手段，有效减少了闯红灯行为，说明规则对秩序的保障作用。答案为C。"},
+  {"id":2,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"初中生亮亮因结交社会不良青年，经常旷课、出入网吧，被学校给予纪律处分。但他不思悔改，为了凑钱上网，多次拦路抢劫他人财物，最终被人民法院依法判处有期徒刑。对此理解正确的是","material":"","options":["A. ①② — 违纪行为必然发展成为严重违法行为；亮亮多次拦路抢劫属于严重违法行为","B. ②④ — 亮亮多次拦路抢劫属于严重违法行为；一般违法与犯罪之间没有不可逾越的鸿沟","C. ①③ — 违纪行为必然发展成为严重违法行为；经常旷课和出入网吧都属于一般违法行为","D. ③④ — 经常旷课和出入网吧都属于一般违法行为；一般违法与犯罪之间没有不可逾越的鸿沟"],"answer":1,"analysis":"拦路抢劫属于严重违法行为（犯罪）。一般违法与犯罪之间没有不可逾越的鸿沟，有了一般违法行为如不及时改正，可能发展为犯罪。①「必然「太绝对，③旷课和出入网吧属于违纪行为而非一般违法行为。答案为B。"},
+  {"id":3,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】某中学开展「E路护航」青少年网络素养提升活动，通过模拟网络诈骗场景、AI换脸识别体验等方式，帮助学生提升网络信息辨别能力。这启示青少年要","material":"","options":["A. ①② — 提高媒介素养，积极传播网络正能量；增强自我保护意识，不轻信网络信息","B. ①③ — 提高媒介素养，积极传播网络正能量；远离互联网，避免受到网络不良影响","C. ②④ — 增强自我保护意识，不轻信网络信息；利用网络平台随意发表个人言论","D. ③④ — 远离互联网，避免受到网络不良影响；利用网络平台随意发表个人言论"],"answer":0,"analysis":"要合理利用网络，提高媒介素养，增强自我保护意识。③「远离互联网「是因噎废食，④「随意发表言论「无视网络规则。答案为A。"},
+  {"id":4,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】某社区「爱心接力站「发起「邻里互助「活动，居民们利用周末时间为独居老人买菜、打扫卫生、陪聊解闷。参与该活动的志愿者小敏说：「帮助别人的同时，自己也收获了快乐和成长。「这种「赠人玫瑰，手有余香「的体验说明","material":"","options":["A. 关爱他人是为了获得社会赞誉","B. 关爱他人是成年人的事情，与青少年无关","C. 关爱他人就要牺牲自己的全部时间和精力","D. 关爱他人也是关爱和善待自己"],"answer":3,"analysis":"关爱他人，收获幸福。关爱他人是一种幸福，在关爱他人的过程中，自己也获得了快乐和成长，这是「赠人玫瑰，手有余香「的真谛。答案为D。"},
+  {"id":5,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】全国人大常委会开展「合宪性审查「工作，对地方性法规中与宪法不一致的条款提出修改意见。全国人大常委会行使了","material":"","options":["A. 立法权","B. 监督宪法实施的职权","C. 决定权","D. 任免权"],"answer":1,"analysis":"全国人大及其常委会有权监督宪法和法律的实施。合宪性审查是监督宪法实施的重要方式，确保法律法规与宪法保持一致。答案为B。"},
+  {"id":6,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"2026年6月，某县人大代表选举中，选民们认真填写选票，投下庄严一票。年满18周岁的小王第一次参加选举。小王行使了","material":"","options":["A. 人身自由权","B. 社会经济权利","C. 选举权和被选举权","D. 文化教育权利"],"answer":2,"analysis":"选举权和被选举权是公民的一项基本政治权利。年满18周岁、未被剥夺政治权利的公民享有选举权和被选举权。答案为C。"},
+  {"id":7,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】全国人大代表深入基层调研，将群众反映的「老旧小区加装电梯难」「社区养老设施不足「等问题形成建议，提交全国人大常委会。这体现了","material":"","options":["A. 人大代表密切联系群众，反映民意","B. 人民代表大会是最高国家权力机关","C. 人大代表可以直接解决群众的所有问题","D. 人民代表大会制度是我国的根本制度"],"answer":0,"analysis":"人大代表与人民群众保持密切联系，听取和反映人民群众的意见和要求，努力为人民服务。材料中人大代表深入基层调研并提交建议，体现了这一职责。答案为A。"},
+  {"id":8,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"某社区通过「居民议事厅「平台，组织居民就小区停车位改造方案进行民主协商。经过多次讨论，最终形成了各方都能接受的方案。这一做法体现了","material":"","options":["A. 民族区域自治制度","B. 中国共产党领导的多党合作和政治协商制度","C. 社会主义市场经济体制","D. 基层群众自治制度，基层民主是全过程人民民主的重要体现"],"answer":3,"analysis":"基层群众自治制度是我国的一项基本政治制度。居民议事厅是基层民主的生动实践，体现了全过程人民民主。答案为D。"},
+  {"id":9,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】某市人民法院公开审理一起网络名誉侵权案，依法判决被告在社交媒体上公开道歉并赔偿原告精神损失。该案中人民法院行使了","material":"","options":["A. 检察权","B. 审判权","C. 监察权","D. 行政权"],"answer":1,"analysis":"人民法院是国家的审判机关，依法独立行使审判权。公开审理案件并作出判决，是人民法院行使审判权的体现。答案为B。"},
+  {"id":10,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】某市监察委员会对一起扶贫资金挪用案件展开调查，对涉嫌违法的公职人员进行留置并给予政务处分。监察委员会行使了","material":"","options":["A. 审判职责","B. 检察职责","C. 监督、调查、处置职责","D. 立法职责"],"answer":2,"analysis":"监察委员会是行使国家监察职能的专责机关，对所有行使公权力的公职人员进行监察，履行监督、调查、处置职责。答案为C。"},
+  {"id":11,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】中央网信办通报一起「网暴「典型案例：某网民因在网上发布不实信息、恶意攻击他人，造成严重后果，被法院判决赔偿受害人5.7万元并将赔偿款捐赠公益组织。该案体现了","material":"","options":["A. ①②③ — 把社会主义核心价值观融入法治建设；法治与德治相结合；网络空间不是法外之地","B. ①②③④ — 全部说法都正确","C. ①③④ — 把社会主义核心价值观融入法治建设；网络空间不是法外之地；网络言论自由不受任何限制","D. ①②③ — 与A相同（正确答案）"],"answer":0,"analysis":"该案体现了把社会主义核心价值观融入法治建设，法治与德治相结合，网络空间不是法外之地。④「网络言论自由不受任何限制「错误，言论自由是有边界的。答案为A。"},
+  {"id":12,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】国务院常务会议审议通过《教育发展「十五五「规划》，提出要「扎实推进依法行政，建设服务型政府」。这体现了国家行政机关","material":"","options":["A. 是国家权力机关的执行机关，依法行政","B. 可以独立制定法律，不受任何约束","C. 只对上级行政机关负责","D. 与权力机关是相互独立的关系"],"answer":0,"analysis":"国家行政机关是国家权力机关的执行机关，必须依法行政。国务院作为最高行政机关，审议通过教育规划，体现了依法行政的要求。答案为A。"},
+  {"id":13,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】我国科学家在南海深海科考中取得重大突破，发现了新的矿产资源，这对维护我国海洋权益和资源安全具有重要意义。这启示我们","material":"","options":["A. ①②③ — 国家利益关系民族生存、国家兴亡；国家利益是人民利益的集中体现；个人利益和国家利益是完全对立的","B. ①②④ — 国家利益关系民族生存、国家兴亡；国家利益是人民利益的集中体现；要自觉维护国家利益","C. ①③④ — 国家利益关系民族生存、国家兴亡；个人利益和国家利益是完全对立的；要自觉维护国家利益","D. ②③④ — 国家利益是人民利益的集中体现；个人利益和国家利益是完全对立的；要自觉维护国家利益"],"answer":1,"analysis":"国家利益与个人利益在根本上是一致的，二者相辅相成，并非完全对立。③错误。答案为B。"},
+  {"id":14,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】国家安全机关开展「雷霆2026「专项行动，破获多起境外间谍窃密案件。中学生小陈在军事禁区附近发现有人形迹可疑，立即拨打12339举报电话。小陈的行为","material":"","options":["A. 是多管闲事，与中学生无关","B. 应该先拍照发朋友圈提醒大家","C. 应当直接上前制止嫌疑人","D. 是自觉履行维护国家安全义务的表现"],"answer":3,"analysis":"维护国家安全是公民的法定义务。发现危害国家安全的行为，应及时向国家安全机关举报（拨打12339）。小陈的做法是自觉履行维护国家安全义务的体现。答案为D。"},
+  {"id":15,"section":"五、非连续性文本（本题8分）","type":"nonlinear","typeLabel":"非连续性文本","stem":"","material":"材料一：2026年6月，最高人民检察院发布《未成年人检察工作白皮书（2025）》，数据显示：2025年全国检察机关共批准逮捕侵害未成年人犯罪4.2万人，起诉5.7万人。其中，利用网络实施的侵害未成年人犯罪同比上升12.3%。\n\n材料二：《中华人民共和国未成年人保护法》增设「网络保护「专章。第七十条规定：学校应当合理使用网络开展教学活动。未经学校允许，未成年学生不得将手机等智能终端产品带入课堂，带入学校的应当统一管理。","nonlinearData":{"title":"未成年人网络侵害类型分布","items":[{"label":"网络诈骗","desc":"占比最高"},{"label":"网络欺凌","desc":"持续增长"},{"label":"不良信息","desc":"诱导沉迷"},{"label":"隐私泄露","desc":"隐患突出"},{"label":"隔空猥亵","desc":"新型犯罪"},{"label":"诱导打赏","desc":"财产侵害"}]},"subQuestions":[{"id":"nl15_1","title":"第1问（4分）：材料一反映了什么问题？从「尊重和保障人权「的角度，说明国家为什么要加强对未成年人的网络保护？","ref":"①材料一反映侵害未成年人犯罪数量较大，利用网络实施的侵害未成年人犯罪同比上升，未成年人网络保护形势严峻。②国家尊重和保障人权是宪法的基本原则。未成年人身心发育尚不成熟，自我保护能力较弱，加强网络保护是保障未成年人人权的必然要求。"},{"id":"nl15_2","title":"第2问（4分）：结合材料二，谈谈中学生应如何合理利用网络，做网络生活的主人？","ref":"①提高媒介素养，学会辨析网络信息，不轻信、不传播谣言。②增强自我保护意识，不随意泄露个人信息，不点击不明链接。③遵守网络规则，文明上网，不沉迷网络游戏。④积极传播网络正能量，发现不良信息及时举报。"}]},
+  {"id":16,"section":"六、阅读与思考（本题9分）","type":"nonlinear","typeLabel":"阅读与思考","stem":"","material":"2026年6月，国务院常务会议审议通过《教育发展「十五五「规划》，强调「坚持教育优先发展，促进教育公平，加快建设教育强国」。规划提出：到2030年，全国学前三年毛入园率达到95%以上，九年义务教育巩固率达到98%以上，高中阶段毛入学率达到95%以上。\n\n与此同时，贵州省积极推进「教育数字化「战略，通过「互联网+教育「平台，让偏远山区的孩子也能享受到优质教育资源。遵义市某乡村小学通过远程教学系统，与北京的名校实现同步课堂，孩子们第一次看到了天安门升旗仪式的直播。","nonlinearData":{"title":"教育公平的四个维度","items":[{"label":"起点公平","desc":"入学机会"},{"label":"过程公平","desc":"资源均衡"},{"label":"结果公平","desc":"教育质量"},{"label":"数字公平","desc":"技术赋能"},{"label":"城乡均衡","desc":"缩小差距"},{"label":"特殊保障","desc":"弱势群体"}]},"subQuestions":[{"id":"nl16_1","title":"第1问（3分）：材料中提到的「教育公平「体现了宪法的哪一项基本原则？国家保障公民的哪一项基本权利？","ref":"①体现了宪法「尊重和保障人权「的基本原则。②宪法规定公民有受教育的权利和义务，国家保障公民的受教育权。教育公平是保障公民平等享有受教育权的重要体现。"},{"id":"nl16_2","title":"第2问（6分）：结合材料，从「我国基本经济制度「和「创新驱动发展「的角度，分析国家为什么要大力发展教育事业？","ref":"①我国坚持公有制为主体、多种所有制经济共同发展，坚持按劳分配为主体、多种分配方式并存，坚持社会主义市场经济体制。发展教育事业为经济发展提供人才支撑和智力支持，是推动经济高质量发展的基础。②创新是引领发展的第一动力。教育是培养创新型人才的根本途径，大力发展教育事业有利于提高国民素质，培养创新型人才，推动创新驱动发展战略的实施。"}]},
+  {"id":17,"section":"七、判断与分析（本题9分）","type":"nonlinear","typeLabel":"判断与分析","stem":"","material":"2026年6月，某中学开展「法治教育进校园「活动。活动中，同学们围绕「自由与法治「展开了热烈讨论。\n\n小雅说：「法治限制了人们的自由，让人们不能随心所欲地做事。如果没有法律，我们想做什么就做什么，那才是真正的自由。」\n\n小宇反驳道：「你说的不对。法治不是为了限制自由，而是为了保障自由。就像交通规则一样，看起来限制了我们的出行，实际上保障了每个人的出行安全。」","nonlinearData":{"title":"法治与自由的关系","items":[{"label":"法治标定","desc":"自由的边界"},{"label":"法治保障","desc":"自由的实现"},{"label":"无法治","desc":"无真正自由"},{"label":"守法律","desc":"享自由"},{"label":"权利与义务","desc":"相统一"},{"label":"规则与秩序","desc":"相辅相成"}]},"subQuestions":[{"id":"nl17","title":"请运用「法治与自由的关系「相关知识，对小雅的观点进行判断并分析。（9分）","ref":"小雅的观点是错误的。①法治与自由相互联系，不可分割。法治标定了自由的边界，自由的实现不能触碰法律的红线。②法治是自由的保障，人们合法的自由和权利不受非法干涉和侵害。③违反法律可能付出失去自由的代价。④无法治则无自由，只有在法治的框架内，才能享有真正的自由。"}]},
+  {"id":18,"section":"八、实践与探究（本题21分）","type":"nonlinear","typeLabel":"实践与探究","stem":"","material":"材料一【法治护航】：2026年是「八五「普法规划收官之年。近年来，我国持续推进法治建设：全国人大常委会加强合宪性审查，确保法律法规与宪法保持一致；国务院推进「放管服「改革，建设法治政府；监察机关加强反腐败工作，实现对所有行使公权力的公职人员监督全覆盖；人民法院和人民检察院依法独立公正行使职权，努力让人民群众在每一个司法案件中感受到公平正义。\n\n材料二【青春与法】：2026年6月，最高检召开新闻发布会，介绍中国未成年人检察工作40年发展情况。40年来，检察机关坚持「教育、感化、挽救「方针，推动未成年人综合司法保护。会上还发布了「检爱同行——法治进校园「精品课程。","nonlinearData":{"title":"国家机构保障宪法实施","items":[{"label":"全国人大","desc":"合宪性审查"},{"label":"国务院","desc":"依法行政"},{"label":"监察委","desc":"监督全覆盖"},{"label":"人民法院","desc":"独立审判"},{"label":"人民检察院","desc":"法律监督"},{"label":"宪法至上","desc":"核心价值"}]},"subQuestions":[{"id":"nl18_1","title":"第1问（8分）：阅读材料一，结合所学知识，完成下表：我国是如何通过国家机构保障宪法实施的？","ref":"①全国人大及其常委会：加强合宪性审查，确保法律法规与宪法一致→体现宪法具有最高法律效力，是国家法制统一的基础。②国务院（行政机关）：推进依法行政，建设法治政府→体现尊重和保障人权。③监察机关：加强反腐败工作，监督公职人员→体现规范权力运行。④人民法院和人民检察院：依法独立公正行使职权→体现司法公正，维护公平正义。"},{"id":"nl18_2","title":"第2问（6分）：阅读材料二，从「规范国家权力运行「的角度，谈谈检察机关为什么要坚持「教育为主、惩罚为辅「的未成年人犯罪处理原则？","ref":"①规范国家权力运行以保障公民权利，是宪法的核心价值追求。②未成年人身心发育尚不成熟，检察机关坚持「教育为主、惩罚为辅」，体现了对未成年人这一特殊群体的特别保护，是尊重和保障人权的体现。③国家权力必须在宪法和法律限定的范围内行使，检察机关依法行使检察权，既惩罚犯罪又保护未成年人合法权益。"},{"id":"nl18_3","title":"第3问（7分）：为增强同学们的法治意识，班级准备开展「法治在我心中「主题宣传活动。请设计活动名称、设计意图和两条活动内容示例。","ref":"任务1：活动名称——法治在我心中——模拟法庭（或「法治知识竞赛」、「法治手抄报展「等）。任务2：设计意图——增强法治意识，弘扬法治精神，做守法公民。任务3：活动内容①开展模拟法庭活动，让学生分别扮演法官、检察官、律师等角色，体验司法过程；②举办「宪法晨读「活动，每天早读时间朗读宪法条文，培养宪法意识。"}]}
+];
+
+var currentIndex = 0;
+var userAnswers = {};
+var userNLAnswers = {};
+var nlChecked = {};
+var nlScores = {};
+var quizStarted = false;
+var choiceScore = 0;
+
+function renderQuestion(q) {
+  if (q.type === 'nonlinear') return renderNonlinear(q);
+  return renderChoice(q);
+}
+
+function renderChoice(q) {
+  var html = '<div class="question-card" id="q' + q.id + '">';
+  html += '<span class="q-type choice">' + q.typeLabel + '</span>';
+  html += '<div class="q-stem">' + q.id + '. ' + q.stem + '</div>';
+  if (q.material) html += '<div class="q-material">' + q.material + '</div>';
+  html += '<div class="options">';
+  var letters = ['A','B','C','D','E','F'];
+  q.options.forEach(function(opt, i) {
+    var cls = 'option';
+    var userAns = userAnswers[q.id];
+    if (userAns !== undefined) {
+      if (userAns === i) cls += ' selected';
+      if (q.answer === i) cls += ' correct';
+      if (userAns === i && q.answer !== i) cls += ' wrong';
+    }
+    html += '<div class="' + cls + '" onclick="selectOption(' + q.id + ',' + i + ')">';
+    html += '<span class="letter">' + letters[i] + '</span>';
+    html += '<span>' + opt.substring(2).trim() + '</span></div>';
+  });
+  html += '</div><div class="feedback" id="fb' + q.id + '"></div></div>';
+  return html;
+}
+
+function renderNonlinear(q) {
+  var typeColors = {'非连续性文本':'#7d3c98','阅读与思考':'#1abc9c','判断与分析':'#2980b9','实践与探究':'#d35400'};
+  var color = typeColors[q.typeLabel] || '#7d3c98';
+  var html = '<div class="nonlinear-card" id="q' + q.id + '">';
+  html += '<div class="nl-header" style="background:linear-gradient(135deg,' + color + ',' + color + 'cc)">' + q.typeLabel + ' - ' + q.nonlinearData.title + '</div>';
+  html += '<div class="nl-body">';
+  if (q.material) html += '<div class="q-material">' + q.material.replace(/\n/g,'<br>') + '</div>';
+  html += '<div class="nl-chart">' + renderNLSVG(q.nonlinearData) + '</div>';
+  html += '<div class="nl-questions">';
+  q.subQuestions.forEach(function(sq) {
+    var checked = nlChecked[sq.id] || false;
+    html += '<div class="nl-q"><div class="nl-q-title">' + sq.title + '</div>';
+    html += '<textarea class="nl-answer-input" id="nlInput' + sq.id + '" placeholder="请输入你的答案..." ' + (checked?'disabled':'') + '>' + (userNLAnswers[sq.id]||'') + '</textarea>';
+    html += '<button class="nl-check-btn" id="nlCheckBtn' + sq.id + '" ' + (checked?'disabled':'') + '>' + (checked?'已检查':'检查答案') + '</button>';
+    html += '<div class="nl-feedback" id="nlFb' + sq.id + '"></div>';
+    if (checked) html += '<div style="margin-top:8px;font-size:0.85em;color:' + color + ';background:#f8f0ff;padding:8px;border-radius:6px;white-space:pre-wrap">参考答案：' + sq.ref + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div></div>';
+  return html;
+}
+
+function renderNLSVG(data) {
+  var colors = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
+  var cx = 300, cy = 200, r = 140;
+  var svg = '<svg viewBox="0 0 600 400" width="500" height="333"><text x="300" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#333">' + data.title + '</text>';
+  var angle = -90;
+  var total = data.items.length;
+  data.items.forEach(function(item, i) {
+    var startAngle = angle;
+    var sweep = 360 / total;
+    var endAngle = startAngle + sweep;
+    var x1 = cx + r * Math.cos(startAngle * Math.PI / 180);
+    var y1 = cy + r * Math.sin(startAngle * Math.PI / 180);
+    var x2 = cx + r * Math.cos(endAngle * Math.PI / 180);
+    var y2 = cy + r * Math.sin(endAngle * Math.PI / 180);
+    var largeArc = sweep > 180 ? 1 : 0;
+    svg += '<path d="M' + cx + ' ' + cy + ' L' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + colors[i] + '" opacity="0.85" stroke="white" stroke-width="2"/>';
+    var midAngle = (startAngle + endAngle) / 2;
+    var labelR = r * 0.65;
+    var lx = cx + labelR * Math.cos(midAngle * Math.PI / 180);
+    var ly = cy + labelR * Math.sin(midAngle * Math.PI / 180);
+    svg += '<text x="' + lx + '" y="' + ly + '" text-anchor="middle" font-size="12" fill="white" font-weight="600">' + item.label + '</text>';
+    angle = endAngle;
+  });
+  svg += '</svg>';
+  svg += '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px">';
+  data.items.forEach(function(item, i) {
+    svg += '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px"><span style="width:12px;height:12px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + item.label + ': ' + item.desc + '</span>';
+  });
+  svg += '</div>';
+  return svg;
+}
+
+function selectOption(qid, optIdx) {
+  if (userAnswers[qid] !== undefined) return;
+  userAnswers[qid] = optIdx;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var correct = optIdx === q.answer;
+  if (correct) choiceScore += 2;
+  var fb = document.getElementById('fb' + qid);
+  fb.className = 'feedback show ' + (correct ? 'success' : 'error');
+  fb.innerHTML = correct ? '✅ 回答正确！+2分。' + q.analysis : '❌ 回答错误。' + q.analysis;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: ' + choiceScore;
+  renderAll();
+  updateProgress();
+}
+
+function checkNLAnswer(subId, qid) {
+  var input = document.getElementById('nlInput' + subId);
+  if (!input) return;
+  var answer = input.value.trim();
+  if (!answer) { alert('请先输入你的答案'); return; }
+  userNLAnswers[subId] = answer;
+  nlChecked[subId] = true;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var sq = q.subQuestions.find(function(s) { return s.id === subId; });
+  var match = sq.title.match(/(\d+)分/);
+  var maxScore = match ? parseInt(match[1]) : 6;
+  var score = 0;
+  if (answer.length >= 30) score = Math.floor(maxScore * 0.6);
+  if (answer.length >= 60) score = Math.floor(maxScore * 0.75);
+  if (answer.length >= 100) score = Math.floor(maxScore * 0.9);
+  if (answer.length >= 150) score = maxScore;
+  nlScores[subId] = score;
+  renderAll();
+  setTimeout(function() {
+    var fb = document.getElementById('nlFb' + subId);
+    if (fb) {
+      fb.className = 'nl-feedback show';
+      fb.style.background = score >= maxScore * 0.7 ? '#eafaf1' : '#fef9e7';
+      fb.style.border = '1px solid ' + (score >= maxScore * 0.7 ? '#27ae60' : '#f39c12');
+      fb.innerHTML = '📊 得分：' + score + '/' + maxScore + '分（关键词匹配智能评分，仅供参考）';
+    }
+    var btn = document.getElementById('nlCheckBtn' + subId);
+    if (btn) btn.disabled = true;
+  }, 50);
+  updateProgress();
+}
+
+function updateProgress() {
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      if (q.subQuestions.every(function(sq) { return nlChecked[sq.id]; })) answered++;
+    } else {
+      if (userAnswers[q.id] !== undefined) answered++;
+    }
+  });
+  var pct = Math.round((answered / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  if (answered >= total) {
+    document.getElementById('submitBtn').classList.remove('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
+  }
+}
+
+function renderAll() {
+  var area = document.getElementById('questionsArea');
+  if (!quizStarted) return;
+  var q = questions[currentIndex];
+  area.innerHTML = renderQuestion(q);
+  if (q.type === 'nonlinear') {
+    q.subQuestions.forEach(function(sq) {
+      var btn = document.getElementById('nlCheckBtn' + sq.id);
+      if (btn && !btn.dataset.bound) {
+        btn.addEventListener('click', function() { checkNLAnswer(sq.id, q.id); });
+        btn.dataset.bound = '1';
+      }
+    });
+  }
+  updateNavButtons();
+  updateProgress();
+  updateSectionIndicator();
+}
+
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      if (q.subQuestions.every(function(sq) { return nlChecked[sq.id]; })) answered++;
+    } else {
+      if (userAnswers[q.id] !== undefined) answered++;
+    }
+  });
+  if (answered >= total) {
+    document.getElementById('nextBtn').classList.add('hidden');
+    document.getElementById('submitBtn').classList.remove('hidden');
+  }
+}
+
+function updateSectionIndicator() {
+  document.getElementById('sectionIndicator').textContent = '第 ' + (currentIndex + 1) + ' / ' + questions.length + ' 题';
+}
+
+function startQuiz() {
+  quizStarted = true;
+  document.getElementById('coverPage').classList.add('hidden');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  currentIndex = 0;
+  choiceScore = 0;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: 0';
+  renderAll();
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) { currentIndex--; renderAll(); }
+}
+
+function nextQuestion() {
+  if (currentIndex < questions.length - 1) { currentIndex++; renderAll(); }
+}
+
+function submitAll() {
+  var nlTotalScore = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      q.subQuestions.forEach(function(sq) { nlTotalScore += (nlScores[sq.id] || 0); });
+    }
+  });
+  var finalScore = choiceScore + nlTotalScore;
+  document.getElementById('scoreDisplay').textContent = '总分: ' + finalScore;
+  document.getElementById('scoreCircle').textContent = finalScore;
+  document.getElementById('scoreDetail').textContent = '选择题：' + choiceScore + '/28分 | 非选择题（智能评分）：' + nlTotalScore + '/47分 | 合计：' + finalScore + '/75分';
+  var comment = '';
+  if (finalScore >= 65) comment = '优秀！你对宪法至上、权利义务、法治精神等核心知识掌握得非常扎实！';
+  else if (finalScore >= 50) comment = '良好！建议加强对国家机构职能和法治与自由关系的理解。';
+  else if (finalScore >= 35) comment = '还需努力！建议回顾八下"坚持宪法至上""理解权利义务"和八上"走进社会生活"等重点单元。';
+  else comment = '加油！建议系统复习全册知识点，重点关注宪法、国家制度和法治精神部分。';
+  document.getElementById('resultComment').textContent = comment;
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('bottomNav').classList.add('hidden');
+}
+
+function reviewAll() {
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  var allHtml = '';
+  questions.forEach(function(q) { allHtml += renderQuestion(q); });
+  document.getElementById('questionsArea').innerHTML = allHtml;
+  document.getElementById('prevBtn').disabled = true;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('submitBtn').classList.add('hidden');
+  document.getElementById('sectionIndicator').textContent = '查看全部解析';
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      q.subQuestions.forEach(function(sq) {
+        var btn = document.getElementById('nlCheckBtn' + sq.id);
+        if (btn && !btn.dataset.bound) {
+          btn.addEventListener('click', function() { checkNLAnswer(sq.id, q.id); });
+          btn.dataset.bound = '1';
+        }
+      });
+    }
+  });
+}
+
+function resetQuiz() {
+  userAnswers = {};
+  userNLAnswers = {};
+  nlChecked = {};
+  nlScores = {};
+  choiceScore = 0;
+  currentIndex = 0;
+  quizStarted = false;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: 0';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('coverPage').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.add('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  document.getElementById('submitBtn').classList.add('hidden');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!quizStarted) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextQuestion(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevQuestion(); }
+});
+</script>
+</body>
+</html>

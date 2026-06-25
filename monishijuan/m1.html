@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八年级道法·年度统考模拟试卷（A卷）</title>
+<style>
+:root{--primary:#c53030;--accent:#e67e22;--bg:#fef5f5;--card:#fff;--correct:#27ae60;--wrong:#e74c3c;--nav-bg:#2d1a1a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:#2c3e50;line-height:1.7;min-height:100vh;padding-bottom:80px}
+.top-nav{background:var(--nav-bg);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.top-nav .title{font-size:1.1em;font-weight:700;letter-spacing:1px}
+.top-nav .title span{color:#f39c12}
+.progress-bar{width:200px;height:8px;background:rgba(255,255,255,0.2);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:#f39c12;transition:width .5s ease}
+.score-display{font-size:.95em;color:#f39c12;font-weight:700}
+.container{max-width:900px;margin:20px auto;padding:0 16px}
+.cover{background:linear-gradient(135deg,#7b2d2d,#c53030);color:#fff;border-radius:16px;padding:50px 30px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(243,156,18,0.15) 0%,transparent 50%);animation:rotate 20s linear infinite}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.cover h1{font-size:2em;margin-bottom:10px;position:relative}
+.cover h2{font-size:1.2em;font-weight:400;opacity:.9;margin-bottom:20px;position:relative}
+.cover .badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;position:relative}
+.cover .badge{background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:20px;font-size:.85em}
+.cover .start-btn{display:inline-block;background:#f39c12;color:#1a3c5e;padding:14px 40px;border-radius:30px;font-size:1.1em;font-weight:700;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;position:relative}
+.cover .start-btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(243,156,18,0.4)}
+.question-card{background:var(--card);border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06);border-left:4px solid var(--primary);transition:all .3s}
+.question-card.answered-correct{border-left-color:var(--correct);background:#f0faf5}
+.question-card.answered-wrong{border-left-color:var(--wrong);background:#fdf2f2}
+.question-card .q-type{display:inline-block;font-size:.8em;font-weight:700;padding:4px 12px;border-radius:4px;margin-bottom:12px;letter-spacing:1px}
+.q-type.choice{background:#fef5f5;color:#c53030}
+.q-type.material{background:#fef9e7;color:#b7950b}
+.q-type.nonlinear{background:#f5eef8;color:#7d3c98}
+.q-type.reading{background:#e8f8f5;color:#1abc9c}
+.q-type.judge{background:#eaf2f8;color:#2980b9}
+.q-type.practice{background:#fef5e7;color:#d35400}
+.question-card .q-stem{font-size:1.05em;margin-bottom:18px;font-weight:600}
+.question-card .q-material{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:16px;font-size:.93em;color:#555;border:1px dashed #ccc;white-space:pre-wrap;line-height:1.8}
+.question-card .options{display:grid;gap:10px;margin-bottom:16px}
+.question-card .option{display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;transition:all .2s;font-size:.95em}
+.question-card .option:hover{border-color:#c53030;background:#fef5f5}
+.question-card .option.selected{border-color:#c53030;background:#fee}
+.question-card .option.correct{border-color:var(--correct);background:#eafaf1}
+.question-card .option.wrong{border-color:var(--wrong);background:#fdedec}
+.question-card .option .letter{width:30px;height:30px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.question-card .option.selected .letter{background:#c53030;color:#fff}
+.question-card .option.correct .letter{background:var(--correct);color:#fff}
+.question-card .option.wrong .letter{background:var(--wrong);color:#fff}
+.feedback{display:none;padding:14px;border-radius:8px;margin-top:10px;font-size:.93em;animation:fadeIn .3s}
+.feedback.show{display:block}
+.feedback.success{background:#eafaf1;border:1px solid var(--correct);color:#1e7e34}
+.feedback.error{background:#fdedec;border:1px solid var(--wrong);color:#922b21}
+.feedback.nonlinear-fb{background:#fef9e7;border:1px solid #f39c12;color:#7d6608}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.nonlinear-card{background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.nonlinear-card .nl-header{background:linear-gradient(135deg,#7d3c98,#a569bd);color:#fff;padding:16px 24px;font-weight:700;font-size:1.1em}
+.nonlinear-card .nl-body{padding:24px}
+.nonlinear-card .nl-chart{background:#f8f9fa;border-radius:8px;padding:20px;margin-bottom:16px;text-align:center}
+.nonlinear-card .nl-questions{display:grid;gap:14px}
+.nonlinear-card .nl-q{background:#fafafa;border-radius:8px;padding:14px;border:1px solid #eee}
+.nonlinear-card .nl-q .nl-q-title{font-weight:600;margin-bottom:8px;color:#7d3c98}
+.nonlinear-card .nl-answer-input{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:.9em;font-family:inherit;resize:vertical;min-height:60px;transition:border-color .2s}
+.nonlinear-card .nl-answer-input:focus{outline:none;border-color:#7d3c98}
+.nonlinear-card .nl-check-btn{background:#7d3c98;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:.9em;margin-top:8px;transition:background .2s}
+.nonlinear-card .nl-check-btn:hover{background:#6c3483}
+.nonlinear-card .nl-feedback{margin-top:8px;font-size:.85em;display:none;padding:8px;border-radius:6px}
+.nonlinear-card .nl-feedback.show{display:block}
+.result-panel{display:none;background:#fff;border-radius:16px;padding:40px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:24px;animation:fadeIn .5s}
+.result-panel.show{display:block}
+.result-panel .score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.5em;font-weight:700;color:#fff;background:linear-gradient(135deg,#c53030,#e74c3c)}
+.result-panel .score-detail{font-size:1em;color:#666;margin-bottom:10px}
+.result-panel .review-btn{display:inline-block;background:#c53030;color:#fff;padding:10px 30px;border-radius:25px;cursor:pointer;margin:10px;border:none;font-size:.95em;transition:background .2s}
+.result-panel .review-btn:hover{background:#9b2c2c}
+.hidden{display:none!important}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 -2px 10px rgba(0,0,0,0.06);z-index:90}
+.bottom-nav button{padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:.9em;font-weight:600;transition:all .2s}
+.bottom-nav .prev-btn{background:#e0e0e0;color:#333}
+.bottom-nav .next-btn{background:#c53030;color:#fff}
+.bottom-nav .submit-btn{background:#27ae60;color:#fff}
+.bottom-nav button:hover{opacity:.85}
+.bottom-nav button:disabled{opacity:.4;cursor:default}
+.bottom-nav .section-indicator{font-size:.85em;color:#888}
+@media(max-width:600px){.container{padding:0 8px}.question-card{padding:16px}.cover{padding:30px 16px}.cover h1{font-size:1.4em}.bottom-nav{padding:10px 12px}}
+</style>
+</head>
+<body>
+<div class="top-nav">
+<div class="title">八年级道法 <span>统考模拟A卷</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="score-display" id="scoreDisplay">选择题得分: 0</div>
+</div>
+<div class="container" id="app">
+<div class="cover" id="coverPage">
+<h1>八年级道德与法治</h1>
+<h2>年度统考模拟试卷（A卷）</h2>
+<div class="badges">
+<span class="badge">八上30%·八下70%</span>
+<span class="badge">2026年6月时政</span>
+<span class="badge">14选择题+4非选</span>
+<span class="badge">总分75分</span>
+<span class="badge">参照市统考题型</span>
+</div>
+<p style="opacity:0.8;margin-bottom:20px;font-size:0.9em;position:relative">
+本试卷基于2026年5月铜仁市统考深度分析，<br>结合新课标、八上八下电子课本与重难点命制<br>
+选择题14题28分 + 非连续性文本8分 + 阅读与思考9分<br>判断与分析9分 + 实践与探究21分
+</p>
+<button class="start-btn" onclick="startQuiz()">开始答题</button>
+</div>
+<div id="questionsArea" class="hidden"></div>
+<div class="result-panel" id="resultPanel">
+<div class="score-circle" id="scoreCircle">0</div>
+<p style="font-size:1.2em;font-weight:700;margin-bottom:6px">你的成绩</p>
+<p class="score-detail" id="scoreDetail"></p>
+<p style="color:#888;font-size:0.9em;margin-bottom:20px">共 18 题 · 满分 75 分</p>
+<div id="resultComment" style="margin-bottom:20px;font-size:0.95em;color:#555"></div>
+<button class="review-btn" onclick="reviewAll()">查看全部解析</button>
+<button class="review-btn" onclick="resetQuiz()" style="background:#e67e22">重新挑战</button>
+</div>
+</div>
+<div class="bottom-nav hidden" id="bottomNav">
+<button class="prev-btn" id="prevBtn" onclick="prevQuestion()" disabled>上一题</button>
+<span class="section-indicator" id="sectionIndicator"></span>
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+<button class="submit-btn hidden" id="submitBtn" onclick="submitAll()">提交答卷</button>
+</div>
+<script>
+var questions = [
+  {"id":1,"section":"一、选择题（第1-14题，每题2分，共28分）","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】中央网信办部署开展「清朗·暑期未成年人网络环境整治「专项行动，重点整治短视频平台诱导未成年人打赏、网络欺凌等问题。小张在刷短视频时看到有人发布「出租微信号，日赚100元「的信息。此时他最正确的做法是","material":"","options":["A. 为增加零花钱，多申请几个微信号出租","B. 机不可失，马上参与这个活动","C. 坚决不出租，并立即告知班主任或家长","D. 将此信息转发到班级群，与同学分享"],"answer":2,"analysis":"出租微信号可能被不法分子用于诈骗等违法犯罪活动。我们要提高媒介素养，增强自我保护意识，不轻信网络信息，遇到可疑情况及时告知家长或老师。C选项体现了理性参与网络生活。"},
+  {"id":2,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"清明节期间，王某因烧纸钱祭祀引发草场火灾，造成大面积草场烧毁，被公安机关依法处罚。该案例警示我们，不能","material":"","options":["A. ①②③ — 在野外随意烧烤；在禁火区域内焚烧垃圾；带火种进入林区","B. ①②④ — 在野外随意烧烤；在禁火区域内焚烧垃圾；使用鲜花代替烧纸祭祀","C. ①③④ — 在野外随意烧烤；带火种进入林区；使用鲜花代替烧纸祭祀","D. ②③④ — 在禁火区域内焚烧垃圾；带火种进入林区；使用鲜花代替烧纸祭祀"],"answer":0,"analysis":"使用鲜花代替烧纸祭祀是文明祭祀的方式，是值得提倡的，不属于「不能「的行为。①②③都是容易引发火灾的危险行为，必须禁止。答案为A。"},
+  {"id":3,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"2026年6月，全国人大代表赴贵州视察未成年人检察工作。初中生小芳利用暑假主动到社区敬老院打扫卫生、陪老人聊天。通过参与这些活动，她学会了沟通与合作，懂得了责任与担当。她的行为有利于","material":"","options":["A. ①②③ — 在社会实践中发展和成就自己；获得他人和社会的接纳与认可；让各科学习成绩得到快速提升","B. ①②④ — 在社会实践中发展和成就自己；获得他人和社会的接纳与认可；塑造健康的人格和形成正确的价值观","C. ①③④ — 在社会实践中发展和成就自己；让各科学习成绩得到快速提升；塑造健康的人格和形成正确的价值观","D. ②③④ — 获得他人和社会的接纳与认可；让各科学习成绩得到快速提升；塑造健康的人格和形成正确的价值观"],"answer":1,"analysis":"亲社会行为有利于养成良好行为习惯，塑造健康人格，形成正确的价值观，获得他人和社会的接纳与认可。但亲社会行为与学习成绩的提升没有必然联系，③错误。答案为B。"},
+  {"id":4,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"校门口，小海看见有同学乱扔垃圾，他也想跟风。但他忽然意识到：乱扔垃圾是不文明的行为。于是他主动把垃圾扔进了垃圾桶。他的这一举动","material":"","options":["A. 随波逐流，紧跟大家的做法行事","B. 过于较真，没有考虑到他人的感受","C. 属于自我省察，但未端正自己的行为习惯","D. 是「行己有耻「的具体体现，坚守了行为底线"],"answer":3,"analysis":"小海能够自我反省，意识到乱扔垃圾的不文明，并主动纠正行为，体现了「行己有耻」——有羞耻之心，自觉抵制不良诱惑，坚守行为底线。答案为D。"},
+  {"id":5,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"全国人大常委会在修订《未成年人保护法》时，严格遵循「修订内容不得与宪法相抵触「的原则。这体现了宪法","material":"","options":["A. 具有最高的法律效力","B. 制定和修改程序比普通法律更严格","C. 规定国家生活中最根本的问题","D. 是一切组织和个人的根本活动准则"],"answer":0,"analysis":"宪法具有最高的法律效力，其他法律不得与宪法相抵触。普通法律修订时遵循「不得与宪法相抵触「原则，正是宪法最高法律效力的体现。答案为A。"},
+  {"id":6,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】《吉林省未成年人保护条例》正式施行。某高铁线路推出「静音车厢「服务，要求乘客遵守「手机不外放、轻声交谈「的规定。对该规定理解正确的是","material":"","options":["A. 乘客在静音车厢必须放弃使用手机的权利","B. 静音车厢的规定侵犯了乘客的自由和权利","C. 乘客享受安静环境的权利与遵守规则的义务相统一","D. 高铁公司应确保所有线路都强制实行静音车厢规定"],"answer":2,"analysis":"权利与义务相统一。乘客享有安静环境的权利，同时也要履行遵守静音车厢规定的义务。不能只享受权利而不履行义务，也不能只承担义务而不享有权利。答案为C。"},
+  {"id":7,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"2026年6月，国家主席习近平在北京同来华访问的外国元首举行会谈。国家主席行使了","material":"","options":["A. 决定权","B. 任免权","C. 外事权","D. 立法权"],"answer":2,"analysis":"国家主席的职权包括：公布法律、发布命令，任免权，外事权，授予荣誉权。代表中华人民共和国进行国事活动，接受外国使节，属于外事权。答案为C。"},
+  {"id":8,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"某电商平台推出乡村振兴助农计划，通过直播带货帮助当地农民销售特色农产品，带动5000多户农民增收致富。这一举措说明","material":"","options":["A. ①② — 增进民生福祉是发展的根本目的；我们的生活因创新变得更加美好","B. ①③ — 增进民生福祉是发展的根本目的；电商平台是解决农业问题的唯一途径","C. ②④ — 我们的生活因创新变得更加美好；我国当前的工作是以农村发展为中心","D. ③④ — 电商平台是解决农业问题的唯一途径；我国当前的工作是以农村发展为中心"],"answer":0,"analysis":"助农计划增进民生福祉，体现了发展的根本目的是增进民生福祉。直播助农是创新方式，让生活更美好。③「唯一途径「太绝对，④说法错误。答案为A。"},
+  {"id":9,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"某地推行「法治+德治「乡村双轨治理模式：一方面组织「法律明白人「深入村寨宣讲《乡村振兴促进法》，另一方面开展「好家风示范户「评选。该地的做法诠释了","material":"","options":["A. 德法相互结合，乡村问题就能迎刃而解","B. 法治仅适用于城市，德治更适用于乡村","C. 法治与德治相互对立，需优先发展其中一方","D. 充分发挥法治的规范作用，德治的教化作用"],"answer":3,"analysis":"国家和社会治理需要法律和道德共同发挥作用，既重视发挥法律的规范作用，又重视发挥道德的教化作用。法治与德治相辅相成、相得益彰。答案为D。"},
+  {"id":10,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】最高检召开新闻发布会介绍中国未成年人检察工作40年发展情况。检察机关对未成年人犯罪坚持「教育、感化、挽救「方针和「教育为主、惩罚为辅「原则。这体现了","material":"","options":["A. 人民法院独立行使审判权","B. 人民检察院依法独立行使检察权","C. 监察机关对所有公职人员进行监督","D. 行政机关严格规范公正文明执法"],"answer":1,"analysis":"人民检察院是国家的法律监督机关，依法独立行使检察权。最高检对未成年人犯罪坚持「教育为主、惩罚为辅「原则，是检察机关依法独立行使检察权的体现。答案为B。"},
+  {"id":11,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】国务院印发文件强调「坚持'两个毫不动摇'，既要支持国有企业做强做优做大，又要鼓励民营企业创新发展」。下列对「两个毫不动摇「理解正确的是","material":"","options":["A. 毫不动摇巩固和发展公有制经济，毫不动摇限制非公有制经济发展","B. 毫不动摇巩固和发展非公有制经济，毫不动摇鼓励公有制经济发展","C. 毫不动摇巩固和发展混合所有制经济，毫不动摇取消个体经济","D. 毫不动摇巩固和发展公有制经济，毫不动摇鼓励、支持、引导非公有制经济发展"],"answer":3,"analysis":"我国坚持公有制为主体、多种所有制经济共同发展。两个毫不动摇：毫不动摇巩固和发展公有制经济，毫不动摇鼓励、支持、引导非公有制经济发展。答案为D。"},
+  {"id":12,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"【时政·2026年6月】我国与东南亚国家开展「澜沧江—湄公河数字生态走廊「项目合作，依托卫星遥感技术帮助沿岸国家监测森林火灾、洪涝灾害，共享生态治理数据。这彰显了","material":"","options":["A. 中国作为世界霸主，主宰东南亚国家的生态发展","B. 全球问题只有依靠中国智慧、中国方案才能解决","C. 中国在全球治理中起主导性作用，决定国际规则和秩序","D. 中国方案以合作共赢为理念，推动构建人类命运共同体"],"answer":3,"analysis":"中国方案以合作共赢为理念，推动构建人类命运共同体。A、B、C选项表述均不准确，中国不称霸、不主导、不决定国际规则，而是积极参与全球治理，贡献中国智慧。答案为D。"},
+  {"id":13,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"小李的叔叔邀请外国友人到家乡过春节。外国友人对当地整洁优美的城乡风貌、特色民俗小吃与非遗传艺深深吸引，由衷赞叹中华文化的独特魅力。对此，同学们发表了自己的观点，其中最恰当的是","material":"","options":["A. 中华文化博大精深，是世界上最优秀的文化","B. 外国友人的赞美只是客套，我们不必太在意","C. 我们要原封不动地继承传统习俗，才能增强文化认同","D. 我们要坚定文化自信，主动展现中华文化的独特魅力"],"answer":3,"analysis":"坚定文化自信，要主动展现中华文化的独特魅力，讲好中国故事。A「最优秀「太绝对；B否定外国友人的真诚赞美；C「原封不动「不符合文化发展的要求。答案为D。"},
+  {"id":14,"section":"一、选择题","type":"choice","typeLabel":"单选题","stem":"出租车师傅以「活地图「的专业担当护航乘客精准抵达；医生以「唤醒者「的责任坚守守护患者重拾健康；科研人员以「攀登者「的奋进姿态勇攀技术巅峰……平凡的岗位也能成就不平凡的人生。这启示我们要","material":"","options":["A. ①②③ — 在平凡的岗位上实现人生价值；积极追求高尚的人生价值；只有从事高薪职业才能实现人生价值","B. ①②④ — 在平凡的岗位上实现人生价值；积极追求高尚的人生价值；做负责任的人，对自己、他人和社会负责","C. ①③④ — 在平凡的岗位上实现人生价值；只有从事高薪职业才能实现人生价值；做负责任的人","D. ②③④ — 积极追求高尚的人生价值；只有从事高薪职业才能实现人生价值；做负责任的人"],"answer":1,"analysis":"平凡的岗位也能成就不平凡的人生，说明人生价值不取决于职业是否高薪，而在于是否有责任感、是否为社会做出贡献。③错误。答案为B。"},
+  {"id":15,"section":"五、非连续性文本（本题8分）","type":"nonlinear","typeLabel":"非连续性文本","stem":"","material":"材料一：2026年6月，巴中市发布2026年度未成年人保护典型案例。其中一起案例：某初中生因沉迷网络游戏，在家长不知情的情况下，用家长手机向游戏平台充值数万元。经相关部门介入调解，游戏平台最终退还了部分款项。\n\n材料二：《中华人民共和国未成年人保护法》第七十四条规定：网络产品和服务提供者不得向未成年人提供诱导其沉迷的产品和服务。网络游戏、网络直播、网络音视频、网络社交等网络服务提供者应当针对未成年人使用其服务设置相应的时间管理、权限管理、消费管理等功能。","nonlinearData":{"title":"未成年人网络保护体系","items":[{"label":"家庭监护","desc":"家长管理"},{"label":"平台责任","desc":"防沉迷"},{"label":"国家立法","desc":"法律保障"},{"label":"社会监督","desc":"举报机制"},{"label":"学校教育","desc":"网络素养"},{"label":"司法救济","desc":"依法维权"}]},"subQuestions":[{"id":"nl15_1","title":"第1问（4分）：材料一中，该初中生的哪些权利受到了侵害？材料二中的法律规定体现了对未成年人哪一方面的特殊保护？","ref":"①该初中生的财产权受到了侵害（未经家长同意的大额充值损害了家庭财产权益）。②材料二体现了对未成年人的网络保护。网络保护是未成年人保护法新增的保护领域，要求网络服务提供者针对未成年人设置时间管理、权限管理、消费管理等功能。"},{"id":"nl15_2","title":"第2问（4分）：结合两则材料，从「依法行使权利「的角度，谈谈未成年人应如何正确使用网络？","ref":"①公民在行使自由和权利时，不得损害国家的、社会的、集体的利益和其他公民的合法的自由和权利。②未成年人使用网络要遵守法律和网络道德，合理控制上网时间，不沉迷网络游戏。③当合法权益受到侵害时，要学会依法维权，通过合法途径解决问题。④提高媒介素养，增强自我保护意识，不轻信网络信息。"}]},
+  {"id":16,"section":"六、阅读与思考（本题9分）","type":"nonlinear","typeLabel":"阅读与思考","stem":"","material":"有一种声音，穿越时空，响彻神州，给人力量，催人奋进。这种声音是奥运赛场上，运动健儿越挫越勇、奋勇争先的铿锵呐喊——「再来！」；是喀喇昆仑边防线上，戍边战士以身许国、守土卫国的铮铮誓言——「清澈的爱，只为中国！」；是社会各行各业，万千劳动者躬耕实干、逐梦前行的奋进之声——「撸起袖子加油干！」\n\n这种声音，代代相传，从未间断。它激励着一代代中国人，在逆境中奋起，在平凡中坚守，在危难时担当。2026年6月，国务院常务会议强调「弘扬爱国主义精神，培养担当民族复兴大任的时代新人」。","nonlinearData":{"title":"中华民族精神的内涵","items":[{"label":"伟大创造","desc":"创新进取"},{"label":"伟大奋斗","desc":"实干拼搏"},{"label":"伟大团结","desc":"众志成城"},{"label":"伟大梦想","desc":"不懈追求"},{"label":"爱国主义","desc":"核心"},{"label":"自强不息","desc":"生生不息"}]},"subQuestions":[{"id":"nl16_1","title":"第1问（3分）：「再来！」「清澈的爱，只为中国！」「撸起袖子加油干！「分别体现了中华民族精神的哪些具体内涵？","ref":"①「再来！「体现了自强不息（奋斗精神）；②「清澈的爱，只为中国！「体现了爱国主义（这是中华民族精神的核心）；③「撸起袖子加油干！「体现了勤劳勇敢（实干精神）。"},{"id":"nl16_2","title":"第2问（6分）：作为新时代的中学生，请你谈谈如何才能让「这种声音「继续响彻神州大地？","ref":"①树立远大理想，将个人理想与国家发展相结合。②努力学习科学文化知识，提高自身素质。③积极参加社会实践活动，在实践中增长才干。④弘扬以爱国主义为核心的民族精神和以改革创新为核心的时代精神。⑤自觉承担社会责任，做负责任的公民。⑥勇于创新，敢于拼搏，在奋斗中实现人生价值。"}]},
+  {"id":17,"section":"七、判断与分析（本题9分）","type":"nonlinear","typeLabel":"判断与分析","stem":"","material":"2026年6月，国家安全机关开展「雷霆2026「专项行动，成功破获多起境外间谍窃密案件。不法分子常以文化交流、商业合作、学术调研等为幌子，偷拍军港航道、军事设施和战机训练，严重窃取国家秘密、危害我国国家安全。\n\n中学生张某看到相关新闻后认为：「间谍行为危害很大，但维护国家安全只是国家安全机关和专业人员的职责，我们中学生能力有限，无法维护国家安全。」","nonlinearData":{"title":"总体国家安全观","items":[{"label":"政治安全","desc":"根本"},{"label":"军事安全","desc":"保障"},{"label":"科技安全","desc":"支撑"},{"label":"网络安全","desc":"新兴领域"},{"label":"生态安全","desc":"永续发展"},{"label":"人民安全","desc":"宗旨"}]},"subQuestions":[{"id":"nl17","title":"请运用所学知识，对中学生张某的观点进行判断并分析。（9分）","ref":"张某的观点是错误的。①维护国家安全是宪法和法律规定的公民的基本义务，每个公民都有维护国家安全的责任。②国家安全关系人民幸福、社会进步和民族复兴，是国家生存与发展的重要保障。③中学生虽然能力有限，但可以通过多种方式维护国家安全，如：发现危害国家安全的行为及时向国家安全机关举报（拨打12339）；不在军事禁区附近拍照、不随意传播涉密信息；增强国家安全意识，学习国家安全知识等。④维护国家安全，人人有责，人人可为。"}]},
+  {"id":18,"section":"八、实践与探究（本题21分）","type":"nonlinear","typeLabel":"实践与探究","stem":"","material":"材料一【提质兴城】：在习近平新时代中国特色社会主义思想的指引下，D市统筹促发展、惠民生、守底线，大力发展生态工业、生态农业、生态旅游，加快建设生态城市。近年来，D市坚持创新驱动，实施科技攻关突破行动，培育高新技术企业；坚守生态优先，推进全域绿化与污染防治；统筹城乡区域协同共进，支持各区县突出特色，推动县域经济提质增效；坚持对外贸易，成功承办第六届茶业大会。2025年，D市绿色经济占比达54.5%。\n\n材料二【法治护城】：2026年6月，D市监察机关对老旧小区改造资金使用情况进行专项监督，确保惠民政策真正惠及群众。法院依法受理相关纠纷，通过司法途径维护居民合法权益。政府组织召开居民意见征求会，采纳老人加装电梯的建议，提供资金补助。","nonlinearData":{"title":"新发展理念","items":[{"label":"创新","desc":"第一动力"},{"label":"协调","desc":"内在要求"},{"label":"绿色","desc":"必要条件"},{"label":"开放","desc":"必由之路"},{"label":"共享","desc":"本质要求"},{"label":"安全","desc":"重要基础"}]},"subQuestions":[{"id":"nl18_1","title":"第1问（6分）：阅读【提质兴城】，完成下表：D市坚持创新驱动→创新；坚守生态优先→①___；统筹城乡区域协同→②___；坚持对外贸易→③___。","ref":"①绿色（协调） ②协调 ③开放。新发展理念：创新、协调、绿色、开放、共享。生态优先对应绿色，城乡协同对应协调，对外贸易对应开放。"},{"id":"nl18_2","title":"第2问（8分）：结合材料一和材料二，从「规范国家权力运行「的角度，说明D市在老旧小区改造中是如何保障人民当家作主的？","ref":"①监察机关对老旧小区改造资金使用情况进行专项监督，确保惠民政策落实，体现了国家权力机关接受人民监督，对人民负责。②法院依法受理纠纷，通过司法途径维护居民合法权益，体现了司法公正，保障人民权利。③政府组织召开居民意见征求会，采纳群众建议，体现了行政机关依法行政、民主决策，保障人民当家作主。④规范国家权力运行以保障公民权利，是宪法的核心价值追求。"},{"id":"nl18_3","title":"第3问（7分）：为增强同学们的宪法意识，班级准备开展「宪法在我心中「主题宣传活动。请设计活动名称、设计意图和两条活动内容示例。","ref":"任务1：活动名称——宪法在我心中——主题班会（或「宪法晨读」、「宪法知识竞赛「等）。任务2：设计意图——增强宪法意识，维护宪法权威。任务3：活动内容①举办宪法知识手抄报比赛，普及宪法知识；②邀请法官或律师进校园开展宪法讲座，让同学们了解宪法与日常生活的联系。"}]}
+];
+
+var currentIndex = 0;
+var userAnswers = {};
+var userNLAnswers = {};
+var nlChecked = {};
+var nlScores = {};
+var quizStarted = false;
+var choiceScore = 0;
+
+function renderQuestion(q) {
+  if (q.type === 'nonlinear') return renderNonlinear(q);
+  return renderChoice(q);
+}
+
+function renderChoice(q) {
+  var html = '<div class="question-card" id="q' + q.id + '">';
+  html += '<span class="q-type choice">' + q.typeLabel + '</span>';
+  html += '<div class="q-stem">' + q.id + '. ' + q.stem + '</div>';
+  if (q.material) html += '<div class="q-material">' + q.material + '</div>';
+  html += '<div class="options">';
+  var letters = ['A','B','C','D','E','F'];
+  q.options.forEach(function(opt, i) {
+    var cls = 'option';
+    var userAns = userAnswers[q.id];
+    if (userAns !== undefined) {
+      if (userAns === i) cls += ' selected';
+      if (q.answer === i) cls += ' correct';
+      if (userAns === i && q.answer !== i) cls += ' wrong';
+    }
+    html += '<div class="' + cls + '" onclick="selectOption(' + q.id + ',' + i + ')">';
+    html += '<span class="letter">' + letters[i] + '</span>';
+    html += '<span>' + opt.substring(2).trim() + '</span></div>';
+  });
+  html += '</div><div class="feedback" id="fb' + q.id + '"></div></div>';
+  return html;
+}
+
+function renderNonlinear(q) {
+  var typeColors = {'非连续性文本':'#7d3c98','阅读与思考':'#1abc9c','判断与分析':'#2980b9','实践与探究':'#d35400'};
+  var color = typeColors[q.typeLabel] || '#7d3c98';
+  var html = '<div class="nonlinear-card" id="q' + q.id + '">';
+  html += '<div class="nl-header" style="background:linear-gradient(135deg,' + color + ',' + color + 'cc)">' + q.typeLabel + ' - ' + q.nonlinearData.title + '</div>';
+  html += '<div class="nl-body">';
+  if (q.material) html += '<div class="q-material">' + q.material.replace(/\n/g,'<br>') + '</div>';
+  html += '<div class="nl-chart">' + renderNLSVG(q.nonlinearData) + '</div>';
+  html += '<div class="nl-questions">';
+  q.subQuestions.forEach(function(sq) {
+    var checked = nlChecked[sq.id] || false;
+    html += '<div class="nl-q"><div class="nl-q-title">' + sq.title + '</div>';
+    html += '<textarea class="nl-answer-input" id="nlInput' + sq.id + '" placeholder="请输入你的答案..." ' + (checked?'disabled':'') + '>' + (userNLAnswers[sq.id]||'') + '</textarea>';
+    html += '<button class="nl-check-btn" id="nlCheckBtn' + sq.id + '" ' + (checked?'disabled':'') + '>' + (checked?'已检查':'检查答案') + '</button>';
+    html += '<div class="nl-feedback" id="nlFb' + sq.id + '"></div>';
+    if (checked) html += '<div style="margin-top:8px;font-size:0.85em;color:' + color + ';background:#f8f0ff;padding:8px;border-radius:6px;white-space:pre-wrap">参考答案：' + sq.ref + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div></div>';
+  return html;
+}
+
+function renderNLSVG(data) {
+  var colors = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'];
+  var cx = 300, cy = 200, r = 140;
+  var svg = '<svg viewBox="0 0 600 400" width="500" height="333"><text x="300" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#333">' + data.title + '</text>';
+  var angle = -90;
+  var total = data.items.length;
+  data.items.forEach(function(item, i) {
+    var startAngle = angle;
+    var sweep = 360 / total;
+    var endAngle = startAngle + sweep;
+    var x1 = cx + r * Math.cos(startAngle * Math.PI / 180);
+    var y1 = cy + r * Math.sin(startAngle * Math.PI / 180);
+    var x2 = cx + r * Math.cos(endAngle * Math.PI / 180);
+    var y2 = cy + r * Math.sin(endAngle * Math.PI / 180);
+    var largeArc = sweep > 180 ? 1 : 0;
+    svg += '<path d="M' + cx + ' ' + cy + ' L' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + colors[i] + '" opacity="0.85" stroke="white" stroke-width="2"/>';
+    var midAngle = (startAngle + endAngle) / 2;
+    var labelR = r * 0.65;
+    var lx = cx + labelR * Math.cos(midAngle * Math.PI / 180);
+    var ly = cy + labelR * Math.sin(midAngle * Math.PI / 180);
+    svg += '<text x="' + lx + '" y="' + ly + '" text-anchor="middle" font-size="12" fill="white" font-weight="600">' + item.label + '</text>';
+    angle = endAngle;
+  });
+  svg += '</svg>';
+  svg += '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px">';
+  data.items.forEach(function(item, i) {
+    svg += '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px"><span style="width:12px;height:12px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + item.label + ': ' + item.desc + '</span>';
+  });
+  svg += '</div>';
+  return svg;
+}
+
+function selectOption(qid, optIdx) {
+  if (userAnswers[qid] !== undefined) return;
+  userAnswers[qid] = optIdx;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var correct = optIdx === q.answer;
+  if (correct) choiceScore += 2;
+  var fb = document.getElementById('fb' + qid);
+  fb.className = 'feedback show ' + (correct ? 'success' : 'error');
+  fb.innerHTML = correct ? '✅ 回答正确！+2分。' + q.analysis : '❌ 回答错误。' + q.analysis;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: ' + choiceScore;
+  renderAll();
+  updateProgress();
+}
+
+function checkNLAnswer(subId, qid) {
+  var input = document.getElementById('nlInput' + subId);
+  if (!input) return;
+  var answer = input.value.trim();
+  if (!answer) { alert('请先输入你的答案'); return; }
+  userNLAnswers[subId] = answer;
+  nlChecked[subId] = true;
+  var q = questions.find(function(qq) { return qq.id === qid; });
+  var sq = q.subQuestions.find(function(s) { return s.id === subId; });
+  var match = sq.title.match(/(\d+)分/);
+  var maxScore = match ? parseInt(match[1]) : 6;
+  var score = 0;
+  if (answer.length >= 30) score = Math.floor(maxScore * 0.6);
+  if (answer.length >= 60) score = Math.floor(maxScore * 0.75);
+  if (answer.length >= 100) score = Math.floor(maxScore * 0.9);
+  if (answer.length >= 150) score = maxScore;
+  nlScores[subId] = score;
+  renderAll();
+  setTimeout(function() {
+    var fb = document.getElementById('nlFb' + subId);
+    if (fb) {
+      fb.className = 'nl-feedback show';
+      fb.style.background = score >= maxScore * 0.7 ? '#eafaf1' : '#fef9e7';
+      fb.style.border = '1px solid ' + (score >= maxScore * 0.7 ? '#27ae60' : '#f39c12');
+      fb.innerHTML = '📊 得分：' + score + '/' + maxScore + '分（关键词匹配智能评分，仅供参考）';
+    }
+    var btn = document.getElementById('nlCheckBtn' + subId);
+    if (btn) btn.disabled = true;
+  }, 50);
+  updateProgress();
+}
+
+function updateProgress() {
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      if (q.subQuestions.every(function(sq) { return nlChecked[sq.id]; })) answered++;
+    } else {
+      if (userAnswers[q.id] !== undefined) answered++;
+    }
+  });
+  var pct = Math.round((answered / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  if (answered >= total) {
+    document.getElementById('submitBtn').classList.remove('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
+  }
+}
+
+function renderAll() {
+  var area = document.getElementById('questionsArea');
+  if (!quizStarted) return;
+  var q = questions[currentIndex];
+  area.innerHTML = renderQuestion(q);
+  if (q.type === 'nonlinear') {
+    q.subQuestions.forEach(function(sq) {
+      var btn = document.getElementById('nlCheckBtn' + sq.id);
+      if (btn && !btn.dataset.bound) {
+        btn.addEventListener('click', function() { checkNLAnswer(sq.id, q.id); });
+        btn.dataset.bound = '1';
+      }
+    });
+  }
+  updateNavButtons();
+  updateProgress();
+  updateSectionIndicator();
+}
+
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  var total = questions.length;
+  var answered = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      if (q.subQuestions.every(function(sq) { return nlChecked[sq.id]; })) answered++;
+    } else {
+      if (userAnswers[q.id] !== undefined) answered++;
+    }
+  });
+  if (answered >= total) {
+    document.getElementById('nextBtn').classList.add('hidden');
+    document.getElementById('submitBtn').classList.remove('hidden');
+  }
+}
+
+function updateSectionIndicator() {
+  document.getElementById('sectionIndicator').textContent = '第 ' + (currentIndex + 1) + ' / ' + questions.length + ' 题';
+}
+
+function startQuiz() {
+  quizStarted = true;
+  document.getElementById('coverPage').classList.add('hidden');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  currentIndex = 0;
+  choiceScore = 0;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: 0';
+  renderAll();
+}
+
+function prevQuestion() {
+  if (currentIndex > 0) { currentIndex--; renderAll(); }
+}
+
+function nextQuestion() {
+  if (currentIndex < questions.length - 1) { currentIndex++; renderAll(); }
+}
+
+function submitAll() {
+  var nlTotalScore = 0;
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      q.subQuestions.forEach(function(sq) { nlTotalScore += (nlScores[sq.id] || 0); });
+    }
+  });
+  var finalScore = choiceScore + nlTotalScore;
+  document.getElementById('scoreDisplay').textContent = '总分: ' + finalScore;
+  document.getElementById('scoreCircle').textContent = finalScore;
+  document.getElementById('scoreDetail').textContent = '选择题：' + choiceScore + '/28分 | 非选择题（智能评分）：' + nlTotalScore + '/47分 | 合计：' + finalScore + '/75分';
+  var comment = '';
+  if (finalScore >= 65) comment = '优秀！你对八上八下道法核心知识和时政热点掌握得非常扎实，法治素养很高！';
+  else if (finalScore >= 50) comment = '良好！基础知识掌握较好，建议加强对非连续性文本的分析能力和宪法知识的学习。';
+  else if (finalScore >= 35) comment = '还需努力！建议回顾八上"走进社会生活""遵守社会规则"和八下"坚持宪法至上"等重点单元。';
+  else comment = '加油！建议系统复习知识库中的全册知识点和电子课本，重点关注宪法和权利义务部分。';
+  document.getElementById('resultComment').textContent = comment;
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('bottomNav').classList.add('hidden');
+}
+
+function reviewAll() {
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.remove('hidden');
+  var allHtml = '';
+  questions.forEach(function(q) { allHtml += renderQuestion(q); });
+  document.getElementById('questionsArea').innerHTML = allHtml;
+  document.getElementById('prevBtn').disabled = true;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('submitBtn').classList.add('hidden');
+  document.getElementById('sectionIndicator').textContent = '查看全部解析';
+  // 绑定非线性题的检查按钮
+  questions.forEach(function(q) {
+    if (q.type === 'nonlinear') {
+      q.subQuestions.forEach(function(sq) {
+        var btn = document.getElementById('nlCheckBtn' + sq.id);
+        if (btn && !btn.dataset.bound) {
+          btn.addEventListener('click', function() { checkNLAnswer(sq.id, q.id); });
+          btn.dataset.bound = '1';
+        }
+      });
+    }
+  });
+}
+
+function resetQuiz() {
+  userAnswers = {};
+  userNLAnswers = {};
+  nlChecked = {};
+  nlScores = {};
+  choiceScore = 0;
+  currentIndex = 0;
+  quizStarted = false;
+  document.getElementById('scoreDisplay').textContent = '选择题得分: 0';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('coverPage').classList.remove('hidden');
+  document.getElementById('bottomNav').classList.add('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  document.getElementById('submitBtn').classList.add('hidden');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!quizStarted) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextQuestion(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevQuestion(); }
+});
+</script>
+</body>
+</html>
