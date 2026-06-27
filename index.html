@@ -156,7 +156,7 @@
         </div>
         <div class="form-item">
             <label>当月兑换码（向老师获取）</label>
-            <input type="text" id="codeInput" placeholder="输入本月兑换码">
+            <input type="text" id="codeInput" placeholder="输入本月6位数字兑换码">
         </div>
         <button class="btn" onclick="verifyAll()">进入课件</button>
         <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看当月兑换码</button>
@@ -189,17 +189,18 @@
 const TEACHER_PASSWORD = "laoshi2026";
 const PRIVATE_KEY = 37591;
 // =================================
-// 【已修改：按月生成兑换码，整月固定不变】
+// 按月生成兑换码，强制纯6位正数字，无负号
 function getTodayCode() {
     const date = new Date();
     const y = date.getFullYear();
     const m = date.getMonth() + 1;
-    // 仅用年份+月份计算，当月1-31号兑换码完全相同
     let num = y * 100 + m;
     num = num * PRIVATE_KEY;
     num = num ^ 89273;
     num = num * 17;
-    let code = (num % 900000) + 100000;
+    // 取绝对值消除负号，固定6位数字
+    let absNum = Math.abs(num);
+    let code = (absNum % 900000) + 100000;
     return code.toString();
 }
 function openTeacherModal() {
@@ -213,7 +214,7 @@ function checkTeacherPwd() {
     const inputPwd = document.getElementById("teacherPwdInput").value.trim();
     if(inputPwd === TEACHER_PASSWORD) {
         const todayCode = getTodayCode();
-        alert("本月有效兑换码：" + todayCode + "\n本月内全部可用，次月自动更新");
+        alert("本月有效兑换码：" + todayCode + "\n本月内全部可用，次月自动更新，仅6位数字");
         closeTeacherModal();
     } else {
         alert("教师密码错误，无权查看兑换码");
@@ -233,11 +234,11 @@ function verifyAll() {
         return;
     }
     if(inputCode === ""){
-        alert("请输入本月兑换码！");
+        alert("请输入本月6位数字兑换码！");
         return;
     }
     if(inputCode !== realCode){
-        alert("兑换码错误，请向老师获取本月正确兑换码");
+        alert("兑换码错误，请向老师获取本月正确6位数字兑换码");
         return;
     }
     let recordList = JSON.parse(localStorage.getItem("stuRecord") || "[]");
