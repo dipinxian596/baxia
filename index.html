@@ -140,7 +140,7 @@
         <div class="modal-inner">
             <h3>教师身份验证</h3>
             <input type="password" id="teacherPwdInput" placeholder="输入教师专属密码">
-            <button class="btn" onclick="checkTeacherPwd()">确认查看兑换码</button>
+            <button class="btn" onclick="checkTeacherPwd()">确认查看当月兑换码</button>
             <button class="btn" style="background:#999;margin-top:10px" onclick="closeTeacherModal()">关闭</button>
         </div>
     </div>
@@ -155,11 +155,11 @@
             <input type="text" id="stuName" placeholder="请输入你的姓名">
         </div>
         <div class="form-item">
-            <label>当日兑换码（向老师获取）</label>
-            <input type="text" id="codeInput" placeholder="输入今日兑换码">
+            <label>当月兑换码（向老师获取）</label>
+            <input type="text" id="codeInput" placeholder="输入本月兑换码">
         </div>
         <button class="btn" onclick="verifyAll()">进入课件</button>
-        <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看今日兑换码</button>
+        <button class="btn teacher-btn" onclick="openTeacherModal()">教师入口：查看当月兑换码</button>
     </div>
     <div class="content-wrap" id="courseArea">
         <h1>甘龙镇中学分层教学&中考专项课件汇总</h1>
@@ -179,7 +179,7 @@
             <a href="./lxkj/">总复习课件二</a>
             <a href="./banianji/">八年级道法电子课本与资料</a>
             <a href="./monishijuan/m1.html">模拟试卷一</a>
-            <a href="./monishijuan/m2.html">模拟试卷二</a>            
+            <a href="./monishijuan/m2.html">模拟试卷二</a>
         </div>
 
         <p class="record-tip">你的学习记录已自动保存，老师可查看完成名单</p>
@@ -189,12 +189,13 @@
 const TEACHER_PASSWORD = "laoshi2026";
 const PRIVATE_KEY = 37591;
 // =================================
+// 【已修改：按月生成兑换码，整月固定不变】
 function getTodayCode() {
     const date = new Date();
     const y = date.getFullYear();
     const m = date.getMonth() + 1;
-    const d = date.getDate();
-    let num = y * 10000 + m * 100 + d;
+    // 仅用年份+月份计算，当月1-31号兑换码完全相同
+    let num = y * 100 + m;
     num = num * PRIVATE_KEY;
     num = num ^ 89273;
     num = num * 17;
@@ -212,7 +213,7 @@ function checkTeacherPwd() {
     const inputPwd = document.getElementById("teacherPwdInput").value.trim();
     if(inputPwd === TEACHER_PASSWORD) {
         const todayCode = getTodayCode();
-        alert("今日有效兑换码：" + todayCode + "\n请告知本班学生使用");
+        alert("本月有效兑换码：" + todayCode + "\n本月内全部可用，次月自动更新");
         closeTeacherModal();
     } else {
         alert("教师密码错误，无权查看兑换码");
@@ -232,11 +233,11 @@ function verifyAll() {
         return;
     }
     if(inputCode === ""){
-        alert("请输入今日兑换码！");
+        alert("请输入本月兑换码！");
         return;
     }
     if(inputCode !== realCode){
-        alert("兑换码错误，请向老师获取今日正确兑换码");
+        alert("兑换码错误，请向老师获取本月正确兑换码");
         return;
     }
     let recordList = JSON.parse(localStorage.getItem("stuRecord") || "[]");
